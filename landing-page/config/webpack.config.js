@@ -15,6 +15,14 @@ const config = {
   mode: 'development',
   resolve: {
     modules: [path.resolve('node_modules'), 'node_modules'],
+    alias: {
+      '@components': path.resolve(SRC_DIRECTORY, 'components'),
+      '@images': path.resolve(SRC_DIRECTORY, 'assets/images'),
+      '@icons': path.resolve(SRC_DIRECTORY, 'assets/icons'),
+      '@services': path.resolve(SRC_DIRECTORY, 'services'),
+      '@stores': path.resolve(SRC_DIRECTORY, 'store'),
+      '@routes': path.resolve(SRC_DIRECTORY, 'routes'),
+    }
   },
   performance: {
     hints: false,

@@ -35,7 +35,6 @@ export const Footer = () => {
             justifyContent: 'center',
             alignItems: 'center',
             alignContent: 'center',
-            height: '100%',
             width: '100vw',
           }}
         >
@@ -52,8 +51,6 @@ export const Footer = () => {
           justifyContent: 'center',
           alignItems: 'center',
           alignContent: 'center',
-          height: '69%',
-          width: '100vw',
         }}
       >
         <p>Copyright &copy; 2020 Hong Thanh Thuan </p>
