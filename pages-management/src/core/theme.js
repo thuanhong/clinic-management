@@ -20,6 +20,6 @@ export const theme = createMuiTheme({
     button: {
       textTransform: 'capitalize',
     },
-    fontFamily: 'Roboto, sans-serif'
+    fontFamily: 'Roboto, sans-serif',
   },
 });

@@ -1,71 +1,55 @@
 module.exports = {
-  root: true,
-  parser: '@typescript-eslint/parser',
-  plugins: ['no-null'],
-  extends: [
-    'airbnb-base',
-    'plugin:@typescript-eslint/recommended', // uses typescript-specific linting rules
-    'plugin:react/recommended', // uses react-specific linting rules
-    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-    'plugin:prettier/recommended', // enables eslint-plugin-prettier and eslint-config-prettier
-    'prettier/react', // disables react-specific linting rules that conflict with prettier
+  "extends": [
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:prettier/recommended',
+    'prettier/react',
   ],
-  parserOptions: {
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
-    ecmaFeatures: {
-      jsx: true, // Allows for the parsing of JSX
-    },
+  "parser": "babel-eslint",
+  "env": {
+    "browser": false,
+    "node": true,
+    "es6": true,
+    "mocha": false
   },
-  rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-function-return-type': [
-      'error',
-      { allowExpressions: true, allowTypedFunctionExpressions: true },
-    ], // force to define function return type
-    '@typescript-eslint/indent': 'off',
-    'class-methods-use-this': [
-      'error',
-      {
-        exceptMethods: ['componentDidCatch', 'componentDidAppear', 'componentDidDisappear'],
-      },
+  "parserOptions": {
+      "sourceType": "module"
+  },
+  "rules": {
+    "valid-jsdoc": ["error", {
+      "requireReturn": true,
+      "requireReturnType": true,
+      "requireParamDescription": true,
+      "requireReturnDescription": true,
+      "preferType": {
+        "String": "string",
+        "object": "Object",
+      }
+    }],
+    "require-jsdoc": 0,
+    "no-var": 1,
+    "padded-blocks": 0,
+    "import/no-unresolved": 0,
+    "space-before-function-paren": 0,
+    "react/prop-types": 0,
+    "no-undef": ["warn"],
+    "no-eval": "error",
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "no-console": ["warn", { "allow": ["warn", "info"] }],
+    "prefer-arrow-callback": [0, { "allowNamedFunctions": true }],
+    "func-names": ["error", "never"],
+    "no-use-before-define": [
+      "error", {
+        "functions": true,
+        "classes": true
+      }
     ],
-    'import/no-unresolved': ['error', { ignore: ['@app', '.'] }], // ignore import with @app & .
-    'import/prefer-default-export': 'off', // don't prefer default export
-    indent: 'off', // disable default indent check
-    'max-len': ['error', 120], // change mex length for a line to 120
-    'no-console': 'error', // don't allow console
-    'no-param-reassign': [
-      'error',
-      {
-        props: true,
-        ignorePropertyModificationsFor: ['draft', 'draftState', 'context'],
-      },
-    ], // no params reassigned except using immer
-    'no-unused-expressions': ['error', { allowShortCircuit: true }], // don't use unused expressions except short circut
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }], // don't use unused var except with _ prefix
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }], // don't use unused var except with _ prefix
-    'object-curly-newline': [
-      'error',
-      {
-        ObjectExpression: { multiline: true, minProperties: 1 },
-        ObjectPattern: { multiline: true },
-        ImportDeclaration: { multiline: true },
-        ExportDeclaration: { multiline: true },
-      },
-    ], // let prettier do its job,
-    // '@typescript-eslint/no-explicit-any': ['error'],
-    'no-null/no-null': ['error'],
-    'react/prop-types': 'off',
-  },
-  settings: {
-    react: {
-      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
-    },
-  },
-  env: {
-    jest: true,
-    browser: true,
-  },
-};
+    "max-nested-callbacks": [
+      "error",
+      5
+    ],
+  }
+}
