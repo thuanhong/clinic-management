@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import NextHead from 'next/head';
 import { Header } from '@common/Header';
-import { BackToTop } from "@common/BackToTop";
-import { SideBar } from "@common/SideBar";
-import { SideBarMenu } from "@common/SideBarMenu";
-import { Footer } from "@common/Footer";
+import { BackToTop } from '@common/BackToTop';
+import { SideBar } from '@common/SideBar';
+import { SideBarMenu } from '@common/SideBarMenu';
+import { Footer } from '@common/Footer';
 import { useStyles } from './styles';
 import Home from '@material-ui/icons/Home';
 import DeveloperMode from '@material-ui/icons/DeveloperMode';
@@ -12,10 +12,8 @@ import LocalLibrary from '@material-ui/icons/LocalLibrary';
 import AccountBox from '@material-ui/icons/AccountBox';
 import Toolbar from '@material-ui/core/Toolbar';
 
-
 export const BaseLayout = (props) => {
   const { children, title, description = '', navPos = 'fixed' } = props;
-
 
   const [openSidebar, setOpenSidebar] = useState(false);
   const navItems = [
@@ -23,25 +21,25 @@ export const BaseLayout = (props) => {
       id: 1,
       link: '/',
       title: 'Home',
-      icon: <Home/>
+      icon: <Home />,
     },
     {
       id: 2,
       link: '/project',
       title: 'Project',
-      icon: <DeveloperMode/>
+      icon: <DeveloperMode />,
     },
     {
       id: 3,
       link: '/portfolio',
-      title: "Portfolio",
-      icon: <AccountBox/>
+      title: 'Portfolio',
+      icon: <AccountBox />,
     },
     {
       id: 4,
       link: '/experience',
-      title: "Experience",
-      icon: <LocalLibrary/>
+      title: 'Experience',
+      icon: <LocalLibrary />,
     },
   ];
 
@@ -67,7 +65,7 @@ export const BaseLayout = (props) => {
         <SideBarMenu navItems={navItems} />
       </SideBar>
       <main className={classes.root}>
-      <Toolbar id="back-to-top-anchor" />
+        <Toolbar id='back-to-top-anchor' />
         {children}
       </main>
       <Footer />

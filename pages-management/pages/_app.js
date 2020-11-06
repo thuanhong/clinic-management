@@ -2,6 +2,7 @@ import React from 'react';
 import App from 'next/app';
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from '@app/core';
+import './styles.css';
 
 class MyApp extends App {
   render() {

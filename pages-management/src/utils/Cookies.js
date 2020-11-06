@@ -17,23 +17,30 @@ const getCookieFromServer = (key, req) => {
   return rawCookie.split('=')[1];
 };
 
-export const setCookie = (key, value) => {
+const setCookie = (key, value) => {
   if (process.browser) {
     cookie.set(key, value, {
-      expires: 1,
       path: '/',
     });
   }
 };
 
-export const removeCookie = (key) => {
+const removeCookie = (key) => {
   if (process.browser) {
     cookie.remove(key, {
-      expires: 1,
+      path: '/',
     });
   }
 };
 
-export const getCookie = (key, req) => {
+const getCookie = (key, req) => {
   return process.browser ? getCookieFromBrowser(key) : getCookieFromServer(key, req);
+};
+
+export const CookieHandler = {
+  getCookieFromBrowser,
+  getCookieFromServer,
+  setCookie,
+  removeCookie,
+  getCookie,
 };

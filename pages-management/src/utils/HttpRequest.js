@@ -1,0 +1,80 @@
+import axios from 'axios';
+import { CookieHandler } from '@utils/Cookies';
+
+export const createAxios = () => {
+  let baseURLStr = 'http://localhost:8000';
+  let headerObj = {};
+  if (CookieHandler.getCookieFromBrowser('access') && CookieHandler.getCookieFromBrowser('access') !== '') {
+    headerObj = {
+      Authorization: 'Bearer ' + CookieHandler.getCookieFromBrowser('access'),
+    };
+    return axios.create({
+      baseURL: baseURLStr,
+      headers: headerObj,
+      timeout: 15000,
+    });
+  }
+
+  return axios.create({
+    baseURL: baseURLStr,
+    timeout: 15000,
+  });
+};
+
+const _get = async (url, data) => {
+  try {
+    const result = await createAxios().get(url, {
+      params: data,
+    });
+    return result.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+    return null;
+  }
+};
+
+const _put = async (url, data) => {
+  try {
+    const result = await createAxios().put(url, data);
+    return result.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+    return null;
+  }
+};
+
+const _post = async (url, data) => {
+  try {
+    const result = await createAxios().post(url, data);
+    console.log(result);
+    return result.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+    return null;
+  }
+};
+
+const _delete = async (url, config = {}) => {
+  try {
+    const result = await createAxios().delete(url, config);
+    return result.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+    return null;
+  }
+};
+
+export const httpRequest = {
+  get: _get,
+  put: _put,
+  post: _post,
+  delete: _delete,
+};

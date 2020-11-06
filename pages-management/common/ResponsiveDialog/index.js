@@ -8,10 +8,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export const ResponsiveDialog = (props) => {
-  const {btnText, dialogTitle, dialogContent } = props;
+  const { btnText, dialogTitle, dialogContent } = props;
 
   const [open, setOpen] = React.useState(false);
-  const fullScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const fullScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,16 +23,11 @@ export const ResponsiveDialog = (props) => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
         {btnText}
       </Button>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title">{dialogTitle}</DialogTitle>
+      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby='responsive-dialog-title'>
+        <DialogTitle id='responsive-dialog-title'>{dialogTitle}</DialogTitle>
         <DialogContent>
           {/* <DialogContentText>
             Let Google help apps determine location. This means sending anonymous location data to
@@ -41,7 +36,7 @@ export const ResponsiveDialog = (props) => {
           {dialogContent}
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button autoFocus onClick={handleClose} color='primary'>
             Close
           </Button>
           {/* <Button onClick={handleClose} color="primary" autoFocus>
@@ -51,4 +46,4 @@ export const ResponsiveDialog = (props) => {
       </Dialog>
     </div>
   );
-}
+};

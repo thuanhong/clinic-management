@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: 40,
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
 }));
 
@@ -29,46 +29,46 @@ const StyledTab = withStyles(() => ({
     padding: 10,
     margin: 10,
     '&:focus': {
-      opacity: 1
+      opacity: 1,
     },
   },
 }))((props) => <Tab disableRipple {...props} />);
 
 const StyledTabs = withStyles({
   indicator: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    "& > span": {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    '& > span': {
       maxWidth: 70,
-      width: "100%",
-      backgroundColor: "#0477F6"
-    }
-  }
+      width: '100%',
+      backgroundColor: '#0477F6',
+    },
+  },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 export const ScrollableTabs = (props) => {
-  const {value, handleChange} = props;
+  const { value, handleChange } = props;
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar style={{backgroundColor: 'transparent'}} position="static">
+      <AppBar style={{ backgroundColor: 'transparent' }} position='static'>
         <StyledTabs
           value={value}
           onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          style={{margin: 'auto'}}
+          variant='scrollable'
+          scrollButtons='auto'
+          aria-label='scrollable auto tabs example'
+          style={{ margin: 'auto' }}
           TabIndicatorProps={<span></span>}
         >
-          <StyledTab label="All" {...a11yProps(0)} />
-          <StyledTab label="Frontend" {...a11yProps(1)} />
-          <StyledTab label="Backend" {...a11yProps(2)} />
-          <StyledTab label="Mobile" {...a11yProps(3)} />
+          <StyledTab label='All' {...a11yProps(0)} />
+          <StyledTab label='Frontend' {...a11yProps(1)} />
+          <StyledTab label='Backend' {...a11yProps(2)} />
+          <StyledTab label='Mobile' {...a11yProps(3)} />
         </StyledTabs>
       </AppBar>
     </div>
   );
-}
+};

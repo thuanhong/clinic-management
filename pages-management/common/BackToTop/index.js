@@ -36,7 +36,7 @@ function ScrollTop(props) {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <div onClick={handleClick} role='presentation' className={classes.root}>
         {children}
       </div>
     </Zoom>
@@ -52,12 +52,12 @@ ScrollTop.propTypes = {
   window: PropTypes.func,
 };
 
-export const BackToTop = props => {
+export const BackToTop = (props) => {
   return (
     <ScrollTop {...props}>
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
-            <KeyboardArrowUpIcon />
-        </Fab>
+      <Fab color='secondary' size='small' aria-label='scroll back to top'>
+        <KeyboardArrowUpIcon />
+      </Fab>
     </ScrollTop>
   );
-}
+};

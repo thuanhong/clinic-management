@@ -3,7 +3,6 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { theme } from '@app/core/theme';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
-
 class MyDocument extends Document {
   // eslint-disable-next-line class-methods-use-this
   render() {
@@ -16,9 +15,9 @@ class MyDocument extends Document {
           <meta name='theme-color' content={theme.palette.primary.main} />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
         </Head>
-        <body style={{margin: 0, padding: 0, height: '100vh', fontFamily: 'Roboto', backgroundColor: '#141b25'}}>
-          <Main /> 
-          <NextScript/>
+        <body style={{ margin: 0, padding: 0, height: '100vh', fontFamily: 'Roboto' }}>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );

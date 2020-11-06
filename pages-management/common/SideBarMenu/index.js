@@ -7,7 +7,6 @@ import { useStyles } from './styles';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import ArrowRight from '@material-ui/icons/ArrowRight';
 
-
 const StyledTreeItem = (props) => {
   const { link, labelText, labelIcon, color, bgColor, ...other } = props;
   const classes = useStyles();
@@ -18,9 +17,7 @@ const StyledTreeItem = (props) => {
         color,
       }}
     >
-      <span className={classes.labelIconContainer}>
-        {!!labelIcon && labelIcon}
-      </span>
+      <span className={classes.labelIconContainer}>{!!labelIcon && labelIcon}</span>
       <Typography variant='body2' className={classes.labelText}>
         {labelText}
       </Typography>
@@ -35,8 +32,8 @@ const StyledTreeItem = (props) => {
             {Item}
           </Link>
         ) : (
-            Item
-          )
+          Item
+        )
       }
       style={{
         '--tree-view-color': color,
@@ -87,9 +84,7 @@ export const SideBarMenu = (props) => {
       defaultExpandIcon={<ArrowRight />}
       defaultEndIcon={<div className={classes.defaultEndIcon} />}
     >
-      <>
-        {renderMenuItems(navItems)}
-      </>
+      <>{renderMenuItems(navItems)}</>
     </TreeView>
   );
 };

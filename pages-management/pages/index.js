@@ -1,3 +1,3 @@
-import Home from '@app/modules/home';
+import Home from '@app/modules/home/screens/Home';
 
 export default Home;

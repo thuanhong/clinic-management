@@ -1,14 +1,13 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { createStyles } from '@material-ui/core';
 
-
 export const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       height: 264,
       flexGrow: 1,
       maxWidth: 400,
-      backgroundColor: '#224C9C'
+      backgroundColor: '#224C9C',
     },
     rootItem: {
       color: theme.palette.text.secondary,

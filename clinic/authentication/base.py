@@ -5,6 +5,8 @@ from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
 from django.conf import settings
 from .models import User
+import base64
+import json
 
 
 class SafeJWTAuthentication(BaseAuthentication):
@@ -14,13 +16,14 @@ class SafeJWTAuthentication(BaseAuthentication):
     '''
 
     def authenticate(self, request):
-        authorization_heaader = request.headers.get('Authorization')
+        authorization_header = request.headers.get('Authorization')
 
-        if not authorization_heaader:
+        if not authorization_header:
             return None
         try:
             # header = 'Token xxxxxxxxxxxxxxxxxxxxxxxx'
-            access_token = authorization_heaader.split(' ')[1]
+            access_token = authorization_header.split(' ')[1]
+
             payload = jwt.decode(
                 access_token, settings.SECRET_KEY, algorithms=['HS256'])
 

@@ -1,73 +1,48 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
-import AuthService from '../utils/AuthService';
-import { getCookie, setCookie } from '../utils/Cookies';
-import cookie from 'js-cookie';
+import { AuthService } from '@services/AuthService';
+import { CookieHandler } from '@utils/Cookies';
+import { LoadingPage } from '@common/LoadingPage';
 
 export default function withAuth(AuthComponent) {
-  const Auth = new AuthService(process.env.API_DOMAIN_URL);
   return class Authenticated extends Component {
-    static async getInitialProps(ctx) {
-      const isServer = !!ctx.req;
-
-      // Ensures material-ui renders the correct css prefixes server-side
-      let userAgent;
-      let seshToken;
-      if (!isServer) {
-        userAgent = navigator.userAgent;
-        seshToken = cookie.get('seshToken');
-      } else {
-        userAgent = ctx.req.headers['user-agent'];
-        seshToken = getCookie('seshToken', ctx.req);
+    static async getInitialProps() {
+      if (CookieHandler.getCookieFromBrowser('refreshtoken') && CookieHandler.getCookieFromBrowser('access_token')) {
+        let response = await AuthService.check_auth();
+        if (response.status === 200) {
+          return {
+            seshToken: CookieHandler.getCookieFromBrowser('access_token'),
+          };
+        } else {
+          return {
+            seshToken: '',
+          };
+        }
       }
-      let isLoading = true;
-      console.log(seshToken);
-      if (!seshToken) {
-        // ctx.res.writeHead(301, {
-        //   Location: `http://localhost/oauth/authorize/?client_id=4&redirect_uri=http://localhost:3000/token&response_type=code`
-        // })
-        // ctx.res.end()
-      } else {
-        setCookie('seshToken', seshToken);
-        isLoading = false;
-      }
-
-      // Check if Page has a `getInitialProps`; if so, call it.
-      const pageProps = AuthComponent.getInitialProps && (await AuthComponent.getInitialProps(ctx));
       // Return props.
       return {
-        ...pageProps,
-        userAgent,
-        isLoading,
-        seshToken,
+        seshToken: '',
       };
     }
 
     constructor(props) {
       super(props);
       this.state = {
-        isLoading: props.isLoading,
+        isLoading: true,
         token: props.seshToken,
       };
     }
 
     componentDidMount() {
-      if (!this.state.token) {
-        Router.push('/');
+      if (this.state.token === '') {
+        Router.push('/login');
+      } else if (this.state.token !== '') {
+        this.setState({ isLoading: false });
       }
-      this.setState({ isLoading: false });
     }
 
     render() {
-      return (
-        <div>
-          {this.state.isLoading ? (
-            <div>LOADING....</div>
-          ) : (
-            <AuthComponent {...this.props} auth={Auth} token={this.state.token} />
-          )}
-        </div>
-      );
+      return <div>{this.state.isLoading ? <LoadingPage /> : <AuthComponent />}</div>;
     }
   };
 }

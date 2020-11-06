@@ -1,24 +1,25 @@
 module.exports = {
-  presets: ["next/babel"],
+  presets: ['next/babel'],
   plugins: [
     [
-      require.resolve("babel-plugin-module-resolver"),
+      require.resolve('babel-plugin-module-resolver'),
       {
-        root: ["./src/"],
+        root: ['./src/'],
         alias: {
-          "@app": "./src",
-          "@common": './common',
-          "@static": './static',
-          "@hooks": './src/hooks',
-          "@providers": './src/providers',
-          "@context": './src/contexts',
+          '@app': './src',
+          '@common': './common',
+          '@static': './static',
+          '@hooks': './src/hooks',
+          '@hoc': './src/hoc',
+          '@services': './src/services',
+          '@utils': './src/utils',
         },
       },
     ],
   ],
   env: {
     test: {
-      plugins: ["babel-plugin-dynamic-import-node"],
+      plugins: ['babel-plugin-dynamic-import-node'],
     },
   },
 };
