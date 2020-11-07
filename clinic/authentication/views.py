@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from rest_framework import viewsets, status, permissions, exceptions
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 from .serializers import UserSerializer, UserLoginSerializer
 from .models import User
@@ -24,6 +24,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['POST'])
+@authentication_classes([])
 @permission_classes((permissions.AllowAny, ))
 def login(request):
     serializer = UserLoginSerializer(data=request.data)
