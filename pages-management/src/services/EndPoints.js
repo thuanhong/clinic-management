@@ -1,6 +1,6 @@
 export const EndPoints = {
   AUTHENTICATION: {
-    login: '/auth/login',
+    login: '/auth/login/',
     logout: '/auth/logout',
   },
   HEALTH: {

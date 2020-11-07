@@ -3,9 +3,12 @@ import { CookieHandler } from '@utils/Cookies';
 
 export const createAxios = () => {
   let baseURLStr = 'http://localhost:8000';
-  let headerObj = {};
+  let headerObj = {
+    'Content-Type': 'application/json',
+  };
   if (CookieHandler.getCookieFromBrowser('access') && CookieHandler.getCookieFromBrowser('access') !== '') {
     headerObj = {
+      ...headerObj,
       Authorization: 'Bearer ' + CookieHandler.getCookieFromBrowser('access'),
     };
     return axios.create({
@@ -17,6 +20,7 @@ export const createAxios = () => {
 
   return axios.create({
     baseURL: baseURLStr,
+    headers: headerObj,
     timeout: 15000,
   });
 };
@@ -50,11 +54,10 @@ const _put = async (url, data) => {
 const _post = async (url, data) => {
   try {
     const result = await createAxios().post(url, data);
-    console.log(result);
-    return result.data;
+    return { msg: result.data, statusCode: result.status };
   } catch (error) {
     if (error.response) {
-      return error.response.data;
+      return { msg: error.response.data, statusCode: error.response.status };
     }
     return null;
   }

@@ -14,6 +14,14 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from './styles';
 import { AuthService } from '@services/AuthService';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import {CookieHandler} from '@utils/Cookies';
+import Router from 'next/router';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+}
 
 function Copyright() {
   return (
@@ -35,15 +43,31 @@ const LoginScreen = () => {
 
   const [disabled, setDisabled] = useState(false);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
     setDisabled(true);
     AuthService.login(userName, password)
       .then((res) => {
         console.log(res);
+        if (res.statusCode === 200) {
+          CookieHandler.setCookie('access_token', res.msg.access_token);
+          Router.push('/');
+        } else {
+          setOpen(true);
+        }
       })
-      .catch(err => {
-        console.log(err);
+      .finally(() => {
+        setDisabled(false);
       });
   };
 
@@ -59,6 +83,16 @@ const LoginScreen = () => {
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity='error'>
+              Username or password incorrect
+            </Alert>
+          </Snackbar>
           <form className={classes.form} onSubmit={onSubmit}>
             <TextField
               variant='outlined'
