@@ -20,8 +20,9 @@ python mangae.py migrate
 
 ## api
 ```
-/api/users
-/auth/login
+/api/users/
+/auth/login/
+/auth/token/
 /health
 /health/test-auth-request
 ```
