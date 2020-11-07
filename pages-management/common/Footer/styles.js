@@ -14,8 +14,6 @@ export const useStyles = makeStyles((theme) => ({
   spaceShadow: {
     height: 100,
     backgroundColor: 'black',
-    filter: 'drop-shadow(black -22px 18px 9px)',
-    width: '110vw',
     color: 'white',
   },
   btnGroup: {

@@ -6,10 +6,10 @@ export const createAxios = () => {
   let headerObj = {
     'Content-Type': 'application/json',
   };
-  if (CookieHandler.getCookieFromBrowser('access') && CookieHandler.getCookieFromBrowser('access') !== '') {
+  if (CookieHandler.getCookieFromBrowser('access_token') && CookieHandler.getCookieFromBrowser('access_token') !== '') {
     headerObj = {
       ...headerObj,
-      Authorization: 'Bearer ' + CookieHandler.getCookieFromBrowser('access'),
+      Authorization: 'Bearer ' + CookieHandler.getCookieFromBrowser('access_token'),
     };
     return axios.create({
       baseURL: baseURLStr,
@@ -25,15 +25,13 @@ export const createAxios = () => {
   });
 };
 
-const _get = async (url, data) => {
+const _get = async (url) => {
   try {
-    const result = await createAxios().get(url, {
-      params: data,
-    });
-    return result.data;
+    const result = await createAxios().get(url);
+    return { msg: result.data, statusCode: result.status };
   } catch (error) {
     if (error.response) {
-      return error.response.data;
+      return { msg: error.response.data, statusCode: error.response.status };
     }
     return null;
   }

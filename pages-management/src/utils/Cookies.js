@@ -1,12 +1,10 @@
 import cookie from 'js-cookie';
 
 const getCookieFromBrowser = (key) => {
-  console.log('grabbing key from browser');
   return cookie.get(key);
 };
 
 const getCookieFromServer = (key, req) => {
-  console.log('grabbing key from server');
   if (!req.headers.cookie) {
     return undefined;
   }

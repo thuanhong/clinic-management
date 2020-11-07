@@ -16,8 +16,9 @@ import { AuthService } from '@services/AuthService';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import {CookieHandler} from '@utils/Cookies';
+import { CookieHandler } from '@utils/Cookies';
 import Router from 'next/router';
+import withAuth from '@hoc/withAuth';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
@@ -58,7 +59,6 @@ const LoginScreen = () => {
     setDisabled(true);
     AuthService.login(userName, password)
       .then((res) => {
-        console.log(res);
         if (res.statusCode === 200) {
           CookieHandler.setCookie('access_token', res.msg.access_token);
           Router.push('/');
@@ -144,4 +144,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default withAuth(LoginScreen);

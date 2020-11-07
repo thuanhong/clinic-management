@@ -10,8 +10,8 @@ const login = (username, password) => {
   return httpRequest.post(EndPoints.AUTHENTICATION.login, body_data);
 };
 
-const check_auth = () => {
-  return httpRequest.get(EndPoints.HEALTH.health_check_authenticated);
+const check_auth = async () => {
+  return await httpRequest.get(EndPoints.HEALTH.health_check_authenticated);
 };
 
 export const AuthService = {
