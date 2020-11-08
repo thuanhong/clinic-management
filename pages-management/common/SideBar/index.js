@@ -1,22 +1,113 @@
-import React from 'react';
-import { Drawer } from '@material-ui/core';
-import { useStyles } from './styles';
+import React, { useState } from 'react';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import List from '@material-ui/core/List';
+import SidebarItem from '@common/SidebarItem';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import { drawerWidth } from '@common/styleVariables';
+import { makeStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
+import withWidth from '@material-ui/core/withWidth';
 
-export const SideBar = ({ onClose, open, variant, children }) => {
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+const useStyles = makeStyles((theme) => ({
+  drawerPaper: {
+    position: 'relative',
+    width: drawerWidth,
+    maxWidth: drawerWidth,
+    height: '100%',
+    zIndex: theme.zIndex.drawer + 99,
+  },
+  modal: {
+    [theme.breakpoints.down('sm')]: {
+      top: '56px!important',
+    },
+    [theme.breakpoints.up('sm')]: {
+      top: '64px!important',
+    },
+    zIndex: '1000!important',
+  },
+  backdrop: {
+    [theme.breakpoints.down('sm')]: {
+      top: '56px',
+    },
+    [theme.breakpoints.up('sm')]: {
+      top: '64px',
+    },
+  },
+}));
+
+const Sidebar = ({ opened, toggleDrawer, routes, location }) => {
   const classes = useStyles();
+  const [activeRoute, setActiveRoute] = useState(undefined);
+  const toggleMenu = (index) => setActiveRoute(activeRoute === index ? undefined : index);
+
+  const menu = (
+    <List component='div'>
+      {routes.map((route, index) => {
+        const isCurrentPath = location.pathname.indexOf(route.path) > -1 ? true : false;
+        return (
+          <SidebarItem
+            key={index}
+            index={index}
+            route={route}
+            activeRoute={activeRoute}
+            toggleMenu={toggleMenu}
+            currentPath={isCurrentPath}
+          />
+        );
+      })}
+    </List>
+  );
 
   return (
-    <Drawer
-      anchor='left'
-      classes={{
-        paper: classes.root,
-      }}
-      onClose={onClose}
-      open={open}
-      variant={variant}
-      data-testid='sidebar'
-    >
-      {children}
-    </Drawer>
+    <>
+      <Hidden smDown>
+        <Drawer
+          variant='persistent'
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          open={opened}
+          ModalProps={{
+            keepMounted: false,
+            className: classes.modal,
+            BackdropProps: {
+              className: classes.backdrop,
+            },
+            onBackdropClick: toggleDrawer,
+          }}
+        >
+          {menu}
+        </Drawer>
+      </Hidden>
+      <Hidden mdUp>
+        <SwipeableDrawer
+          variant='temporary'
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          open={opened}
+          onClose={toggleDrawer}
+          onOpen={toggleDrawer}
+          disableBackdropTransition={!iOS}
+          ModalProps={{
+            keepMounted: false,
+            className: classes.modal,
+            BackdropProps: {
+              className: classes.backdrop,
+            },
+            onBackdropClick: toggleDrawer,
+          }}
+        >
+          {menu}
+        </SwipeableDrawer>
+      </Hidden>
+    </>
   );
 };
+
+const SidebarWithRouter = withRouter(Sidebar);
+
+export default withWidth()(SidebarWithRouter);

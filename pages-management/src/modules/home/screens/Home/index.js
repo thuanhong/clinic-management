@@ -2,8 +2,16 @@ import React from 'react';
 import { BaseLayout } from '@common/BaseLayout';
 import { withAuth } from '@hoc/withAuth';
 
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 const HomeScreen = () => {
-  return <BaseLayout title='Home'></BaseLayout>;
+  return (
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Switch>
+        <Route path='/' component={BaseLayout} />
+      </Switch>
+    </BrowserRouter>
+  );
 };
 
 export default withAuth(HomeScreen);
