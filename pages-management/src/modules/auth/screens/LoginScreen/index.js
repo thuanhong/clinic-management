@@ -18,7 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { CookieHandler } from '@utils/Cookies';
 import Router from 'next/router';
-import withAuth from '@hoc/withAuth';
+import { withAuth } from '@hoc/withAuth';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
