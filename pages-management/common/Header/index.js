@@ -14,73 +14,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
+// import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    boxShadow: '0 1px 8px rgba(0,0,0,.3)',
-    position: 'relative',
-    zIndex: theme.zIndex.drawer + 100,
-    [theme.breakpoints.down('sm')]: {
-      position: 'fixed',
-    },
-  },
-  toolBar: {
-    paddingLeft: theme.spacing(1) / 2,
-    paddingRight: theme.spacing(1) / 2,
-  },
-  branding: {
-    display: 'flex',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    margin: 'auto 0',
-    lineHeight: '50px',
-    padding: '0 64px 0 0',
-  },
-  logo: {
-    margin: 'auto',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '80px',
-    },
-  },
-  searchWrapper: {
-    flex: '1 1 0%',
-    boxSizing: ' border-box',
-  },
-  searchForm: {
-    background: 'white',
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    marginRight: theme.spacing(1) * 2,
-    display: 'block',
-    maxWidth: '800px',
-  },
-  searchInput: {
-    fontSize: '1rem',
-    padding: theme.spacing(1) * 1.9,
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(1) * 1.2,
-    },
-    cursor: 'text',
-    textIndent: '30px',
-    border: 'none',
-    background: 'transparent',
-    width: '100%',
-    outline: '0',
-  },
-  searchIcon: {
-    position: 'absolute',
-    top: '50%',
-    left: '0',
-    marginTop: '-24px',
-    color: 'rgba(0,0,0,.87)',
-  },
-}));
+import { CookieHandler } from '@utils/Cookies';
+import Router from 'next/router';
+import { useStyles } from './styles';
 
 export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toogleNotifications }) => {
   const classes = useStyles();
@@ -101,6 +41,11 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
   const handleNotificationToggle = () => {
     toogleNotifications();
     if (searchExpanded) handleSearchExpandToggle();
+  };
+
+  const signOut = () => {
+    CookieHandler.removeCookie('access_token');
+    Router.replace('/login');
   };
 
   return (
@@ -165,23 +110,23 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
         <Menu id='user-menu' anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
           <MenuItem onClick={handleCloseMenu}>
             <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary='Settings' />
-          </MenuItem>
-          <MenuItem onClick={handleCloseMenu}>
-            <ListItemIcon>
               <AccountBoxIcon />
             </ListItemIcon>
             <ListItemText primary='Profile' />
           </MenuItem>
           <MenuItem onClick={handleCloseMenu}>
             <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary='Settings' />
+          </MenuItem>
+          {/* <MenuItem onClick={handleCloseMenu}>
+            <ListItemIcon>
               <NotificationsOffIcon />
             </ListItemIcon>
             <ListItemText primary='Disable notifications' />
-          </MenuItem>
-          <MenuItem onClick={handleCloseMenu}>
+          </MenuItem> */}
+          <MenuItem onClick={signOut}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>

@@ -4,44 +4,18 @@ import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import SidebarItem from '@common/SidebarItem';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { drawerWidth } from '@common/styleVariables';
-import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
+import { useStyles } from './styles';
+import classNames from 'classnames';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-const useStyles = makeStyles((theme) => ({
-  drawerPaper: {
-    position: 'relative',
-    width: drawerWidth,
-    maxWidth: drawerWidth,
-    height: '100%',
-    zIndex: theme.zIndex.drawer + 99,
-  },
-  modal: {
-    [theme.breakpoints.down('sm')]: {
-      top: '56px!important',
-    },
-    [theme.breakpoints.up('sm')]: {
-      top: '64px!important',
-    },
-    zIndex: '1000!important',
-  },
-  backdrop: {
-    [theme.breakpoints.down('sm')]: {
-      top: '56px',
-    },
-    [theme.breakpoints.up('sm')]: {
-      top: '64px',
-    },
-  },
-}));
 
 const Sidebar = ({ opened, toggleDrawer, routes, location }) => {
   const classes = useStyles();
   const [activeRoute, setActiveRoute] = useState(undefined);
   const toggleMenu = (index) => setActiveRoute(activeRoute === index ? undefined : index);
+  console.log(opened);
 
   const menu = (
     <List component='div'>
@@ -65,9 +39,16 @@ const Sidebar = ({ opened, toggleDrawer, routes, location }) => {
     <>
       <Hidden smDown>
         <Drawer
-          variant='persistent'
+          variant='permanent'
+          className={classNames(classes.drawerPaper, {
+            [classes.drawerOpen]: opened,
+            [classes.drawerClose]: !opened,
+          })}
           classes={{
-            paper: classes.drawerPaper,
+            paper: classNames(classes.drawerPaper, {
+              [classes.drawerOpen]: opened,
+              [classes.drawerClose]: !opened,
+            }),
           }}
           open={opened}
           ModalProps={{

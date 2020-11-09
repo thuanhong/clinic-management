@@ -10,10 +10,10 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import routes from '../routes';
 import { useStyles } from './styles';
+import { NotificationCenter } from '@common/NotificationCenter';
 
-export const BaseLayout = ({ history }) => {
+export const BaseLayout = ({ history, routes }) => {
   const classes = useStyles();
   const [opened, setOpened] = useState(true);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -32,8 +32,9 @@ export const BaseLayout = ({ history }) => {
   };
 
   const handleDrawerToggle = () => {
+    console.log('asdasdasdasdad');
     setOpened(!opened);
-    resizeDispatch();
+    // resizeDispatch();
   };
 
   const handleNotificationToggle = () => setNotificationsOpen(!notificationsOpen);
@@ -71,7 +72,7 @@ export const BaseLayout = ({ history }) => {
         ) : item.type === 'submenu' ? (
           item.children.map((subItem, index) => (
             <Route
-              key={indexq}
+              key={index}
               exact
               path={`${item.path}${subItem.path}`}
               component={subItem.component}
@@ -97,7 +98,7 @@ export const BaseLayout = ({ history }) => {
 
     const unlisten = history.listen(() => {
       if (mediaMatcher.matches) setOpened(false);
-      document.querySelector('#root > div > main').scrollTop = 0;
+      document.querySelector('#root main').scrollTop = 0;
     });
 
     return () => {
@@ -109,13 +110,13 @@ export const BaseLayout = ({ history }) => {
         }, 300);
       });
     };
-  });
+  }, []);
 
   return (
     <>
       <Header
-        logoAltText='Primer Admin Template'
-        logo={`${process.env.PUBLIC_URL}/static/images/logo.svg`}
+        logoAltText='Clinic Management'
+        logo={'/static/images/LOG.png'}
         toggleDrawer={handleDrawerToggle}
         toogleNotifications={handleNotificationToggle}
         toggleFullscreen={handleFullscreenToggle}
@@ -123,6 +124,7 @@ export const BaseLayout = ({ history }) => {
       <div className={classes.panel}>
         <Sidebar routes={routes.items} opened={opened} toggleDrawer={handleDrawerToggle} />
         <Workspace opened={opened}>{getRoutes}</Workspace>
+        <NotificationCenter notificationsOpen={notificationsOpen} toogleNotifications={handleNotificationToggle} />
       </div>
 
       <Hidden xsDown>

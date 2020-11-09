@@ -1,16 +1,16 @@
 import AppsIcon from '@material-ui/icons/Apps';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
-import ExploreIcon from '@material-ui/icons/Explore';
-import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+
+import { DashBoard } from './components/DashBoard';
 
 export default {
   items: [
     {
       path: '/',
-      name: 'Home',
+      name: 'dashboard',
       type: 'link',
-      icon: ExploreIcon,
-      component: AppsIcon,
+      icon: DashboardIcon,
+      component: DashBoard,
     },
     {
       path: '/apps',
@@ -66,17 +66,5 @@ export default {
     //     }
     //   ]
     // },
-    {
-      path: 'https://iamnyasha.github.io/react-primer-docs/',
-      name: 'Documentation',
-      type: 'external',
-      icon: LocalLibraryIcon,
-    },
-    {
-      path: 'https://primer.fusepx.com',
-      name: 'Get Angular Version',
-      type: 'external',
-      icon: BookmarkIcon,
-    },
   ],
 };

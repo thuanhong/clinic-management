@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { LoadingPage } from '@common/LoadingPage';
 import Router from 'next/router';
 import { AuthService } from '@services/AuthService';
-import { CookieHandler } from '@utils/Cookies';
 
 export const withAuth = (PageComponent) => {
   const WithAuth = () => {
