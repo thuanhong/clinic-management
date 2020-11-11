@@ -4,16 +4,16 @@ from rest_framework import serializers, exceptions
 from .models import User
 from .services import UserService
 
+
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=128)
     password = serializers.CharField(max_length=128, write_only=True)
 
     # token = serializers.CharField(max_length=128)
 
-
     class Meta:
         model = User
-        fields = [ "id","username",  'password']
+        fields = ["id", "username",  'password']
 
     def validate(self, data):
         username = data.get("username", None)
@@ -22,17 +22,15 @@ class UserLoginSerializer(serializers.Serializer):
             raise exceptions.AuthenticationFailed(
                 'username and password required')
         user = User.objects.filter(username=username).first()
-        if(user is None):
-            raise exceptions.AuthenticationFailed('user not found')
-
-        if (not user.check_password(password)):
-            raise exceptions.AuthenticationFailed('wrong password')
+        if(user is None or not user.check_password(password)):
+            raise exceptions.AuthenticationFailed(
+                'user not found or password wrong')
         return user
     pass
 
+
 class UserSerializer(serializers.ModelSerializer):
     # Add this field to help validate input email when create new user
-
 
     class Meta:
         model = User

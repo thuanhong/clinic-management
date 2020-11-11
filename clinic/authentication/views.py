@@ -13,7 +13,6 @@ from .models import User
 from .utils import generate_access_token, generate_refresh_token
 
 
-
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     # permission allow on develop
@@ -43,7 +42,8 @@ def login(request):
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny, ])
-@csrf_protect
+@authentication_classes([])
+# @csrf_protect
 def refresh_token_view(request):
     '''
     To obtain a new access_token this view expects 2 important things:
