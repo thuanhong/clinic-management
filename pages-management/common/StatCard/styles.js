@@ -1,12 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
   content: {
     position: 'relative',
-    padding: theme.spacing(1),
-    '&:last-child': {
-      padding: 0,
-    },
+    padding: 0,
+    paddingBottom: '0 !important',
   },
   iconFloat: {
     borderWidth: 1,
