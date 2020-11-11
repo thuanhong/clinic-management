@@ -14,7 +14,11 @@ const check_auth = async () => {
   return await httpRequest.get(EndPoints.HEALTH.health_check_authenticated);
 };
 
+const get_token = async () => {
+  return await httpRequest.post(EndPoints.AUTHENTICATION.token);
+};
 export const AuthService = {
   login,
   check_auth,
+  get_token,
 };
