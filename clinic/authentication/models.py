@@ -8,11 +8,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.conf import settings
 
-# USER_POOL_ID = settings.USER_POOL_ID_DEFAULT
-# client = boto3.client('cognito-idp',
-#                       region_name=settings.USER_POOL_REGION_ID,
-#                       aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-#                       aws_access_key_id=settings.AWS_ACCESS_KEY_ID)
 
 
 class Permission(models.Model):
@@ -64,10 +59,14 @@ class Group(models.Model):
 
     @property
     def permissions(self):
-        group_permission_ids = self.group_permissions.values_list(
-            'id', flat=True).filter()
-
-        return get_list_active_permissions(group_permission_ids)
+        result = []
+        for permissions in self.group_permissions.all():
+            result.append({
+                'id': permissions.id,
+                'action': permissions.action,
+                'resource':permissions.resource,
+            })
+        return result
 
 
 class User(AbstractUser):
@@ -106,37 +105,25 @@ class User(AbstractUser):
     EMAIL_FIELD = 'email'
 
     def save(self, *args, **kwargs):
-        """
-        Overrode to enforce that an AWS Cognito user is created and the oauth ID is stored.
-        As well as set email as user unique username
-        """
-        is_update_event = bool(self.oauth_id)
-        # is_unit_testing = settings.ENV == "test"
-        is_unit_testing =True
-        if not is_update_event:
-            if is_unit_testing:
-                self.oauth_id = uuid.uuid1()
-            else:
-                self._resolve_with_cognito()
-
-        # On update, update attributes on Cognito to ensure consistency
-        if is_update_event and not is_unit_testing:
-            self._update_name_on_cognito(
-                USER_POOL_ID, self.oauth_id, self.name)
+        self.oauth_id = uuid.uuid1()
         return super().save(*args, **kwargs)
+
 
 
     def can(self, action, resource):
         return self.user_permissions.filter(action=action, resource=resource).exists() or \
             self.user_groups.filter(group_permissions__action=action,
                                     group_permissions__resource=resource).exists()
-
     @property
     def permissions(self):
-        user_permission_ids = self.user_permissions.values_list(
-            'id', flat=True).filter()
-
-        return get_list_active_permissions(user_permission_ids)
+        result = []
+        for permissions in self.user_permissions.all():
+            result.append({
+                'id': permissions.id,
+                'action': permissions.action,
+                'resource':permissions.resource,
+            })
+        return result
 
     @property
     def groups(self):

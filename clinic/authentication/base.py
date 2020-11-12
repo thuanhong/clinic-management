@@ -1,12 +1,12 @@
 # accounts.authentication
-
 import jwt
+import base64
+import json
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
 from django.conf import settings
 from .models import User
-import base64
-import json
+from .utils import extract_permission_from_request
 
 
 class SafeJWTAuthentication(BaseAuthentication):
@@ -39,4 +39,17 @@ class SafeJWTAuthentication(BaseAuthentication):
         if not user.is_active:
             raise exceptions.AuthenticationFailed('user is inactive')
 
-        return (user, None)
+        if self.authorize_user(user, request):
+            return (user, None)
+        else:
+            raise exceptions.AuthenticationFailed("You have no permission to do this")
+
+    def authorize_user(self, user, request):
+        if user.is_superuser:
+            return True
+
+        permission = extract_permission_from_request(request)
+
+        if bool(permission):
+            return user.can(permission['action'], permission['resource'])
+        return False
