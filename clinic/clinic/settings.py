@@ -54,7 +54,7 @@ REST_FRAMEWORK = {
         'authentication.base.SafeJWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', # make all endpoints private
+        'rest_framework.permissions.IsAuthenticated',  # make all endpoints private
     )
 }
 
@@ -114,7 +114,6 @@ DATABASES = {
         'PORT': os.environ.get("DB_PORT", "5432")
     }
 }
-
 
 
 # Password validation

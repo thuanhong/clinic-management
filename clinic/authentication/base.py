@@ -43,7 +43,7 @@ class SafeJWTAuthentication(BaseAuthentication):
             return (user, None)
         else:
             raise exceptions.AuthenticationFailed(
-                "You have no permission to do this")
+                "Permission deny")
 
     def authorize_user(self, user, request):
         if user.is_superuser:

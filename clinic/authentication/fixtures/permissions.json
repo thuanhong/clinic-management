@@ -1,0 +1,132 @@
+[
+  {
+    "model": "authentication.permission",
+    "pk": 1,
+    "fields": {
+      "resource": "user",
+      "action": "create",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 2,
+    "fields": {
+      "resource": "user",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 3,
+    "fields": {
+      "resource": "user",
+      "action": "update",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 4,
+    "fields": {
+      "resource": "group",
+      "action": "create",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 5,
+    "fields": {
+      "resource": "group",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 6,
+    "fields": {
+      "resource": "group",
+      "action": "update",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 7,
+    "fields": {
+      "resource": "group",
+      "action": "delete",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 8,
+    "fields": {
+      "resource": "permission",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 9,
+    "fields": {
+      "resource": "permission",
+      "action": "create",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 10,
+    "fields": {
+      "resource": "permission",
+      "action": "update",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 11,
+    "fields": {
+      "resource": "permission",
+      "action": "delete",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 12,
+    "fields": {
+      "resource": "doctor",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 13,
+    "fields": {
+      "resource": "doctor",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  }
+]

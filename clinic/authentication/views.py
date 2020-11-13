@@ -37,9 +37,18 @@ class PermissionViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['POST'])
-@authentication_classes([])
+@authentication_classes([])  # pass Authentication header
 @permission_classes((permissions.AllowAny, ))
 def login(request):
+    '''
+    To login
+        1.  Get username, password, email
+        2.  Generate_access_token  from id model User
+        3.  Generate refresh_token from id model User
+            set to cookie with httponly(hidden on front-end cookie)
+        4.  Send access_token
+    '''
+
     serializer = UserLoginSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     response = Response()
@@ -47,6 +56,19 @@ def login(request):
     refresh_token = generate_refresh_token(
         serializer.validated_data)
     response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
+
+    ''' Format:
+        - Success:
+            status code 200
+            {
+                "access_token":"sdmiaom.vcailemdflas.qweasd"
+            }
+        - Failed:
+            status code != 200
+            {
+                "detail": "error when validating token."
+            }
+        '''
     response.status_code = status.HTTP_200_OK
     response.data = {
         'access_token': access_token
@@ -86,12 +108,12 @@ def refresh_token_view(request):
     return Response({'access_token': access_token})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def login_doctor(request):
     return Response({'message': True})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def login_staff(request):
 
     return Response({'message': True})

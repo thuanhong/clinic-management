@@ -24,6 +24,6 @@ router.registry.extend(auth_router.registry)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('health/', include("health.urls")),
-    path('auth/',include("authentication.urls") ),
-    path('api/', include(router.urls))
+    path('auth/', include("authentication.urls")),
+    path('api/v1/', include(router.urls))
 ]
