@@ -42,14 +42,15 @@ class SafeJWTAuthentication(BaseAuthentication):
         if self.authorize_user(user, request):
             return (user, None)
         else:
-            raise exceptions.AuthenticationFailed("You have no permission to do this")
+            raise exceptions.AuthenticationFailed(
+                "You have no permission to do this")
 
     def authorize_user(self, user, request):
         if user.is_superuser:
             return True
 
         permission = extract_permission_from_request(request)
-
+        print('persssss', permission)
         if bool(permission):
             return user.can(permission['action'], permission['resource'])
         return False

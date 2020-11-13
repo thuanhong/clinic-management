@@ -28,7 +28,7 @@ USER_ROUTERS = (
 
 GROUP_ROUTERS = (
     {
-        'url': 'api/groups$',
+        'url': 'api/groups',
         'method': 'GET',
         'permission': {'action': 'read', 'resource': 'group'}
     },
@@ -58,10 +58,17 @@ GROUP_ROUTERS = (
         'permission': {'action': 'delete', 'resource': 'group'}
     },
 )
-
-DOCTOR_ROUTER =(
+PERMISSION_ROUTER = (
     {
-        'url': 'api/login-doctor$',
+        'url': 'api/permissions$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'permission'}
+    },
+)
+
+DOCTOR_ROUTER = (
+    {
+        'url': 'auth/login-doctor',
         'method': 'GET',
         'permission': {'action': 'read', 'resource': 'doctor'}
     },
@@ -73,4 +80,4 @@ ROUTERS = (
         'method': 'GET',
         # 'permission': {'action': 'dumb_action', 'resource': 'dumb_resource'}
     },
-) + USER_ROUTERS + DOCTOR_ROUTER
+) + USER_ROUTERS + GROUP_ROUTERS + DOCTOR_ROUTER + PERMISSION_ROUTER

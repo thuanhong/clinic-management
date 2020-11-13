@@ -16,21 +16,25 @@ from .utils import generate_access_token, generate_refresh_token
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     # permission allow on develop
-
+    permission_classes = [(permissions.AllowAny)]
     serializer_class = UserSerializer
     queryset = User.objects.all()
     http_method_names = ['get', 'patch', 'post']
 
+
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
-    http_method_names = ['get', 'post','patch', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
     serializer_class = GroupSerializer
     pass
 
+
 class PermissionViewSet(viewsets.ModelViewSet):
+
     queryset = Permission.objects.all()
-    http_method_names = ['get','post','patch']
+    http_method_names = ['get', 'post', 'patch']
     serializer_class = PermissionSerializer
+
 
 @api_view(['POST'])
 @authentication_classes([])
@@ -81,13 +85,14 @@ def refresh_token_view(request):
     access_token = generate_access_token(user)
     return Response({'access_token': access_token})
 
+
 @api_view(['GET'])
 def login_doctor(request):
     return Response({'message': True})
+
 
 @api_view(['GET'])
 def login_staff(request):
 
     return Response({'message': True})
     pass
-

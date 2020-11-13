@@ -1,7 +1,7 @@
 import datetime
 import jwt
 from django.conf import settings
-from django.urls import resolve
+from django.urls import path, reverse, resolve
 from .configs import ROUTERS
 
 
@@ -38,8 +38,9 @@ def extract_permission_from_request(request):
         return None
 
     route = resolve(request.path_info).route
-
+    print('routtttte', route)
     for router in ROUTERS:
+        print('routereeee', router['url'])
         if router['url'] == route and router['method'] == request.method:
             return router['permission'] if 'permission' in router else None
 
