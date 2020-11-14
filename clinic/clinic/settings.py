@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     # project apps
     'authentication',
     'health',
+    'doctor',
+    'patient',
+    'drug',
 
 
 ]

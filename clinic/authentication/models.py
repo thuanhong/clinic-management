@@ -1,8 +1,6 @@
 import os
 import uuid
-# import boto3
 
-# from botocore.exceptions import ClientError, ParamValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
@@ -138,6 +136,25 @@ class User(AbstractUser):
 
             results.append(group_obj)
         return results
+
+class Profile(models.Model):
+    '''
+    Class implementing Profile User
+    '''
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=255,blank=True)
+    last_name = models.CharField(max_length=255,blank=True)
+    age = models.IntegerField( blank= True)
+    gender = models.CharField(max_length=255,blank=True)
+    image = models.CharField(max_length=255,blank=True)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    class Meta:
+        pass
+
+    def __str__(self):
+        return 'Name: {} {}'.format(self.first_name, self.last_name)
 
 
 def get_list_active_permissions(active_permissions):

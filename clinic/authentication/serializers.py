@@ -43,11 +43,14 @@ def validate_user_ids(value):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # Add this field to help validate input email when create new user
+    '''
+    Create user, can add user to group,permissions you grand
+    '''
     groups = serializers.JSONField(
         required=False, validators=[validate_group_ids])
     permissions = serializers.JSONField(
         required=False, validators=[validate_permission_ids])
+    # Add this field to help validate input email when create new user
     email = serializers.EmailField()
     class Meta:
         model = User
@@ -66,6 +69,9 @@ class UserSerializer(serializers.ModelSerializer):
         return AuthenticationService.update_user(instance, validated_data)
 
 class PermissionSerializer(serializers.ModelSerializer):
+    '''
+    Create permissions
+    '''
     class Meta:
         model = Permission
         fields = ["id", "action", "resource"]
@@ -77,6 +83,9 @@ class PermissionSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    '''
+    Create groups permissions for user
+    '''
     users = serializers.JSONField(
         required=False, validators=[validate_user_ids])
     permissions = serializers.JSONField(
@@ -103,11 +112,13 @@ class GroupSerializer(serializers.ModelSerializer):
         return value
 
 class UserLoginSerializer(serializers.Serializer):
+    '''
+    User input username and password to validate firts
+    authentication by filter User models and
+    check_password by fucntion defaulth django models User
+    '''
     username = serializers.CharField(max_length=128)
     password = serializers.CharField(max_length=128, write_only=True)
-
-    # token = serializers.CharField(max_length=128)
-
     class Meta:
         model = User
         fields = ["id", "username",  'password']
