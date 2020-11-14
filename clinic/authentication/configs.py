@@ -24,6 +24,7 @@ USER_ROUTERS = (
         'method': 'POST',
         'permission': {'action': 'create', 'resource': 'user'}
     },
+    
 )
 
 GROUP_ROUTERS = (
@@ -64,6 +65,11 @@ PERMISSION_ROUTER = (
         'method': 'GET',
         'permission': {'action': 'read', 'resource': 'permission'}
     },
+    {
+        'url': 'api/v1/permission$',
+        'method': 'POST',
+        'permission': {'action': 'create', 'resource': 'permission'}
+    },
 )
 
 DOCTOR_ROUTER = (
@@ -82,8 +88,8 @@ STAFF_ROUTER = (
 )
 ROUTERS = (
     {
-        'url': 'health/test-auth-request/',
-        'method': 'POST',
-        # 'permission': {'action': 'dumb_action', 'resource': 'dumb_resource'}
+        'url': 'health/test-auth-request',
+        'method': 'GET',
+        'permission': {'action': 'acess', 'resource': 'resource'}
     },
 ) + USER_ROUTERS + GROUP_ROUTERS + DOCTOR_ROUTER + PERMISSION_ROUTER + STAFF_ROUTER

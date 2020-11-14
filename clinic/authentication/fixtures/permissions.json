@@ -118,12 +118,20 @@
       "created_at": "2020-10-01T00:00:00+08:00",
       "updated_at": "2020-10-01T00:00:00+08:00"
     }
-  },
-  {
+  },{
     "model": "authentication.permission",
     "pk": 13,
     "fields": {
-      "resource": "doctor",
+      "resource": "resource",
+      "action": "acess",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },{
+    "model": "authentication.permission",
+    "pk": 14,
+    "fields": {
+      "resource": "staff",
       "action": "read",
       "created_at": "2020-10-01T00:00:00+08:00",
       "updated_at": "2020-10-01T00:00:00+08:00"
