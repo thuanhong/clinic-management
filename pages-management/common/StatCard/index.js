@@ -16,9 +16,9 @@ export const StatCard = ({ title, value, color, IconComponent }) => {
           <Grid item style={{ borderColor: color }}>
             <IconComponent fontSize='large' className={classes.iconFloat} style={{ color: color }} />
           </Grid>
-          <Grid item justify='center' alignItems='center' alignContent='center'>
+          <Grid item>
             <Box display='flex' height='100%' flexDirection='column' alignItems='center' justifyContent='center'>
-              <Typography variant='p' style={{ color: color }}>
+              <Typography variant='subtitle1' style={{ color: color }}>
                 {title}
               </Typography>
               <Typography variant='h6' style={{ color: color, fontSize: 30, fontWeight: 300 }}>

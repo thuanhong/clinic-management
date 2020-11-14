@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Bar, Bubble } from "react-chartjs-2";
 import { StatCard } from '@common/StatCard';
 import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';

@@ -1,7 +1,13 @@
-import AppsIcon from '@material-ui/icons/Apps';
+// Import Icons
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AccessibleOutlinedIcon from '@material-ui/icons/AccessibleOutlined';
 
-import { DashBoard } from './components/DashBoard';
+// Import Pages
+import { DashBoard } from './pages/DashBoard';
+import { AddPatient } from './pages/Patients';
+
+// Import Components
+import { AllPatients } from './components/AllPatients';
 
 export default {
   items: [
@@ -13,58 +19,32 @@ export default {
       component: DashBoard,
     },
     {
-      path: '/apps',
-      name: 'Apps',
+      path: '/patients',
+      name: 'Patients',
       type: 'submenu',
-      icon: AppsIcon,
-      badge: {
-        type: 'primary',
-        value: '5',
-      },
+      icon: AccessibleOutlinedIcon,
       children: [
         {
-          path: '/calendar',
-          name: 'Calendar',
-          component: AppsIcon,
+          path: '/all-patients',
+          name: 'All Patients',
+          component: AllPatients,
         },
-        // {
-        //   path: '/media',
-        //   name: 'Media',
-        //   component: Media
-        // },
-        // {
-        //   path: '/messages',
-        //   name: 'Messages',
-        //   component: Messages
-        // },
-        // {
-        //   path: '/social',
-        //   name: 'Social',
-        //   component: Social
-        // },
-        // {
-        //   path: '/chat',
-        //   name: 'Chat',
-        //   component: Chat
-        // }
+        {
+          path: '/add-patient',
+          name: 'Add Patient',
+          component: AddPatient,
+        },
+        {
+          path: '/del-patient',
+          name: 'Delete Patient',
+          component: AddPatient,
+        },
+        {
+          path: '/update-patient',
+          name: 'Update Patient',
+          component: AddPatient,
+        },
       ],
     },
-    // {
-    //   name: 'Error',
-    //   type: 'submenu',
-    //   icon: FaceIcon,
-    //   children: [
-    //     {
-    //       path: '/404',
-    //       name: '404',
-    //       component: NotFound
-    //     },
-    //     {
-    //       path: '/500',
-    //       name: 'Error',
-    //       component: BackendError
-    //     }
-    //   ]
-    // },
   ],
 };

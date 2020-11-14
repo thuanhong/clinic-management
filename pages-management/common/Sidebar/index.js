@@ -15,7 +15,6 @@ const Sidebar = ({ opened, toggleDrawer, routes, location }) => {
   const classes = useStyles();
   const [activeRoute, setActiveRoute] = useState(undefined);
   const toggleMenu = (index) => setActiveRoute(activeRoute === index ? undefined : index);
-  console.log(opened);
 
   const menu = (
     <List component='div'>
