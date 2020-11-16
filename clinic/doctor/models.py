@@ -5,13 +5,28 @@ from django.conf import settings
 from authentication.models import User
 from patient.models import Patient, Prescription
 
+class Sick(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField()
+    # catelory_sick =
+    def __str__(self):
+        return self.name
+
+    pass
+
+class KindOfSick(models.Model):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
 class Diagnosise(models.Model):
     '''
     Class implementing Medical history of patient
     '''
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    x_ray = models.CharField(max_length=255,blank=True)
-    allergy = models.CharField(max_length=255,blank=True)
-    pregnant = models.CharField(max_length=255,blank=True)
-    prescription_id = models.ForeignKey(Prescription,on_delete=models.CASCADE,blank=True, null=True)
-    pass
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    sick = models.ManyToManyField(Sick,related_name='diagnosise_sick')
+    prescription = models.ForeignKey(Prescription,on_delete=models.CASCADE,blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
