@@ -7,10 +7,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { NavLink } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
-// import { capitalize } from '../../helpers';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-// import useMountEffect from '../../mountEffect';
+
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -130,22 +129,27 @@ const SidebarItem = ({ route, index, activeRoute, toggleMenu, currentPath }) => 
         </ListItem>
         <Collapse in={activeRoute === index ? true : false} timeout='auto' unmountOnExit>
           <List disablePadding>
-            {route.children.map((subitem, index) => (
-              <NavLink
-                to={`${route.path ? route.path : ''}${subitem.path ? subitem.path : ''}`}
-                exact
-                className={classes.menuLink}
-                activeClassName={classes.menuActive}
-                key={index}
-              >
-                <ListItem className={classes.menuSubItem} button>
-                  <Typography variant='body1' className='flexSpacer'>
-                    {capitalize(subitem.name)}
-                  </Typography>
-                  {badge(subitem.badge)}
-                </ListItem>
-              </NavLink>
-            ))}
+            {route.children.map((subitem, index) => {
+              if (subitem.hide) {
+                return <></>;
+              }
+              return (
+                <NavLink
+                  to={`${route.path ? route.path : ''}${subitem.path ? subitem.path : ''}`}
+                  exact
+                  className={classes.menuLink}
+                  activeClassName={classes.menuActive}
+                  key={index}
+                >
+                  <ListItem className={classes.menuSubItem} button>
+                    <Typography variant='body1' className='flexSpacer'>
+                      {capitalize(subitem.name)}
+                    </Typography>
+                    {badge(subitem.badge)}
+                  </ListItem>
+                </NavLink>
+              );
+            })}
           </List>
         </Collapse>
       </div>

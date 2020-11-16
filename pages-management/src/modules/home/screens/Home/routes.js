@@ -4,10 +4,11 @@ import AccessibleOutlinedIcon from '@material-ui/icons/AccessibleOutlined';
 
 // Import Pages
 import { DashBoard } from './pages/DashBoard';
-import { AddPatient } from './pages/Patients';
 
 // Import Components
+import { AddPatient } from './components/AddPatient';
 import { AllPatients } from './components/AllPatients';
+import { PatientDetail } from './components/PatientDetail';
 
 export default {
   items: [
@@ -35,14 +36,10 @@ export default {
           component: AddPatient,
         },
         {
-          path: '/del-patient',
-          name: 'Delete Patient',
-          component: AddPatient,
-        },
-        {
-          path: '/update-patient',
-          name: 'Update Patient',
-          component: AddPatient,
+          path: '/patient-detail',
+          name: 'Patient Detail',
+          component: PatientDetail,
+          hide: true,
         },
       ],
     },

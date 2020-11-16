@@ -19,6 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { IndeterminateCheckBoxRounded } from '@material-ui/icons';
 import { mockPatients } from '@app/mock';
+import { useHistory } from 'react-router-dom';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -190,6 +191,7 @@ export const AllPatients = () => {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const history = useHistory();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -206,21 +208,12 @@ export const AllPatients = () => {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-
-    setSelected(newSelected);
+  const handleClick = (event, row) => {
+    event.preventDefault();
+    history.push({
+      pathname: '/patients/patient-detail',
+      state: { data: row },
+    });
   };
 
   const handleChangePage = (event, newPage) => {
@@ -239,7 +232,7 @@ export const AllPatients = () => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar />
         <TableContainer>
           <Table className={classes.table} aria-labelledby='tableTitle' size='medium' aria-label='enhanced table'>
             <EnhancedTableHead
@@ -260,14 +253,14 @@ export const AllPatients = () => {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, index)}
+                      onClick={(event) => handleClick(event, row)}
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={index}
                       selected={isItemSelected}
                     >
-                      <TableCell component='th' id={labelId} scope='row' padding='none'>
-                        <img src={row.Image} alt='Avatar patient' />
+                      <TableCell component='th' id={labelId} scope='row' padding='default'>
+                        <img src={row.Image} width='50px' alt='Avatar patient' />
                       </TableCell>
                       <TableCell align='left'>{row.FirstName}</TableCell>
                       <TableCell align='left'>{row.LastName}</TableCell>

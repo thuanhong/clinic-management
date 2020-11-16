@@ -21,20 +21,8 @@ export const BaseLayout = ({ history, routes }) => {
 
   const mediaMatcher = matchMedia(`(max-width: ${MobileBreakpoint}px)`);
 
-  const resizeDispatch = () => {
-    if (typeof Event === 'function') {
-      window.dispatchEvent(new Event('resize'));
-    } else {
-      const evt = window.document.createEvent('UIEvents');
-      evt.initUIEvent('resize', true, false, window, 0);
-      window.dispatchEvent(evt);
-    }
-  };
-
   const handleDrawerToggle = () => {
-    console.log('asdasdasdasdad');
     setOpened(!opened);
-    // resizeDispatch();
   };
 
   const handleNotificationToggle = () => setNotificationsOpen(!notificationsOpen);

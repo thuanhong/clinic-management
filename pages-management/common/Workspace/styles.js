@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   content: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#ecf0f4',
     minWidth: 0,
     width: '100%',
     position: 'relative',
@@ -30,11 +30,5 @@ export const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-  },
-  'contentShift-left': {
-    marginLeft: 20,
-  },
-  'contentShift-right': {
-    marginRight: 0,
   },
 }));
