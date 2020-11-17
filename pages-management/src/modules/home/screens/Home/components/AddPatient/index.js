@@ -1,40 +1,24 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { useHistory } from 'react-router-dom';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { PatientForm } from '@common/PatientForm';
+import { useStyles } from './styles';
 
 export const AddPatient = () => {
   const classes = useStyles();
-  let history = useHistory();
 
   return (
-    <div className={classes.root}>
-      <AppBar color='transparent' position='static'>
-        <Toolbar>
-          <IconButton
-            onClick={() => history.push('/patients/all-patients')}
-            edge='start'
-            className={classes.menuButton}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <React.Fragment>
+      <CssBaseline />
+      <div className={classes.layout}>
+        <Paper className={classes.paper}>
+          <Typography component='h1' variant='h4' align='center'>
+            Add New Patient
+          </Typography>
+          <PatientForm />
+        </Paper>
+      </div>
+    </React.Fragment>
   );
 };

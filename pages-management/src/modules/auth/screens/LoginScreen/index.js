@@ -75,7 +75,7 @@ const LoginScreen = () => {
   return (
     <Grid container component='main' className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image}>
+      <Grid item xs={false} sm={false} md={7} className={classes.image}>
         <div className={classes.rotated}>
           <SquareAnimation
             color={'#ffc107'}
@@ -99,7 +99,7 @@ const LoginScreen = () => {
           />
         </div>
       </Grid>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />

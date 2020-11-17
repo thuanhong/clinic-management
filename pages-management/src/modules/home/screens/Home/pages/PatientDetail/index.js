@@ -20,6 +20,7 @@ import { mockPatientsVist, mockPatientsPayment } from '@app/mock';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import GridOnIcon from '@material-ui/icons/GridOn';
+import { FullScreenDialog } from '../../components/FullScreenDialog';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -82,9 +83,7 @@ export const PatientDetail = () => {
               <p className={classes.title}>Blood Group:</p>
               <p className={classes.value}>{data.BloodGroup}</p>
             </div>
-            <Button style={{ marginTop: 10 }} variant='contained' fullWidth={true} color='primary'>
-              Change patient information
-            </Button>
+            <FullScreenDialog />
           </Paper>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -148,7 +147,7 @@ export const PatientDetail = () => {
                         <StyledTableCell align='right'>${row.Cost}</StyledTableCell>
                         <StyledTableCell align='right'>Dr.{row.Doctor}</StyledTableCell>
                         <StyledTableCell align='right'>
-                          <Button startIcon={<GetAppIcon />}>Download</Button>
+                          <Button variant='outlined' color='primary' startIcon={<GetAppIcon />}>Download</Button>
                         </StyledTableCell>
                       </StyledTableRow>
                     ))}

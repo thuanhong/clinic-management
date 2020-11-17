@@ -4,11 +4,12 @@ import AccessibleOutlinedIcon from '@material-ui/icons/AccessibleOutlined';
 
 // Import Pages
 import { DashBoard } from './pages/DashBoard';
+import { AllDoctors } from './pages/AllDoctors';
+import { AllPatients } from './pages/AllPatients';
+import { PatientDetail } from './pages/PatientDetail';
 
 // Import Components
 import { AddPatient } from './components/AddPatient';
-import { AllPatients } from './components/AllPatients';
-import { PatientDetail } from './components/PatientDetail';
 
 export default {
   items: [
@@ -38,6 +39,30 @@ export default {
         {
           path: '/patient-detail',
           name: 'Patient Detail',
+          component: PatientDetail,
+          hide: true,
+        },
+      ],
+    },
+    {
+      path: '/doctors',
+      name: 'Doctors',
+      type: 'submenu',
+      icon: DashboardIcon,
+      children: [
+        {
+          path: '/all-doctors',
+          name: 'All Doctors',
+          component: AllDoctors,
+        },
+        {
+          path: '/add-doctor',
+          name: 'Add Doctor',
+          component: AddPatient,
+        },
+        {
+          path: '/doctor-detail',
+          name: 'Doctor Detail',
           component: PatientDetail,
           hide: true,
         },
