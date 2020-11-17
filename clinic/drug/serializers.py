@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
-from .models import Item, Store_Item
+from .models import StoreDrug, Item
 
 
 class ItemSerializers(serializers.ModelSerializer):
@@ -22,5 +22,5 @@ class Store_ItemSerializers(serializers.ModelSerializer):
     }
     '''
     class Meta:
-        model = Store_Item
+        model = StoreDrug
         fields = ['item_id', "unit", 'price', 'quantity', 'image']
