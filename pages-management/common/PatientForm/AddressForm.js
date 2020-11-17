@@ -30,6 +30,8 @@ export const AddressForm = observer(() => {
             name='firstName'
             label='First name'
             fullWidth
+            error={formState.firstNameError !== ''}
+            helperText={formState.firstNameError}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -40,6 +42,8 @@ export const AddressForm = observer(() => {
             name='lastName'
             label='Last name'
             fullWidth
+            error={formState.lastNameError !== ''}
+            helperText={formState.lastNameError}
           />
         </Grid>
         <Grid item xs={12}>
@@ -50,10 +54,21 @@ export const AddressForm = observer(() => {
             name='address1'
             label='Address line 1'
             fullWidth
+            error={formState.addressError !== ''}
+            helperText={formState.addressError}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField required onChange={formState.updateCity} id='city' name='city' label='City' fullWidth />
+          <TextField
+            required
+            onChange={formState.updateCity}
+            id='city'
+            name='city'
+            label='City'
+            fullWidth
+            error={formState.cityError !== ''}
+            helperText={formState.cityError}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField id='state' onChange={formState.updateState} name='state' label='State/Province/Region' fullWidth />
@@ -66,13 +81,32 @@ export const AddressForm = observer(() => {
             name='country'
             label='Country'
             fullWidth
+            error={formState.countryError !== ''}
+            helperText={formState.countryError}
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required onChange={formState.updateAge} type='number' id='age' label='Age' fullWidth />
+          <TextField
+            required
+            onChange={formState.updateAge}
+            type='number'
+            id='age'
+            label='Age'
+            fullWidth
+            error={formState.ageError !== ''}
+            helperText={formState.ageError}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required select onChange={formState.updateGender} id='gender' label='Gender' fullWidth>
+          <TextField
+            required
+            defaultValue={formState.genderValue}
+            select
+            onChange={formState.updateGender}
+            id='gender'
+            label='Gender'
+            fullWidth
+          >
             {genderSelect.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
@@ -81,7 +115,15 @@ export const AddressForm = observer(() => {
           </TextField>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required onChange={formState.updateMobile} id='mobile' label='Mobile' fullWidth />
+          <TextField
+            required
+            onChange={formState.updateMobile}
+            id='mobile'
+            label='Mobile'
+            fullWidth
+            error={formState.mobilePhoneError !== ''}
+            helperText={formState.mobilePhoneError}
+          />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AddressForm } from './AddressForm';
 import ImageUpload from '@common/ImageUpload';
 import Button from '@material-ui/core/Button';
 import { useStyles } from './styles';
 import { formStateStore } from './states';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const PatientForm = () => {
   const classes = useStyles();
   const formState = React.useContext(formStateStore);
+  const [loading, setLoading] = useState(false);
 
-  const checkFormValidate = (event) => {
+  const submitForm = (event) => {
     event.preventDefault();
+    setLoading(true);
     console.log({
       firstName: formState.firstName,
       lastName: formState.lastName,
@@ -22,6 +25,12 @@ export const PatientForm = () => {
       mobilePhone: formState.mobilePhone,
       genderValue: formState.genderValue,
     });
+
+    if (formState.checkFormValidate()) {
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,8 +39,14 @@ export const PatientForm = () => {
         <ImageUpload />
         <AddressForm />
         <div className={classes.buttons}>
-          <Button variant='contained' color='primary' onClick={checkFormValidate} className={classes.button}>
-            Save
+          <Button
+            disabled={loading}
+            variant='contained'
+            color='primary'
+            onClick={submitForm}
+            className={classes.button}
+          >
+            {loading ? <CircularProgress /> : 'Save'}
           </Button>
         </div>
       </React.Fragment>

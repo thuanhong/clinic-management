@@ -82,7 +82,7 @@ const SidebarItem = ({ route, index, activeRoute, toggleMenu, currentPath }) => 
   useEffect(() => {
     if (!currentPath || activeRoute === index || route.path === '/') return;
     toggleMenu(index);
-  });
+  }, []);
 
   const badge = (badge) => {
     if (!badge) return;

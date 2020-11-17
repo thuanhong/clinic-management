@@ -14,7 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { IndeterminateCheckBoxRounded } from '@material-ui/icons';
-import { mockPatients } from '@app/mock';
 import { useHistory } from 'react-router-dom';
 import { useToolbarStyles, useStyles } from './styles';
 
@@ -72,7 +71,7 @@ function EnhancedTableHead(props) {
               direction={orderBy === index ? order : 'asc'}
               onClick={createSortHandler(index)}
             >
-              {headCell.label}
+              {headCell}
               {orderBy === IndeterminateCheckBoxRounded ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -103,12 +102,11 @@ const EnhancedTableToolbar = ({ tableName }) => {
   );
 };
 
-export const AllDoctors = (props) => {
-  const { data, tableName } = props;
+export const TableData = (props) => {
+  const { data, tableName, pathName } = props;
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const history = useHistory();
@@ -119,19 +117,10 @@ export const AllDoctors = (props) => {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = mockPatients.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
   const handleClick = (event, row) => {
     event.preventDefault();
     history.push({
-      pathname: '/patients/patient-detail',
+      pathname: pathName,
       state: { data: row },
     });
   };
@@ -145,9 +134,7 @@ export const AllDoctors = (props) => {
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, mockPatients.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -157,38 +144,27 @@ export const AllDoctors = (props) => {
           <Table className={classes.table} aria-labelledby='tableTitle' size='medium' aria-label='enhanced table'>
             <EnhancedTableHead
               classes={classes}
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={mockPatients.length}
-              headCells={data[0].keys()}
+              rowCount={data.length}
+              headCells={Object.keys(data[0])}
             />
             <TableBody>
-              {stableSort(mockPatients, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(index);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row)}
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={index}
-                      selected={isItemSelected}
-                    >
+                    <TableRow hover onClick={(event) => handleClick(event, row)} tabIndex={-1} key={index}>
                       <TableCell component='th' id={labelId} scope='row' padding='default'>
                         <img src={row.Image} width='50px' alt='Avatar patient' />
                       </TableCell>
-                      {data[0]
-                        .keys()
+                      {Object.values(row)
                         .slice(1)
                         .map((headCell, head) => (
                           <TableCell key={head} align='left'>
-                            {row[headCell]}
+                            {headCell}
                           </TableCell>
                         ))}
                     </TableRow>
@@ -205,7 +181,7 @@ export const AllDoctors = (props) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component='div'
-          count={mockPatients.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

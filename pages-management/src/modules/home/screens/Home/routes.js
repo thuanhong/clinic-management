@@ -1,12 +1,14 @@
 // Import Icons
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccessibleOutlinedIcon from '@material-ui/icons/AccessibleOutlined';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 
 // Import Pages
 import { DashBoard } from './pages/DashBoard';
 import { AllDoctors } from './pages/AllDoctors';
 import { AllPatients } from './pages/AllPatients';
 import { PatientDetail } from './pages/PatientDetail';
+import { DoctorDetail } from './pages/DoctorDetail';
 
 // Import Components
 import { AddPatient } from './components/AddPatient';
@@ -48,7 +50,7 @@ export default {
       path: '/doctors',
       name: 'Doctors',
       type: 'submenu',
-      icon: DashboardIcon,
+      icon: LocalHospitalIcon,
       children: [
         {
           path: '/all-doctors',
@@ -63,7 +65,7 @@ export default {
         {
           path: '/doctor-detail',
           name: 'Doctor Detail',
-          component: PatientDetail,
+          component: DoctorDetail,
           hide: true,
         },
       ],
