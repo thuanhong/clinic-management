@@ -18,9 +18,14 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from authentication.urls import auth_router
 from doctor.urls import doctor_router
+from patient.urls import patient_router
+from drug.urls import drug_router
 router = DefaultRouter(trailing_slash=False)
 router.registry.extend(auth_router.registry)
 router.registry.extend(doctor_router.registry)
+router.registry.extend(patient_router.registry)
+router.registry.extend(drug_router.registry)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('health/', include("health.urls")),

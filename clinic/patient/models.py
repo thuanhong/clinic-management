@@ -5,23 +5,25 @@ from django.conf import settings
 from authentication.models import User
 from drug.models import Item
 
+
 class Patient(models.Model):
     '''
     Class implementing Profile User
     '''
-    first_name = models.CharField(max_length=255,blank=True)
-    last_name = models.CharField(max_length=255,blank=True)
-    birth_day = models.DateTimeField()
-    gender = models.CharField(max_length=255,blank=True)
-    address = models.CharField(max_length=255,blank=True)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
+    birth_day = models.DateTimeField(blank=True)
+    gender = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
     class Meta:
         pass
+
     def get_full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
+
     def __str__(self):
         return 'Name: {} {}'.format(self.first_name, self.last_name)
 
@@ -36,9 +38,9 @@ class PrescriptionDetail(models.Model):
 
     def __str__(self):
         return f"{self.quantity} of {self.item.title}"
-
-    def get_final_price(self):
-        return self.quantity * self.item.price
+    # fix query to Item models
+    # def get_final_price(self):
+    #     return self.quantity * self.item.price
 
 
 class Prescription(models.Model):
@@ -48,19 +50,20 @@ class Prescription(models.Model):
     '''
     user = models.ForeignKey(Patient,
                              on_delete=models.CASCADE)
-    items = models.ManyToManyField(PrescriptionDetail,related_name='prescription_id')
+    items = models.ManyToManyField(
+        PrescriptionDetail, related_name='prescription_id')
     ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.get_full_name()
-
-    def get_total(self):
-        total = 0
-        for order_item in self.items.all():
-            total += order_item.get_final_price()
-        return total
+    # fix query to Item models
+    # def get_total(self):
+    #     total = 0
+    #     for order_item in self.items.all():
+    #         total += order_item.get_final_price()
+    #     return total
 
 
 class Payment(models.Model):

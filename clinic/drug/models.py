@@ -1,11 +1,15 @@
 from django.db import models
 
 # Create your models here.
+
+
 class Item(models.Model):
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     description = models.TextField()
+
     def __str__(self):
-        return self.name
+        return self.title
+
 
 class Store_Item(models.Model):
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -16,9 +20,10 @@ class Store_Item(models.Model):
 
 
 class Catelory(models.Model):
-    item_id = models.ManyToManyField(Item,verbose_name='item',
-        blank=True,related_name="catelory_id",)
+    item_id = models.ManyToManyField(Item, verbose_name='item',
+                                     blank=True, related_name="catelory_id",)
     name = models.CharField(max_length=100)
+
     def __str__(self):
         return self.name
     pass

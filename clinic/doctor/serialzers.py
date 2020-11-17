@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
-from .models import Diagnosise
+from .models import Diagnosise, Sick
+
 
 class DiagnosiseSerializer(serializers.ModelSerializer):
     '''
@@ -11,11 +12,17 @@ class DiagnosiseSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Diagnosise
-        fields = ["patient", "sick", 'prescription',
-                        "created_at", "updated_at",]
+        fields = ['id', "patient", "sick", 'prescription',
+                  "created_at", "updated_at", ]
 
-    def create(self, validated_data):
-        return super().save(**validated_data)
 
-    def update(self, instance, validated_data):
-        return super().update(**validated_data)
+class SickSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+    class Meta:
+        model = Sick
+        fields = ["name", "description"]
+        depth = 1
