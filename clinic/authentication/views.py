@@ -24,13 +24,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
+    permission_classes = [(permissions.AllowAny)]
     http_method_names = ['get', 'post', 'patch', 'delete']
     serializer_class = GroupSerializer
     pass
 
 
 class PermissionViewSet(viewsets.ModelViewSet):
-
+    permission_classes = [(permissions.AllowAny)]
     queryset = Permission.objects.all()
     http_method_names = ['get', 'post', 'patch']
     serializer_class = PermissionSerializer
@@ -56,7 +57,7 @@ def login(request):
     refresh_token = generate_refresh_token(
         serializer.validated_data)
     response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
-
+    group_user = Group.objects.filter(user=serializer.validated_data).first()
     ''' Format:
         - Success:
             status code 200
@@ -69,9 +70,11 @@ def login(request):
                 "detail": "error when validating token."
             }
         '''
+    print(group_user)
     response.status_code = status.HTTP_200_OK
     response.data = {
-        'access_token': access_token
+        'access_token': access_token,
+        'group_user': group_user.id,
     }
     return response
 
