@@ -1,18 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
-from .models import StoreDrug, Item
-
-
-class ItemSerializers(serializers.ModelSerializer):
-    '''
-    Create Patient include data{
-
-    }
-    '''
-    class Meta:
-        model = Item
-        fields = ['title', "description"]
+from .models import StoreDrug
 
 
 class Store_ItemSerializers(serializers.ModelSerializer):

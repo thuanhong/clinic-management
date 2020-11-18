@@ -5,8 +5,8 @@ from rest_framework import viewsets, status, permissions, exceptions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
-from .serializers import PatientSerializer, PrescriptionSerializer, PrescriptionDetailSerializer
-from .models import Patient, Prescription, PrescriptionDetail
+from .serializers import PatientSerializer, PrescriptionSerializer
+from .models import Patient, Prescription
 
 
 # Create your views here.
@@ -25,10 +25,3 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
     queryset = Prescription.objects.all()
     http_method_names = ['get', 'patch', 'post']
 
-
-class PrescriptionDetailViewSet(viewsets.ModelViewSet):
-    # permission allow on develop
-    permission_classes = [(permissions.AllowAny)]
-    serializer_class = PrescriptionDetailSerializer
-    queryset = PrescriptionDetail.objects.all()
-    http_method_names = ['get', 'patch', 'post']

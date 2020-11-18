@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Sick, Diagnosise, Prescription
+from .models import Sick, Prescription
 
 class PrescriptionAdmin(admin.ModelAdmin):
 
@@ -14,5 +14,4 @@ class DiagnosiseAdmin(admin.ModelAdmin):
 class SickAdmin(admin.ModelAdmin):
     pass
 admin.site.register(Prescription, PrescriptionAdmin)
-admin.site.register(Diagnosise, DiagnosiseAdmin)
 admin.site.register(Sick,SickAdmin)

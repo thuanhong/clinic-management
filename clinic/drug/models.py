@@ -3,10 +3,12 @@ from django.db import models
 # Create your models here.
 
 
-class Item(models.Model):
+class UnitDrug(models.Model):
+    name = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.title
+
+class GuideDrug(models.Model):
+    description = models.TextField()
 
 
 class StoreDrug(models.Model):
@@ -15,13 +17,5 @@ class StoreDrug(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     description = models.TextField()
-
-
-class Store_Item(models.Model):
-    # item_id = models.ManyToManyField(Item, verbose_name='item',
-    #                                  blank=True, related_name="catelory_id",)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-    pass
+    unit = models.ForeignKey(UnitDrug,on_delete=models.CASCADE, blank=True, null=True)
+    guide = models.ForeignKey(GuideDrug,on_delete=models.CASCADE,blank=True, null=True)

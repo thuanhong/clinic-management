@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     'doctor',
     'patient',
     'drug',
-
-
 ]
 
 REST_FRAMEWORK = {

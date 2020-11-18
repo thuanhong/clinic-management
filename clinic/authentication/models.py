@@ -137,24 +137,30 @@ class User(AbstractUser):
             results.append(group_obj)
         return results
 
-# class Profile(models.Model):
-#     '''
-#     Class implementing Profile User
-#     '''
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     first_name = models.CharField(max_length=255,blank=True)
-#     last_name = models.CharField(max_length=255,blank=True)
-#     age = models.IntegerField( blank= True)
-#     gender = models.CharField(max_length=255,blank=True)
-#     image = models.CharField(max_length=255,blank=True)
-#     bio = models.TextField(max_length=500, blank=True)
-#     location = models.CharField(max_length=30, blank=True)
-#     birth_date = models.DateField(null=True, blank=True)
-#     class Meta:
-#         pass
 
-#     def __str__(self):
-#         return 'Name: {} {}'.format(self.first_name, self.last_name)
+class Profile(models.Model):
+    '''
+    Class implementing Profile User
+    '''
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=255,blank=True)
+    last_name = models.CharField(max_length=255,blank=True)
+    age = models.IntegerField( blank= True)
+    gender = models.CharField(max_length=255,blank=True)
+    image = models.CharField(max_length=255,blank=True)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    class Meta:
+        pass
+
+    def __str__(self):
+        return 'Name: {} {}'.format(self.first_name, self.last_name)
+
+
+class Rules(models.Model):
+    maximum_patient = models.IntegerField()
+    cost_check_health = models.FloatField()
 
 
 def get_list_active_permissions(active_permissions):
