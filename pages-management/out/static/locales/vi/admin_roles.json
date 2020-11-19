@@ -1,0 +1,9 @@
+{
+  "aggregate": "Thực thể",
+  "description": "Mô tả",
+  "fields": "Trường",
+  "filter": "Lọc",
+  "name": "Tên",
+  "permissions": "Quyền",
+  "roles": "Chức vụ"
+}

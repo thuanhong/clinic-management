@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from authentication.models import User, Profile
-from patient.models import Patient, Prescription
+from patient.models import Patient
+from drug.models import StoreDrug
 
 class Sick(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
@@ -14,36 +15,15 @@ class Sick(models.Model):
     pass
 
 
-class Doctor(models.Model):
-    '''
-    Class implementing Doctor models
-    '''
-    doctorId = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True)
-    # birth_day = models.DateTimeField(blank=True)
-    # gender = models.CharField(max_length=255, blank=True)
-    # address = models.CharField(max_length=255, blank=True)
-
-
-class Nurse(models.Model):
-    '''
-    Class implementing Nurse models
-    '''
-    nurseId = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True)
-    # birth_day = models.DateTimeField(blank=True)
-    # gender = models.CharField(max_length=255, blank=True)
-    # address = models.CharField(max_length=255, blank=True)
-
-
 class Appointment(models.Model):
     patientId = models.ForeignKey(Patient,on_delete=models.CASCADE,blank=True, null=True)
-    doctorId = models.ForeignKey(Doctor,on_delete=models.CASCADE,blank=True, null=True)
-    nurseId = models.ForeignKey(Nurse,on_delete=models.CASCADE,blank=True, null=True)
+    doctorId = models.ForeignKey(Profile,on_delete=models.CASCADE,blank=True, null=True)
     appointment_date = models.DateTimeField(blank=True)
 
 
 class PatientVisit(models.Model):
     birth_day = models.DateTimeField(blank=True)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Profile, on_delete=models.CASCADE)
     treatment = models.ForeignKey(Sick, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     charges = models.IntegerField(default=1)
@@ -51,11 +31,17 @@ class PatientVisit(models.Model):
 
 class Payment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    prescription = models.OneToOneField(Prescription, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Profile, on_delete=models.CASCADE)
     amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username
+
+
+
+class PrescriptionItems(models.Model):
+    amount = models.IntegerField()
+    paymentId = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    drugId = models.ForeignKey(StoreDrug, on_delete=models.CASCADE)

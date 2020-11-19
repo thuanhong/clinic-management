@@ -1,0 +1,10 @@
+{
+  "back": "Quay lại",
+  "confirmPassword": "Xác thực mật khẩu",
+  "confirmPasswordNotMatch": "Xác thực mật khẩu không trùng khớp",
+  "email": "Email",
+  "emailAlreadyInUse": "Email đã được sử dụng bởi người dùng khác",
+  "password": "Mật khẩu",
+  "register": "Đăng kí",
+  "registerCompleted": "Đăng kí thành công"
+}

@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
-from .models import Patient, Prescription
+from .models import Patient
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -14,17 +14,4 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = ['id', "first_name", "last_name",
                   'gender', 'address', 'birth_day']
-
-
-class PrescriptionSerializer(serializers.ModelSerializer):
-    '''
-    Create Patient include data{
-
-    }
-    '''
-    get_total = serializers.IntegerField(initial=2)
-
-    class Meta:
-        model = Prescription
-        fields = ['id', "user", "items", 'get_total']
 

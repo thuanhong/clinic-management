@@ -1,17 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Sick, Prescription
-
-class PrescriptionAdmin(admin.ModelAdmin):
-
-    pass
-
-class DiagnosiseAdmin(admin.ModelAdmin):
-
-    pass
+from .models import Sick
 
 class SickAdmin(admin.ModelAdmin):
     pass
-admin.site.register(Prescription, PrescriptionAdmin)
 admin.site.register(Sick,SickAdmin)
