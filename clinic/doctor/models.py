@@ -6,9 +6,11 @@ from authentication.models import User, Profile
 from patient.models import Patient
 from drug.models import StoreDrug
 
+
 class Sick(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField()
+
     def __str__(self):
         return self.name
 
@@ -16,8 +18,10 @@ class Sick(models.Model):
 
 
 class Appointment(models.Model):
-    patientId = models.ForeignKey(Patient,on_delete=models.CASCADE,blank=True, null=True)
-    doctorId = models.ForeignKey(Profile,on_delete=models.CASCADE,blank=True, null=True)
+    patientId = models.ForeignKey(
+        Patient, on_delete=models.CASCADE, blank=True, null=True)
+    doctorId = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, blank=True, null=True)
     appointment_date = models.DateTimeField(blank=True)
 
 
@@ -37,8 +41,7 @@ class Payment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.username
-
+        return self.patient
 
 
 class PrescriptionItems(models.Model):

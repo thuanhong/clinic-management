@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.contrib.postgres.fields import JSONField
 
 
 class Permission(models.Model):
@@ -61,7 +62,7 @@ class Group(models.Model):
             result.append({
                 'id': permissions.id,
                 'action': permissions.action,
-                'resource':permissions.resource,
+                'resource': permissions.resource,
             })
         return result
 
@@ -78,7 +79,7 @@ class User(AbstractUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    image = models.CharField(max_length=255,blank=True)
+    image = models.CharField(max_length=255, blank=True)
 
     # Timestamp Audit Fields
     created_at = models.DateTimeField(auto_now_add=True)
@@ -106,12 +107,11 @@ class User(AbstractUser):
         self.oauth_id = uuid.uuid1()
         return super().save(*args, **kwargs)
 
-
-
     def can(self, action, resource):
         return self.user_permissions.filter(action=action, resource=resource).exists() or \
             self.user_groups.filter(group_permissions__action=action,
                                     group_permissions__resource=resource).exists()
+
     @property
     def permissions(self):
         result = []
@@ -119,7 +119,7 @@ class User(AbstractUser):
             result.append({
                 'id': permissions.id,
                 'action': permissions.action,
-                'resource':permissions.resource,
+                'resource': permissions.resource,
             })
         return result
 
@@ -142,16 +142,18 @@ class Profile(models.Model):
     '''
     Class implementing Profile User
     '''
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    first_name = models.CharField(max_length=255,blank=True)
-    last_name = models.CharField(max_length=255,blank=True)
-    age = models.IntegerField( blank= True)
-    gender = models.CharField(max_length=255,blank=True)
-    image = models.CharField(max_length=255,blank=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
+    age = models.IntegerField(blank=True)
+    gender = models.CharField(max_length=255, blank=True)
+    image = models.CharField(max_length=255, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    title = models.CharField(max_length=255,blank=True)
+    title = models.CharField(max_length=255, blank=True)
+
     class Meta:
         pass
 
@@ -159,9 +161,11 @@ class Profile(models.Model):
         return 'Name: {} {}'.format(self.first_name, self.last_name)
 
 
-class Rules(models.Model):
-    maximum_patient = models.IntegerField()
-    cost_check_health = models.FloatField()
+class Rule(models.Model):
+    rule_name = models.CharField(max_length=255)
+    rule_description = models.CharField(max_length=255, blank=True)
+    rule_parameters = JSONField()
+    active_screening = models.BooleanField(default=True)
 
 
 def get_list_active_permissions(active_permissions):
