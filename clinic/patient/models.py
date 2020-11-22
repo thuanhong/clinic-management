@@ -10,12 +10,13 @@ class Patient(models.Model):
     Class implementing Profile User
     '''
     first_name = models.CharField(max_length=255,blank=True)
-    last_name = models.CharField(max_length=255,blank=True)
-    age = models.IntegerField( blank= True)
-    gender = models.CharField(max_length=255,blank=True)
-    bio = models.TextField(max_length=500, blank=True)
-    address = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=255,blank=True,null= True)
+    gender = models.CharField(max_length=255,blank=True,null= True)
+    bio = models.TextField(max_length=500, blank=True,null= True)
+    address = models.CharField(max_length=30, blank=True,null= True)
     birth_date = models.DateField(null=True, blank=True)
+    identity_card = models.CharField(max_length=255,blank=True)
+    insurance = models.CharField(max_length=255,blank=True,null= True)
 
     class Meta:
         pass

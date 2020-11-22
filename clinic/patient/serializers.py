@@ -13,5 +13,5 @@ class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
         fields = ['id', "first_name", "last_name",
-                  'gender', 'address', 'birth_day']
-
+                  'gender', 'address', 'birth_date','identity_card','insurance']
+        read_only_fields = ['id']
