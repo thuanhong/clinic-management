@@ -20,9 +20,17 @@ python mangae.py migrate
 
 ## api
 ```
-/api/users/
+/api/v1/users/
+/api/v1/permissons/
+/api/v1/groups/
+/api/v1/doctor/
+/api/v1/patient/
+/api/v1/patient-visit/
+
 /auth/login/
 /auth/token/
 /health
 /health/test-auth-request
+
 ```
+

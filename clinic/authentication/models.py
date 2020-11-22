@@ -158,7 +158,7 @@ class Profile(models.Model):
         pass
 
     def __str__(self):
-        return 'Name: {} {}'.format(self.first_name, self.last_name)
+        return '{} {} {}'.format(self.title.title(),self.first_name, self.last_name).strip()
 
 
 class Rule(models.Model):

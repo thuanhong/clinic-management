@@ -54,3 +54,25 @@ class PatientVisitSerializer(serializers.ModelSerializer):
                                                     patient=patient, treatment=treatment)
         return patient_visit
 
+
+class DoctorVisitSerializer(serializers.ModelSerializer):
+    '''
+
+    '''
+    last_name = serializers.CharField(required=False, allow_null = True)
+    age = serializers.CharField(required=False, allow_null = True)
+    gender = serializers.CharField(required=False, allow_null = True)
+    image = serializers.CharField(required=False, allow_null = True)
+    bio = serializers.CharField(required=False, allow_null = True)
+    location = serializers.CharField(required=False, allow_null = True)
+    title = serializers.CharField(required=False, allow_null = True, default="doctor")
+
+    class Meta:
+        model = Profile
+        fields = ["user","first_name", "last_name",'age',"gender",'image','bio','location','birth_date','title']
+        read_only_fields = ['id']
+        depth = 1
+    def validate_title(self, data):
+        if data != 'doctor':
+            raise serializers.ValidationError(detail="User must have tilte doctor")
+        return data

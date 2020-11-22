@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 from .models import Sick, PatientVisit, Appointment
-from .serialzers import SickSerializer, PatientVisitSerializer
+from .serialzers import SickSerializer, PatientVisitSerializer, DoctorVisitSerializer
+from authentication.models import Profile
 # Create your views here.
 
 
@@ -20,5 +21,11 @@ class PatientVisitViewSet(viewsets.ModelViewSet):
     permission_classes = [(permissions.AllowAny)]
     serializer_class = PatientVisitSerializer
     queryset = PatientVisit.objects.all()
+    http_method_names = ['get', 'patch', 'post']
+
+class DoctorViewSet(viewsets.ModelViewSet):
+    permission_classes = [(permissions.AllowAny)]
+    serializer_class = DoctorVisitSerializer
+    queryset = Profile.objects.filter(title="doctor")
     http_method_names = ['get', 'patch', 'post']
 
