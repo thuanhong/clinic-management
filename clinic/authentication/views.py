@@ -101,6 +101,7 @@ def refresh_token_view(request):
             'expired refresh token, please login again.')
 
     user = User.objects.filter(id=payload.get('user_id')).first()
+    group_user = Group.objects.filter(user=user).first()
     if user is None:
         raise exceptions.AuthenticationFailed('User not found')
 
@@ -108,7 +109,7 @@ def refresh_token_view(request):
         raise exceptions.AuthenticationFailed('user is inactive')
 
     access_token = generate_access_token(user)
-    return Response({'access_token': access_token})
+    return Response({'access_token': access_token, 'group_user': group_user.id})
 
 
 @api_view(['POST'])

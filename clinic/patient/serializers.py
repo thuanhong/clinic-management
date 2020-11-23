@@ -10,8 +10,12 @@ class PatientSerializer(serializers.ModelSerializer):
 
     }
     '''
+    identity_card = serializers.CharField(required=True)
+
     class Meta:
         model = Patient
         fields = ['id', "first_name", "last_name",
-                  'gender', 'address', 'birth_date','identity_card','insurance']
+                  'gender', 'address', 'birth_date', 'identity_card', 'insurance']
         read_only_fields = ['id']
+    # def create(self, validated_data):
+    #     pass

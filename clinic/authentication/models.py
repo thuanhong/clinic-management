@@ -1,5 +1,6 @@
 import os
 import uuid
+from datetime import date
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -74,13 +75,10 @@ class User(AbstractUser):
                             db_index=True,
                             null=True,
                             blank=True)
-    email = models.CharField(max_length=512, blank=True, unique=True)
     oauth_id = models.CharField(max_length=256, blank=True, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    image = models.CharField(max_length=255, blank=True)
-
     # Timestamp Audit Fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -145,20 +143,29 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=255, blank=True)
-    last_name = models.CharField(max_length=255, blank=True)
-    age = models.IntegerField(blank=True)
-    gender = models.CharField(max_length=255, blank=True)
-    image = models.CharField(max_length=255, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=255, blank=True, null=True)
+    image = models.CharField(max_length=255, blank=True, null=True)
+    bio = models.TextField(max_length=500, blank=True, null=True)
+    location = models.CharField(max_length=30, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
-    title = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(
+        max_length=512, blank=True, unique=True, null=True)
+
+    def get_age(self):
+        if not self.birth_date:
+            return None
+        today = date.today()
+        self.age = today.year - self.birth_date.year
+        return self.age
 
     class Meta:
         pass
 
     def __str__(self):
-        return '{} {} {}'.format(self.title.title(),self.first_name, self.last_name).strip()
+        return '{} {} {}'.format(self.title.title(), self.first_name, self.last_name).strip()
 
 
 class Rule(models.Model):

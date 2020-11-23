@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
-from .models import User, Group, Permission
+from .models import User, Group, Permission, Profile
 from .services import AuthenticationService
+
 
 def validate_list_value(value):
     if not isinstance(value, list):
@@ -52,10 +53,11 @@ class UserSerializer(serializers.ModelSerializer):
         required=False, validators=[validate_permission_ids])
     # Add this field to help validate input email when create new user
     email = serializers.EmailField()
+
     class Meta:
         model = User
-        fields = ["id", "username", 'email', 'password',
-                        "created_at", "updated_at",'groups','permissions']
+        fields = ["id", "username", 'password',
+                        "created_at", "updated_at", 'groups', 'permissions']
         read_only_fields = ['id']
         extra_kwargs = {
             'password': {'write_only': True},
@@ -67,6 +69,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         return AuthenticationService.update_user(instance, validated_data)
+
 
 class PermissionSerializer(serializers.ModelSerializer):
     '''
@@ -111,6 +114,7 @@ class GroupSerializer(serializers.ModelSerializer):
                 detail="Group name is already exists. Please check again!")
         return value
 
+
 class UserLoginSerializer(serializers.Serializer):
     '''
     User input username and password to validate firts
@@ -119,6 +123,7 @@ class UserLoginSerializer(serializers.Serializer):
     '''
     username = serializers.CharField(max_length=128)
     password = serializers.CharField(max_length=128, write_only=True)
+
     class Meta:
         model = User
         fields = ["id", "username",  'password']
@@ -135,3 +140,33 @@ class UserLoginSerializer(serializers.Serializer):
                 'user not found or password wrong')
         return user
     pass
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    '''
+
+    '''
+    typed = 'type'
+    last_name = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
+    age = serializers.IntegerField(source='get_age',
+                                   read_only=True)
+    gender = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
+    email = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
+    image = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
+    bio = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
+    location = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
+    title = serializers.CharField(
+        required=False, allow_blank=True, default=typed, initial=typed)
+
+    class Meta:
+        model = Profile
+        fields = ["user", "first_name", "last_name", 'age', "gender",
+                  'image', 'bio', 'location', 'birth_date', 'title', 'email']
+        read_only_fields = ['id', 'age']
+        depth = 1

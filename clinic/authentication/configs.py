@@ -24,7 +24,7 @@ USER_ROUTERS = (
         'method': 'POST',
         'permission': {'action': 'create', 'resource': 'user'}
     },
-    
+
 )
 
 GROUP_ROUTERS = (
@@ -77,6 +77,31 @@ DOCTOR_ROUTER = (
         'url': 'auth/login-doctor/',
         'method': 'POST',
         'permission': {'action': 'read', 'resource': 'doctor'}
+    },
+    {
+        'url': 'api/v1/doctor$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'doctor'}
+    },
+    {
+        'url': 'api/v1/doctor/(?P<pk>[^/.]+)$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'doctor'}
+    },
+    {
+        'url': 'api/v1/doctor$',
+        'method': 'PATCH',
+        'permission': {'action': 'update', 'resource': 'doctor'}
+    },
+    {
+        'url': 'api/v1/doctor/(?P<pk>[^/.]+)$',
+        'method': 'PATCH',
+        'permission': {'action': 'update', 'resource': 'doctor'}
+    },
+    {
+        'url': 'api/v1/doctor$',
+        'method': 'POST',
+        'permission': {'action': 'create', 'resource': 'doctor'}
     },
 )
 STAFF_ROUTER = (
