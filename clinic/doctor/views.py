@@ -11,6 +11,9 @@ from authentication.models import Profile
 # Create your views here.
 
 
+# TURN ON permission_classes = [(permissions.AllowAny)] FOR TESTING
+
+
 class SickViewSet(viewsets.ModelViewSet):
     permission_classes = [(permissions.AllowAny)]
     serializer_class = SickSerializer
@@ -26,7 +29,7 @@ class PatientVisitViewSet(viewsets.ModelViewSet):
 
 
 class DoctorViewSet(viewsets.ModelViewSet):
-    permission_classes = [(permissions.AllowAny)]
+    # permission_classes = [(permissions.AllowAny)]
     serializer_class = DoctorSerializer
     queryset = Profile.objects.filter(title="doctor")
     http_method_names = ['get', 'patch', 'post']

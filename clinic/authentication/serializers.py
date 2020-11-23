@@ -52,7 +52,6 @@ class UserSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField(
         required=False, validators=[validate_permission_ids])
     # Add this field to help validate input email when create new user
-    email = serializers.EmailField()
 
     class Meta:
         model = User
@@ -126,7 +125,7 @@ class UserLoginSerializer(serializers.Serializer):
 
     class Meta:
         model = User
-        fields = ["id", "username",  'password']
+        fields = ["username",  'password']
 
     def validate(self, data):
         username = data.get("username", None)

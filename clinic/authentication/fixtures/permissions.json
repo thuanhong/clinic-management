@@ -114,25 +114,87 @@
     "pk": 12,
     "fields": {
       "resource": "doctor",
-      "action": "read",
+      "action": "access",
       "created_at": "2020-10-01T00:00:00+08:00",
       "updated_at": "2020-10-01T00:00:00+08:00"
     }
-  },{
+  },
+  {
     "model": "authentication.permission",
     "pk": 13,
     "fields": {
       "resource": "resource",
-      "action": "acess",
+      "action": "access",
       "created_at": "2020-10-01T00:00:00+08:00",
       "updated_at": "2020-10-01T00:00:00+08:00"
     }
-  },{
+  },
+  {
     "model": "authentication.permission",
     "pk": 14,
     "fields": {
       "resource": "staff",
       "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 15,
+    "fields": {
+      "resource": "doctor",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 16,
+    "fields": {
+      "resource": "doctor",
+      "action": "create",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 17,
+    "fields": {
+      "resource": "doctor",
+      "action": "update",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 18,
+    "fields": {
+      "resource": "patient",
+      "action": "read",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 19,
+    "fields": {
+      "resource": "patient",
+      "action": "create",
+      "created_at": "2020-10-01T00:00:00+08:00",
+      "updated_at": "2020-10-01T00:00:00+08:00"
+    }
+  },
+  {
+    "model": "authentication.permission",
+    "pk": 20,
+    "fields": {
+      "resource": "patient",
+      "action": "update",
       "created_at": "2020-10-01T00:00:00+08:00",
       "updated_at": "2020-10-01T00:00:00+08:00"
     }

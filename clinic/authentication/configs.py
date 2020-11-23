@@ -76,7 +76,7 @@ DOCTOR_ROUTER = (
     {
         'url': 'auth/login-doctor/',
         'method': 'POST',
-        'permission': {'action': 'read', 'resource': 'doctor'}
+        'permission': {'action': 'access', 'resource': 'doctor'}
     },
     {
         'url': 'api/v1/doctor$',
@@ -104,17 +104,44 @@ DOCTOR_ROUTER = (
         'permission': {'action': 'create', 'resource': 'doctor'}
     },
 )
+PATIENT_ROUTER = (
+    {
+        'url': 'api/v1/patient$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'patient'}
+    },
+    {
+        'url': 'api/v1/patient/(?P<pk>[^/.]+)$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'patient'}
+    },
+    {
+        'url': 'api/v1/patient$',
+        'method': 'PATCH',
+        'permission': {'action': 'update', 'resource': 'patient'}
+    },
+    {
+        'url': 'api/v1/patient/(?P<pk>[^/.]+)$',
+        'method': 'PATCH',
+        'permission': {'action': 'update', 'resource': 'patient'}
+    },
+    {
+        'url': 'api/v1/patient$',
+        'method': 'POST',
+        'permission': {'action': 'create', 'resource': 'patient'}
+    },
+)
 STAFF_ROUTER = (
     {
         'url': 'auth/login-staff/',
         'method': 'POST',
-        'permission': {'action': 'read', 'resource': 'staff'}
+        'permission': {'action': 'access', 'resource': 'staff'}
     },
 )
 ROUTERS = (
     {
         'url': 'health/test-auth-request',
         'method': 'GET',
-        'permission': {'action': 'acess', 'resource': 'resource'}
+        'permission': {'action': 'access', 'resource': 'resource'}
     },
-) + USER_ROUTERS + GROUP_ROUTERS + DOCTOR_ROUTER + PERMISSION_ROUTER + STAFF_ROUTER
+) + USER_ROUTERS + GROUP_ROUTERS + DOCTOR_ROUTER + PERMISSION_ROUTER + STAFF_ROUTER + PATIENT_ROUTER

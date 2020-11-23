@@ -1,24 +1,33 @@
 # Quickstart
+
 ## Build docker file
+
 ```
 docker build -t clinic .
 ```
+
 ## Run docker-compose
+
 ```
 docker-compose -p clinic up
 ```
+
 ## Attch docker
+
 ```
 docker exec -it [clinic-container-id] bash
 pipenv shell
 ```
+
 ## Migrate
+
 ```
 python manage.py makemigrations
 python mangae.py migrate
 ```
 
 ## api
+
 ```
 /api/v1/users/
 /api/v1/permissons/
@@ -34,3 +43,11 @@ python mangae.py migrate
 
 ```
 
+## GROUP id for permissions
+
+```
+id =1 => admin
+
+id =2 => doctor # /api/v1/doctor/
+id =3 => patient # /api/v1/patient/
+```

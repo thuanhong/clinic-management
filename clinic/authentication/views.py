@@ -71,10 +71,17 @@ def login(request):
             }
         '''
     print(group_user)
+    if group_user is None:
+        response.status_code = status.HTTP_200_OK
+        response.data = {
+            'access_token': access_token,
+            'group_user': None
+        }
+        return response
     response.status_code = status.HTTP_200_OK
     response.data = {
         'access_token': access_token,
-        'group_user': group_user.id,
+        'group_user': group_user.id if group_user.id is not None else "null",
     }
     return response
 
