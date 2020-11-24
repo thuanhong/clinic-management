@@ -5,3 +5,5 @@ up:
 reset:
 	docker-compose -f docker-compose.dev.yml -p clinic down
 	docker-compose -f docker-compose.dev.yml -p clinic up -d
+run:
+	docker exec -it clinic_web-backend_1 bash

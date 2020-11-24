@@ -1,11 +1,11 @@
-from .models import User, Group, Permission
+from .models import User, Group, Permission, Profile
 
 
 class AuthenticationService():
 
     @staticmethod
     def is_email_exists(email):
-        return User.objects.filter(email=email.strip()).exists()
+        return Profile.objects.filter(email=email.strip()).exists()
 
     @staticmethod
     def is_group_name_exists(name):

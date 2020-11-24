@@ -3,7 +3,8 @@ from rest_framework import serializers, exceptions
 
 from .models import Sick, PatientVisit, Appointment
 from authentication.models import *
-from authentication.serializers import ProfileSerializer
+from authentication.serializers import ProfileSerializer, UserSerializer
+from authentication.services import AuthenticationService
 from patient.serializers import PatientSerializer
 from patient.models import Patient
 
@@ -46,13 +47,13 @@ class PatientVisitSerializer(serializers.ModelSerializer):
         if not doctor:
             raise serializers.ValidationError(
                 detail="Doctor not exist")
-        # valitedate patient
+        # validate patient
         patient_param = validated_data.pop('patient')
         patient = Patient.objects.filter(
             identity_card=patient_param['identity_card']).first()
         if not patient:
             patient = Patient.objects.create(**patient_param)
-        # valitedate treatment
+        # validate treatment
         treatment = Sick.objects.filter(
             name=validated_data.pop('treatment').strip()).first()
 
@@ -65,19 +66,33 @@ class DoctorSerializer(ProfileSerializer):
     '''
 
     '''
-
+    user = UserSerializer(many=False)
     typed = 'doctor'
     title = serializers.CharField(
         required=False, allow_blank=True, default=typed, initial=typed)
 
+    def create(self, validated_data):
+        print(validated_data['user'])
+        email = validated_data['email']
+        print(email)
+        if AuthenticationService.is_email_exists(email):
+            raise serializers.ValidationError(
+                detail="Email is already exists. Please check again!")
+        user = AuthenticationService.create_new_user(
+            validated_data.pop('user'))
+        profile = Profile(**validated_data)
+        profile.user = user
+        profile.save()
+        return profile
+
     def validate_title(self, data):
         if data != self.typed:
             raise serializers.ValidationError(
-                detail="User must have tilte {}".format(self.typed))
+                detail="User must have title {}".format(self.typed))
         return data
 
 
-class NurseSerializer(DoctorSerializer):
+class NurseSerializer(ProfileSerializer):
     typed = 'nurse'
     title = serializers.CharField(
         required=False, allow_blank=True, default=typed, initial=typed)
@@ -85,5 +100,21 @@ class NurseSerializer(DoctorSerializer):
     def validate_title(self, data):
         if data != self.typed:
             raise serializers.ValidationError(
-                detail="User must have tilte {}".format(self.typed))
+                detail="User must have title {}".format(self.typed))
         return data
+
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+    patient = models.CharField(max_length=255)
+    doctor = models.CharField(max_length=255)
+
+    class Meta:
+        model = Appointment
+        fields = ["id", "patient_id", "doctor_id", "appointment_date"]
+        read_only = ['id']
+        depth = 1

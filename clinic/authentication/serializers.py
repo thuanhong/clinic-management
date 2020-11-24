@@ -152,7 +152,7 @@ class ProfileSerializer(serializers.ModelSerializer):
                                    read_only=True)
     gender = serializers.CharField(
         required=False, allow_null=True, allow_blank=True)
-    email = serializers.CharField(
+    email = serializers.EmailField(
         required=False, allow_null=True, allow_blank=True)
     image = serializers.CharField(
         required=False, allow_null=True, allow_blank=True)
