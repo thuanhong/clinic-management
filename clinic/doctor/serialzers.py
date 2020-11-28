@@ -1,13 +1,14 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
-from .models import Sick, PatientVisit, Appointment
+from .models import Sick, PatientVisit, Appointment,\
+                    Diagnostician, PrescriptionItems
 from authentication.models import *
 from authentication.serializers import ProfileSerializer, UserSerializer
 from authentication.services import AuthenticationService
 from patient.serializers import PatientSerializer
 from patient.models import Patient
-
+from drug.models import StoreDrug
 
 class SickSerializer(serializers.ModelSerializer):
     '''
@@ -110,11 +111,42 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     }
     '''
-    patient = models.CharField(max_length=255)
-    doctor = models.CharField(max_length=255)
-
+    patient_id = serializers.CharField(max_length=255)
+    doctor_id = serializers.CharField(max_length=255)
+    patient = PatientSerializer(read_only=True)
+    doctor = DoctorSerializer(read_only=True)
     class Meta:
         model = Appointment
-        fields = ["id", "patient_id", "doctor_id", "appointment_date"]
+        fields = ["id", "patient_id",'patient', "doctor_id",'doctor', "appointment_date"]
+        read_only = ['id']
+
+
+class PrescriptionItemsSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+
+    class Meta:
+        model = PrescriptionItems
+        fields = ["id", "quanlity", "payment_id", "drug_id",'diagnostician']
+        read_only = ['id']
+        depth = 1
+
+
+class DiagnosticianSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+    patient_id = serializers.CharField(max_length=255)
+    treatment_id = serializers.CharField(max_length=255)
+    patient = PatientSerializer(read_only=True)
+    treatment = SickSerializer(read_only=True)
+    class Meta:
+        model = Diagnostician
+        fields = ["id",'patient_id', "patient", "symptom",'treatment_id',"treatment",'created_at','updated_at']
         read_only = ['id']
         depth = 1

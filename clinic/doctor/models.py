@@ -20,9 +20,9 @@ class Sick(models.Model):
 
 
 class Appointment(models.Model):
-    patient_id = models.ForeignKey(
+    patient = models.ForeignKey(
         Patient, on_delete=models.CASCADE, blank=True, null=True, related_name='patient_appointment', related_query_name='appointment')
-    doctor_id = models.ForeignKey(
+    doctor = models.ForeignKey(
         Profile, on_delete=models.CASCADE, blank=True, null=True, related_query_name='appointment')
     appointment_date = models.DateTimeField(blank=True)
 
@@ -53,9 +53,23 @@ class Payment(models.Model):
         return self.patient
 
 
+class Diagnostician(models.Model):
+    patient = models.ForeignKey(
+        Patient, on_delete=models.CASCADE, blank=True, null=True, related_name='patient_diagnostician', related_query_name='diagnostician')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    symptom = models.TextField(null=True, blank=True)
+    treatment = models.ForeignKey(
+        Sick, on_delete=models.CASCADE, related_query_name='diagnostician', null=True)
+
+
+
+
 class PrescriptionItems(models.Model):
     quanlity = models.IntegerField()
-    payment_id = models.ForeignKey(
+    payment = models.ForeignKey(
         Payment, on_delete=models.CASCADE, related_query_name='prescription_items')
-    drug_id = models.ForeignKey(
+    drug = models.ForeignKey(
         StoreDrug, on_delete=models.CASCADE, related_query_name='prescription_items')
+    diagnostician = models.ForeignKey(
+        Diagnostician, on_delete=models.CASCADE,related_name='diagnostician_prescription_items' ,related_query_name='prescription_items')

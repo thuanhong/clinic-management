@@ -5,8 +5,10 @@ from rest_framework import viewsets, status, permissions, exceptions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
-from .models import Sick, PatientVisit, Appointment
-from .serialzers import SickSerializer, PatientVisitSerializer, DoctorSerializer, NurseSerializer, AppointmentSerializer
+from .models import Sick, PatientVisit, Appointment, Diagnostician
+from .serialzers import SickSerializer, PatientVisitSerializer,\
+     DoctorSerializer, NurseSerializer, AppointmentSerializer, \
+         DiagnosticianSerializer
 from authentication.models import Profile
 # Create your views here.
 
@@ -46,4 +48,10 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     permission_classes = [(permissions.AllowAny)]
     serializer_class = AppointmentSerializer
     queryset = Appointment.objects.all()
+    http_method_names = ['get', 'patch', 'post']
+
+class DiagnosticianViewSet(viewsets.ModelViewSet):
+    permission_classes = [(permissions.AllowAny)]
+    serializer_class = DiagnosticianSerializer
+    queryset = Diagnostician.objects.all()
     http_method_names = ['get', 'patch', 'post']

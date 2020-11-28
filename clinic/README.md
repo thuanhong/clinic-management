@@ -35,6 +35,11 @@ python mangae.py migrate
 /api/v1/doctor/
 /api/v1/patient/
 /api/v1/patient-visit/
+/api/v1/diagnostician/
+/api/v1/store-drug/
+/api/v1/appointment/
+/api/v1/sick
+
 
 /auth/login/
 /auth/token/

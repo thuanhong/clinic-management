@@ -17,7 +17,7 @@ class StoreDrug(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     description = models.TextField()
-    unit = models.ForeignKey(UnitDrug,on_delete=models.CASCADE, blank=True, null=True,
+    unitdrug = models.ForeignKey(UnitDrug,on_delete=models.CASCADE, blank=True, null=True,
                             related_name='guide_drug',related_query_name='storedrug')
-    guide = models.ForeignKey(GuideDrug,on_delete=models.CASCADE,blank=True, null=True,
+    guidedrug = models.ForeignKey(GuideDrug,on_delete=models.CASCADE,blank=True, null=True,
                             related_name='guide_drug',related_query_name='storedrug')
