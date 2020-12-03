@@ -73,9 +73,7 @@ class DoctorSerializer(ProfileSerializer):
         required=False, allow_blank=True, default=typed, initial=typed)
 
     def create(self, validated_data):
-        print(validated_data['user'])
         email = validated_data['email']
-        print(email)
         if AuthenticationService.is_email_exists(email):
             raise serializers.ValidationError(
                 detail="Email is already exists. Please check again!")
@@ -95,15 +93,27 @@ class DoctorSerializer(ProfileSerializer):
 
 class NurseSerializer(ProfileSerializer):
     typed = 'nurse'
+    user = UserSerializer(many=False)
     title = serializers.CharField(
         required=False, allow_blank=True, default=typed, initial=typed)
+
+    def create(self, validated_data):
+        email = validated_data['email']
+        if AuthenticationService.is_email_exists(email):
+            raise serializers.ValidationError(
+                detail="Email is already exists. Please check again!")
+        user = AuthenticationService.create_new_user(
+            validated_data.pop('user'))
+        profile = Profile(**validated_data)
+        profile.user = user
+        profile.save()
+        return profile
 
     def validate_title(self, data):
         if data != self.typed:
             raise serializers.ValidationError(
                 detail="User must have title {}".format(self.typed))
         return data
-
 
 class AppointmentSerializer(serializers.ModelSerializer):
     '''

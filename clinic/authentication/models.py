@@ -23,7 +23,7 @@ class Permission(models.Model):
         unique_together = (('action', 'resource'),)
 
     def __str__(self):
-        return 'Can {} {}'.format(self.action, self.resource)
+        return '{} Can {} {}'.format(self.id,self.action, self.resource)
 
 
 class Group(models.Model):
