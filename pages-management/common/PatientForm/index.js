@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { useStyles } from './styles';
 import { formStateStore } from './states';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { ApiService } from '@services/ApiService';
 
 export const PatientForm = () => {
   const classes = useStyles();
@@ -13,17 +14,19 @@ export const PatientForm = () => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    setLoading(true);
-    console.log({
-      firstName: formState.firstName,
-      lastName: formState.lastName,
+    let data = {
+      first_name: formState.firstName,
+      last_name: formState.lastName,
       address: formState.address,
-      city: formState.city,
-      state: formState.state,
-      country: formState.country,
-      age: formState.age,
-      mobilePhone: formState.mobilePhone,
-      genderValue: formState.genderValue,
+      birth_date: null,
+      identity_card: formState.age,
+      insurance: formState.country,
+      gender: formState.genderValue,
+    };
+    setLoading(true);
+    ApiService.create_patient(data).then((res) => {
+      if (res.statusCode === 201) console.log('true');
+      else console.log('false');
     });
 
     if (formState.checkFormValidate()) {

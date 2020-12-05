@@ -6,7 +6,7 @@ import {ApiService} from '@services/ApiService';
 export const AllDoctors = () => {
   const [listData,setListData] = useState([])
   useEffect( ()=>{
-     ApiService.get_doctor().then((res)=>{
+     ApiService.get_list_doctor().then((res)=>{
       if(res.statusCode===200){
         
         setListData(listData.concat(res.msg))
