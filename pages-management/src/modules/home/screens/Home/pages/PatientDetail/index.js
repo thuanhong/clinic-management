@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,6 +21,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import { FullScreenDialog } from '../../components/FullScreenDialog';
+import { ApiService } from '@services/ApiService';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -44,7 +45,18 @@ export const PatientDetail = () => {
   const classes = useStyles();
   let history = useHistory();
   const data = useLocation().state.data;
-
+  const [listData, setListData] = useState([]);
+  useEffect(() => {
+    ApiService.get_patient_visit(1).then((res) => {
+      if (res.statusCode === 200) {
+        setListData(listData.concat(res.msg));
+      } else {
+        return console.log(res.msg);
+      }
+      // console.log(mockPatients)
+      console.log(listData);
+    });
+  }, []);
   return (
     <div className={classes.root}>
       {/* <AppBar color='transparent' position='static'> */}
@@ -60,28 +72,24 @@ export const PatientDetail = () => {
           <Paper className={classes.leftLayout}>
             <img style={{ width: '100%' }} src={'https://picsum.photos/300/200'} alt='patient' />
             <div className='patient'>
-              <p className={classes.patientName}>{data.FirstName + ' ' + data.LastName}</p>
-              <p className={classes.date}>{data.Gender}</p>
+              <p className={classes.patientName}>{data.first_name + ' ' + data.last_name}</p>
+              <p className={classes.date}>{data.gender}</p>
             </div>
             <div className={classes.info}>
               <p className={classes.title}>Address:</p>
-              <p className={classes.value}>{data.Address}</p>
+              <p className={classes.value}>{data.address}</p>
             </div>
             <div className={classes.info}>
               <p className={classes.title}>Date of Birth:</p>
-              <p className={classes.value}>{data.Birth}</p>
+              <p className={classes.value}>{data.birth_date}</p>
             </div>
             <div className={classes.info}>
-              <p className={classes.title}>Mobile:</p>
-              <p className={classes.value}>{data.Mobile}</p>
+              <p className={classes.title}>Identity Card:</p>
+              <p className={classes.value}>{data.identity_card}</p>
             </div>
             <div className={classes.info}>
               <p className={classes.title}>Age:</p>
-              <p className={classes.value}>{data.Age}</p>
-            </div>
-            <div className={classes.info}>
-              <p className={classes.title}>Blood Group:</p>
-              <p className={classes.value}>{data.BloodGroup}</p>
+              <p className={classes.value}>{data.age}</p>
             </div>
             <FullScreenDialog />
           </Paper>
@@ -103,14 +111,14 @@ export const PatientDetail = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {mockPatientsVist.map((row) => (
+                    {listData.map((row) => (
                       <StyledTableRow key={row.name}>
                         <StyledTableCell component='th' scope='row'>
-                          {row.Date}
+                          {row.created_at}.format(Date)
                         </StyledTableCell>
-                        <StyledTableCell align='right'>Dr.{row.Doctor}</StyledTableCell>
-                        <StyledTableCell align='right'>{row.Treatment}</StyledTableCell>
-                        <StyledTableCell align='right'>${row.Charges}</StyledTableCell>
+                        <StyledTableCell align='right'>{row.doctor}</StyledTableCell>
+                        <StyledTableCell align='right'>{row.treatment}</StyledTableCell>
+                        <StyledTableCell align='right'>${row.charges}</StyledTableCell>
                       </StyledTableRow>
                     ))}
                   </TableBody>
@@ -147,7 +155,9 @@ export const PatientDetail = () => {
                         <StyledTableCell align='right'>${row.Cost}</StyledTableCell>
                         <StyledTableCell align='right'>Dr.{row.Doctor}</StyledTableCell>
                         <StyledTableCell align='right'>
-                          <Button variant='outlined' color='primary' startIcon={<GetAppIcon />}>Download</Button>
+                          <Button variant='outlined' color='primary' startIcon={<GetAppIcon />}>
+                            Download
+                          </Button>
                         </StyledTableCell>
                       </StyledTableRow>
                     ))}
