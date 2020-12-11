@@ -1,18 +1,12 @@
 import os
 import uuid
-# import boto3
+from datetime import date
 
-# from botocore.exceptions import ClientError, ParamValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.conf import settings
-
-# USER_POOL_ID = settings.USER_POOL_ID_DEFAULT
-# client = boto3.client('cognito-idp',
-#                       region_name=settings.USER_POOL_REGION_ID,
-#                       aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-#                       aws_access_key_id=settings.AWS_ACCESS_KEY_ID)
+from django.contrib.postgres.fields import JSONField
 
 
 class Permission(models.Model):
@@ -29,7 +23,7 @@ class Permission(models.Model):
         unique_together = (('action', 'resource'),)
 
     def __str__(self):
-        return 'Can {} {}'.format(self.action, self.resource)
+        return '{} Can {} {}'.format(self.id,self.action, self.resource)
 
 
 class Group(models.Model):
@@ -64,10 +58,14 @@ class Group(models.Model):
 
     @property
     def permissions(self):
-        group_permission_ids = self.group_permissions.values_list(
-            'id', flat=True).filter()
-
-        return get_list_active_permissions(group_permission_ids)
+        result = []
+        for permissions in self.group_permissions.all():
+            result.append({
+                'id': permissions.id,
+                'action': permissions.action,
+                'resource': permissions.resource,
+            })
+        return result
 
 
 class User(AbstractUser):
@@ -77,12 +75,10 @@ class User(AbstractUser):
                             db_index=True,
                             null=True,
                             blank=True)
-    email = models.CharField(max_length=512, blank=True, unique=True)
     oauth_id = models.CharField(max_length=256, blank=True, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-
     # Timestamp Audit Fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -106,25 +102,8 @@ class User(AbstractUser):
     EMAIL_FIELD = 'email'
 
     def save(self, *args, **kwargs):
-        """
-        Overrode to enforce that an AWS Cognito user is created and the oauth ID is stored.
-        As well as set email as user unique username
-        """
-        is_update_event = bool(self.oauth_id)
-        # is_unit_testing = settings.ENV == "test"
-        is_unit_testing =True
-        if not is_update_event:
-            if is_unit_testing:
-                self.oauth_id = uuid.uuid1()
-            else:
-                self._resolve_with_cognito()
-
-        # On update, update attributes on Cognito to ensure consistency
-        if is_update_event and not is_unit_testing:
-            self._update_name_on_cognito(
-                USER_POOL_ID, self.oauth_id, self.name)
+        self.oauth_id = uuid.uuid1()
         return super().save(*args, **kwargs)
-
 
     def can(self, action, resource):
         return self.user_permissions.filter(action=action, resource=resource).exists() or \
@@ -133,10 +112,14 @@ class User(AbstractUser):
 
     @property
     def permissions(self):
-        user_permission_ids = self.user_permissions.values_list(
-            'id', flat=True).filter()
-
-        return get_list_active_permissions(user_permission_ids)
+        result = []
+        for permissions in self.user_permissions.all():
+            result.append({
+                'id': permissions.id,
+                'action': permissions.action,
+                'resource': permissions.resource,
+            })
+        return result
 
     @property
     def groups(self):
@@ -151,6 +134,45 @@ class User(AbstractUser):
 
             results.append(group_obj)
         return results
+
+
+class Profile(models.Model):
+    '''
+    Class implementing Profile User
+    '''
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=255, blank=True, null=True)
+    image = models.CharField(max_length=255, blank=True, null=True)
+    bio = models.TextField(max_length=500, blank=True, null=True)
+    location = models.CharField(max_length=30, blank=True, null=True)
+    birth_date = models.DateField(null=True, blank=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(
+        max_length=512, blank=True, unique=True, null=True)
+
+    def get_age(self):
+        if not self.birth_date:
+            return None
+        today = date.today()
+        self.age = today.year - self.birth_date.year
+        return self.age
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return '{} {} {}'.format(self.title.title(), self.first_name, self.last_name).strip()
+
+
+class Rule(models.Model):
+    rule_name = models.CharField(max_length=255)
+    rule_description = models.CharField(max_length=255, blank=True)
+    rule_parameters = JSONField()
+    active_screening = models.BooleanField(default=True)
 
 
 def get_list_active_permissions(active_permissions):

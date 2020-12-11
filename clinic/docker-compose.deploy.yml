@@ -11,12 +11,16 @@ services:
     networks:
       - djangonetwork
   web-backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     ports:
       - 8000:8000
     command: >
       sh -c "pipenv run python manage.py makemigrations; \
             pipenv run python manage.py migrate; \
+            pipenv run python manage.py loaddata permissions; \
+            echo \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')\" | pipenv run python3 manage.py shell; \
             pipenv run python manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env

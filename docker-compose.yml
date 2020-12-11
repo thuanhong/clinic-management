@@ -22,6 +22,7 @@ services:
       sh -c "pipenv run python3 manage.py makemigrations; \
             pipenv run python3 manage.py migrate; \
             echo \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pass')\" | pipenv run python3 manage.py shell; \
+            pipenv run python manage.py loaddata permissions; \
             pipenv run python3 manage.py runserver 0.0.0.0:8000"
     env_file:
       - ./clinic/.env

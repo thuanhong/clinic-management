@@ -1,0 +1,372 @@
+[
+{
+    "model": "authentication.permission",
+    "pk": 1,
+    "fields": {
+        "action": "create",
+        "resource": "user",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 2,
+    "fields": {
+        "action": "read",
+        "resource": "user",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 3,
+    "fields": {
+        "action": "update",
+        "resource": "user",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 4,
+    "fields": {
+        "action": "create",
+        "resource": "group",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 5,
+    "fields": {
+        "action": "read",
+        "resource": "group",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 6,
+    "fields": {
+        "action": "update",
+        "resource": "group",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 7,
+    "fields": {
+        "action": "delete",
+        "resource": "group",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 8,
+    "fields": {
+        "action": "read",
+        "resource": "permission",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 9,
+    "fields": {
+        "action": "create",
+        "resource": "permission",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 10,
+    "fields": {
+        "action": "update",
+        "resource": "permission",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 11,
+    "fields": {
+        "action": "delete",
+        "resource": "permission",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 12,
+    "fields": {
+        "action": "access",
+        "resource": "doctor",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 13,
+    "fields": {
+        "action": "access",
+        "resource": "resource",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 14,
+    "fields": {
+        "action": "read",
+        "resource": "staff",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 15,
+    "fields": {
+        "action": "read",
+        "resource": "doctor",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 16,
+    "fields": {
+        "action": "create",
+        "resource": "doctor",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 17,
+    "fields": {
+        "action": "update",
+        "resource": "doctor",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 18,
+    "fields": {
+        "action": "read",
+        "resource": "patient",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 19,
+    "fields": {
+        "action": "create",
+        "resource": "patient",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 20,
+    "fields": {
+        "action": "update",
+        "resource": "patient",
+        "created_at": "2020-09-30T16:00:00Z",
+        "updated_at": "2020-09-30T16:00:00Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 21,
+    "fields": {
+        "action": "create",
+        "resource": "sick",
+        "created_at": "2020-12-03T14:23:29.493Z",
+        "updated_at": "2020-12-03T14:23:29.493Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 22,
+    "fields": {
+        "action": "read",
+        "resource": "sick",
+        "created_at": "2020-12-03T14:23:38.040Z",
+        "updated_at": "2020-12-03T14:23:38.040Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 23,
+    "fields": {
+        "action": "update",
+        "resource": "sick",
+        "created_at": "2020-12-03T14:23:49.906Z",
+        "updated_at": "2020-12-03T14:23:49.906Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 24,
+    "fields": {
+        "action": "create",
+        "resource": "patient-visit",
+        "created_at": "2020-12-03T14:50:35.922Z",
+        "updated_at": "2020-12-03T14:50:35.922Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 25,
+    "fields": {
+        "action": "read",
+        "resource": "patient-visit",
+        "created_at": "2020-12-03T14:50:44.047Z",
+        "updated_at": "2020-12-03T14:50:44.047Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 26,
+    "fields": {
+        "action": "update",
+        "resource": "patient-visit",
+        "created_at": "2020-12-03T14:50:55.430Z",
+        "updated_at": "2020-12-03T14:50:55.430Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 27,
+    "fields": {
+        "action": "create",
+        "resource": "appointment",
+        "created_at": "2020-12-03T14:51:10.748Z",
+        "updated_at": "2020-12-03T14:51:10.748Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 28,
+    "fields": {
+        "action": "update",
+        "resource": "appointment",
+        "created_at": "2020-12-03T14:51:17.397Z",
+        "updated_at": "2020-12-03T14:51:17.397Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 29,
+    "fields": {
+        "action": "read",
+        "resource": "appointment",
+        "created_at": "2020-12-03T14:51:23.659Z",
+        "updated_at": "2020-12-03T14:51:23.659Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 30,
+    "fields": {
+        "action": "create",
+        "resource": "diagnostician",
+        "created_at": "2020-12-03T14:51:32.188Z",
+        "updated_at": "2020-12-03T14:51:32.188Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 31,
+    "fields": {
+        "action": "read",
+        "resource": "diagnostician",
+        "created_at": "2020-12-03T14:51:36.955Z",
+        "updated_at": "2020-12-03T14:51:36.955Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 32,
+    "fields": {
+        "action": "create",
+        "resource": "store-item",
+        "created_at": "2020-12-03T14:51:48.980Z",
+        "updated_at": "2020-12-03T14:51:48.980Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 33,
+    "fields": {
+        "action": "read",
+        "resource": "store-item",
+        "created_at": "2020-12-03T14:51:53.924Z",
+        "updated_at": "2020-12-03T14:51:53.924Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 34,
+    "fields": {
+        "action": "update",
+        "resource": "store-item",
+        "created_at": "2020-12-03T14:51:59.758Z",
+        "updated_at": "2020-12-03T14:51:59.758Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 35,
+    "fields": {
+        "action": "create",
+        "resource": "nurse",
+        "created_at": "2020-12-03T14:57:18.690Z",
+        "updated_at": "2020-12-03T14:57:18.690Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 36,
+    "fields": {
+        "action": "read",
+        "resource": "nurse",
+        "created_at": "2020-12-03T14:57:23.839Z",
+        "updated_at": "2020-12-03T14:57:23.839Z"
+    }
+},
+{
+    "model": "authentication.permission",
+    "pk": 37,
+    "fields": {
+        "action": "update",
+        "resource": "nurse",
+        "created_at": "2020-12-03T14:57:29.320Z",
+        "updated_at": "2020-12-03T14:57:29.320Z"
+    }
+}
+]

@@ -45,8 +45,9 @@ INSTALLED_APPS = [
     # project apps
     'authentication',
     'health',
-
-
+    'doctor',
+    'patient',
+    'drug',
 ]
 
 REST_FRAMEWORK = {
@@ -54,11 +55,12 @@ REST_FRAMEWORK = {
         'authentication.base.SafeJWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', # make all endpoints private
+        'rest_framework.permissions.IsAuthenticated',  # make all endpoints private
     )
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,7 +68,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'clinic.urls'
@@ -114,7 +115,6 @@ DATABASES = {
         'PORT': os.environ.get("DB_PORT", "5432")
     }
 }
-
 
 
 # Password validation
