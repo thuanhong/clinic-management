@@ -17,7 +17,7 @@ export const DoctorDetail = () => {
     <div className={classes.root}>
       {/* <AppBar color='transparent' position='static'> */}
       <Toolbar>
-        <IconButton onClick={() => history.push('/patients/all-patients')} edge='start' className={classes.menuButton}>
+        <IconButton onClick={() => history.push('/doctors/all-doctors')} edge='start' className={classes.menuButton}>
           <ArrowBackIcon color={'#0098d1'} />
         </IconButton>
         <h2 style={{ color: '#212121' }}>Doctor Detail</h2>
@@ -51,9 +51,7 @@ export const DoctorDetail = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <div className={classes.rightLayout}>
-            <Paper>
-              
-            </Paper>
+            <Paper></Paper>
           </div>
         </Grid>
       </Grid>

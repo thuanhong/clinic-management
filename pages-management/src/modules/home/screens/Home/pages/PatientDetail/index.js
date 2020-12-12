@@ -16,7 +16,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { mockPatientsVist, mockPatientsPayment } from '@app/mock';
+import { mockPatientsPayment } from '@app/mock';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import GridOnIcon from '@material-ui/icons/GridOn';

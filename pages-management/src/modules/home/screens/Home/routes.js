@@ -9,6 +9,7 @@ import { AllDoctors } from './pages/AllDoctors';
 import { AllPatients } from './pages/AllPatients';
 import { PatientDetail } from './pages/PatientDetail';
 import { DoctorDetail } from './pages/DoctorDetail';
+import { Appointments } from './pages/Appointments';
 
 // Import Components
 import { AddPatient } from './components/AddPatient';
@@ -17,7 +18,7 @@ export default {
   items: [
     {
       path: '/',
-      name: 'dashboard',
+      name: 'Dashboard',
       type: 'link',
       icon: DashboardIcon,
       component: DashBoard,
@@ -32,11 +33,6 @@ export default {
           path: '/all-patients',
           name: 'All Patients',
           component: AllPatients,
-        },
-        {
-          path: '/add-patient',
-          name: 'Add Patient',
-          component: AddPatient,
         },
         {
           path: '/patient-detail',
@@ -58,17 +54,19 @@ export default {
           component: AllDoctors,
         },
         {
-          path: '/add-doctor',
-          name: 'Add Doctor',
-          component: AddPatient,
-        },
-        {
           path: '/doctor-detail',
           name: 'Doctor Detail',
           component: DoctorDetail,
           hide: true,
         },
       ],
+    },
+    {
+      path: '/appointment',
+      name: 'appointment',
+      type: 'link',
+      icon: DashboardIcon,
+      component: Appointments,
     },
   ],
 };
