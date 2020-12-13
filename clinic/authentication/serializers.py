@@ -145,7 +145,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     '''
 
     '''
-    typed = 'type'
+    user = UserSerializer(many=False)
     last_name = serializers.CharField(
         required=False, allow_null=True, allow_blank=True)
     age = serializers.IntegerField(source='get_age',
@@ -161,7 +161,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     location = serializers.CharField(
         required=False, allow_null=True, allow_blank=True)
     title = serializers.CharField(
-        required=False, allow_blank=True, default=typed, initial=typed)
+        required=False, allow_blank=True)
 
     class Meta:
         model = Profile
@@ -169,3 +169,25 @@ class ProfileSerializer(serializers.ModelSerializer):
                   'image', 'bio', 'location', 'birth_date', 'title', 'email']
         read_only_fields = ['id', 'age']
         depth = 1
+    def validate(self,data):
+        from urllib.parse import urlencode
+
+
+        """
+        Check validate title
+        """
+        if data['title'] is not None and data['title'].strip() == 'doctor':
+            if data['title'] =='doctor':
+                params = {'groups':['2']}
+                print(data.get('user'))
+                data['user'].update(params)
+                print(data['user'])
+                # self.user.groups = ['2']
+                return data
+            if data['title'] == 'nurse':
+                params = {'groups':['3']}
+                data['user'] = data['user'] + urlencode(params)
+                print(data['user'])
+                # self.user.groups = ['2']
+                print(data.user)
+                return data

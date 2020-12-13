@@ -56,7 +56,7 @@ class PatientVisitSerializer(serializers.ModelSerializer):
             patient = Patient.objects.create(**patient_param)
         # validate treatment
         treatment = Sick.objects.filter(
-            name=validated_data.pop('treatment').strip()).first()
+            name=validated_data.pop('treatment')).first()
 
         patient_visit = PatientVisit.objects.create(**validated_data, doctor=doctor,
                                                     patient=patient, treatment=treatment)

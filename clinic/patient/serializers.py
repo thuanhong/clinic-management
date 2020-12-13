@@ -17,5 +17,6 @@ class PatientSerializer(serializers.ModelSerializer):
         fields = ['id', "first_name", "last_name",
                   'gender', 'address', 'birth_date', 'identity_card', 'insurance']
         read_only_fields = ['id']
+        # ordering = ['id']
     # def create(self, validated_data):
     #     pass

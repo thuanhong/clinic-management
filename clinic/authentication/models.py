@@ -165,8 +165,8 @@ class Profile(models.Model):
         pass
 
     def __str__(self):
-        return '{} {} {}'.format(self.title.title(), self.first_name, self.last_name).strip()
-
+        # return '{} {} {}'.format(self.title.title(), self.first_name, self.last_name).strip()
+        return "{}".format(self.user.id)
 
 class Rule(models.Model):
     rule_name = models.CharField(max_length=255)

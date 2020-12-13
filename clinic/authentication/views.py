@@ -8,8 +8,8 @@ from rest_framework import viewsets, status, permissions, exceptions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
-from .serializers import UserSerializer, UserLoginSerializer, GroupSerializer, PermissionSerializer
-from .models import User, Group, Permission
+from .serializers import UserSerializer, UserLoginSerializer, GroupSerializer, PermissionSerializer,ProfileSerializer
+from .models import User, Group, Permission, Profile
 from .utils import generate_access_token, generate_refresh_token
 
 
@@ -36,6 +36,11 @@ class PermissionViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'patch']
     serializer_class = PermissionSerializer
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = [(permissions.AllowAny)]
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    http_method_names = ['get', 'patch', 'post']
 
 @api_view(['POST'])
 @authentication_classes([])  # pass Authentication header

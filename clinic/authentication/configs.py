@@ -71,6 +71,33 @@ PERMISSION_ROUTER = (
         'permission': {'action': 'create', 'resource': 'permission'}
     },
 )
+PROFILE_ROUTER = (
+    {
+        'url': 'api/v1/profile$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'profile'}
+    },
+    {
+        'url': 'api/v1/profile/(?P<pk>[^/.]+)$',
+        'method': 'GET',
+        'permission': {'action': 'read', 'resource': 'profile'}
+    },
+    {
+        'url': 'api/v1/profile$',
+        'method': 'PATCH',
+        'permission': {'action': 'update', 'resource': 'profile'}
+    },
+    {
+        'url': 'api/v1/profile/(?P<pk>[^/.]+)$',
+        'method': 'PATCH',
+        'permission': {'action': 'update', 'resource': 'profile'}
+    },
+    {
+        'url': 'api/v1/profile$',
+        'method': 'POST',
+        'permission': {'action': 'create', 'resource': 'profile'}
+    },
+)
 
 DOCTOR_ROUTER = (
     {
@@ -311,4 +338,5 @@ ROUTERS = (
         'permission': {'action': 'access', 'resource': 'resource'}
     },
 ) + USER_ROUTERS + GROUP_ROUTERS + DOCTOR_ROUTER + PERMISSION_ROUTER + STAFF_ROUTER + PATIENT_ROUTER\
-+ SICK_ROUTER + APPOINTMENT_ROUTER + PATIENT_VISIT_ROUTER + STORE_ITEM_ROUTER + DIAGNOSTICIAN_ROUTER + NURSE_ROUTER
++ SICK_ROUTER + APPOINTMENT_ROUTER + PATIENT_VISIT_ROUTER + STORE_ITEM_ROUTER + DIAGNOSTICIAN_ROUTER + NURSE_ROUTER\
+    + PROFILE_ROUTER

@@ -28,6 +28,7 @@ class Patient(models.Model):
         return age
 
     class Meta:
+        ordering = ['id']
         pass
 
     def get_full_name(self):

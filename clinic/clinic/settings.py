@@ -109,9 +109,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
+        'USER': os.environ.get('DB_USER_AWS'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
+        'HOST':(os.environ.get('DB_HOST_AWS') if os.environ.get('ENV') =="PROD" else os.environ.get('DB_HOST')),
         'PORT': os.environ.get("DB_PORT", "5432")
     }
 }

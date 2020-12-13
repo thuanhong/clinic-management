@@ -10,6 +10,8 @@ from .serialzers import SickSerializer, PatientVisitSerializer,\
      DoctorSerializer, NurseSerializer, AppointmentSerializer, \
          DiagnosticianSerializer
 from authentication.models import Profile
+import uuid
+import requests
 # Create your views here.
 
 
@@ -28,6 +30,7 @@ class PatientVisitViewSet(viewsets.ModelViewSet):
     serializer_class = PatientVisitSerializer
     queryset = PatientVisit.objects.all().order_by('-created_at')
     http_method_names = ['get', 'patch', 'post']
+
 
 
 class DoctorViewSet(viewsets.ModelViewSet):
@@ -55,3 +58,24 @@ class DiagnosticianViewSet(viewsets.ModelViewSet):
     serializer_class = DiagnosticianSerializer
     queryset = Diagnostician.objects.all()
     http_method_names = ['get', 'patch', 'post']
+
+@api_view(['GET','POST'])
+def upload_in_request(request):
+    if request.method == "POST":
+        import uuid
+        fileID = str(uuid.uuid1())
+        print(fileID)
+        body = request.data.get('imageStr')
+        url = 'https://huqi75n1x1.execute-api.us-east-1.amazonaws.com/default/digital-lambda'
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
+        data = body.split(',',1)
+        test=data[0].split(';',1)[0]
+        test =test.split(':',1)[1]
+        data=data[1]
+        # print(body)
+        re = requests.post(url,json={'name':fileID,'type':test,'data':data})
+
+
+        return Response(data={'message':True})
+

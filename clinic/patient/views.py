@@ -16,3 +16,4 @@ class PatientViewSet(viewsets.ModelViewSet):
     serializer_class = PatientSerializer
     queryset = Patient.objects.all()
     http_method_names = ['get', 'patch', 'post']
+    # ordering = ['id']
