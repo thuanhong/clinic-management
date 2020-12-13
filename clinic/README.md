@@ -56,3 +56,9 @@ id =1 => admin
 id =2 => doctor # /api/v1/doctor/
 id =3 => patient # /api/v1/patient/
 ```
+
+## Run celery tasks
+```
+celery -A clinic.tasks worker -l info -n clinic
+
+```

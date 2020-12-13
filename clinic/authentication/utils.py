@@ -3,7 +3,8 @@ import jwt
 from django.conf import settings
 from django.urls import path, reverse, resolve
 from .configs import ROUTERS
-
+import string
+import random
 
 def generate_access_token(user):
 
@@ -43,3 +44,10 @@ def extract_permission_from_request(request):
             return router['permission'] if 'permission' in router else None
 
     return None
+
+
+
+def randompassword():
+  chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+  size = random.randint(8, 12)
+  return ''.join(random.choice(chars) for x in range(size))
