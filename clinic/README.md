@@ -43,6 +43,7 @@ python mangae.py migrate
 
 /auth/login/
 /auth/token/
+/auth/change-password/
 /health
 /health/test-auth-request
 
@@ -57,7 +58,27 @@ id =2 => doctor # /api/v1/doctor/
 id =3 => patient # /api/v1/patient/
 ```
 
+## CHANGE PASSWORD
+
+```
+PATCH
+/auth/change-password/
+{
+    "old_password": "vDEcKG5PrT",
+    "new_password": "sss"
+}
+
+response
+{
+    "status": "success",
+    "code": 200,
+    "message": "Password updated successfully",
+    "data": []
+}
+```
+
 ## Run celery tasks
+
 ```
 celery -A clinic.tasks worker -l info -n clinic
 
