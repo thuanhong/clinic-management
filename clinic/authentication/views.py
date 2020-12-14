@@ -4,16 +4,18 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
-from rest_framework import viewsets, status, permissions, exceptions
+from rest_framework import viewsets, status, permissions, exceptions, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
 
-from .serializers import UserSerializer, UserLoginSerializer, GroupSerializer, PermissionSerializer,ProfileSerializer
+from .serializers import UserSerializer, UserLoginSerializer, GroupSerializer, PermissionSerializer, ProfileSerializer, ChangePasswordSerializer
 from .models import User, Group, Permission, Profile
 from .utils import generate_access_token, generate_refresh_token
 
-
 # Create your views here.
+
+
 class UserViewSet(viewsets.ModelViewSet):
     # permission allow on develop
     permission_classes = [(permissions.AllowAny)]
@@ -36,11 +38,13 @@ class PermissionViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'patch']
     serializer_class = PermissionSerializer
 
+
 class ProfileViewSet(viewsets.ModelViewSet):
     permission_classes = [(permissions.AllowAny)]
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
     http_method_names = ['get', 'patch', 'post']
+
 
 @api_view(['POST'])
 @authentication_classes([])  # pass Authentication header
@@ -122,6 +126,42 @@ def refresh_token_view(request):
 
     access_token = generate_access_token(user)
     return Response({'access_token': access_token, 'group_user': group_user.id})
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    """
+    An endpoint for changing password.
+    """
+    serializer_class = ChangePasswordSerializer
+    model = User
+    permission_classes = (IsAuthenticated,)
+    # permission_classes = [(permissions.AllowAny)]
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])

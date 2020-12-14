@@ -166,27 +166,27 @@ class ProfileSerializer(serializers.ModelSerializer):
                   'image', 'bio', 'location', 'birth_date', 'title', 'email']
         read_only_fields = ['id', 'age']
         depth = 1
+
     def create(self, validated_data):
         email = validated_data['email']
         if AuthenticationService.is_email_exists(email):
             raise serializers.ValidationError(
                 detail="Email is already exists. Please check again!")
-        if validated_data['title'] is not None and (validated_data['title'].strip() == 'doctor'or validated_data['title'].strip() == 'nurse'):
-            if validated_data['title'] =='doctor':
-                validated_data['user'].update( {'groups':['2']})
+        if validated_data['title'] is not None and (validated_data['title'].strip() == 'doctor' or validated_data['title'].strip() == 'nurse'):
+            if validated_data['title'] == 'doctor':
+                validated_data['user'].update({'groups': ['2']})
                 validated_data['user'].move_to_end('groups', last=False)
             if validated_data['title'] == 'nurse':
-                validated_data['user'].update( {'groups':['3']})
+                validated_data['user'].update({'groups': ['3']})
                 validated_data['user'].move_to_end('groups', last=False)
             print(validated_data['user'])
         user = AuthenticationService.create_new_user(
-            validated_data.pop('user'),validated_data['email'])
+            validated_data.pop('user'), validated_data['email'])
         profile = Profile(**validated_data)
         profile.user = user
         profile.save()
         return profile
     # def validate(self,data):
-
 
     #     """
     #     Check validate title
@@ -206,3 +206,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     #             # self.user.groups = ['2']
     #             return data
 
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
