@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { observer } from 'mobx-react-lite';
 import { formStateStore } from './states';
+import { SelectDoctor } from './SelectDoctor';
 
 export const AddressForm = observer(() => {
   const formState = React.useContext(formStateStore);
@@ -61,43 +62,44 @@ export const AddressForm = observer(() => {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            onChange={formState.updateCity}
-            id='city'
-            name='city'
-            label='City'
+            onChange={formState.updateBirthDate}
+            id='birth'
+            name='birth'
+            label='Birth'
+            type='date'
             fullWidth
-            error={formState.cityError !== ''}
-            helperText={formState.cityError}
+            error={formState.birthDateError !== ''}
+            helperText={formState.birthDateError}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField id='state' onChange={formState.updateState} name='state' label='State/Province/Region' fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            onChange={formState.updateCountry}
-            id='country'
-            name='country'
-            label='Country'
+            onChange={formState.updateIdentifyNumber}
+            id='identify'
+            name='identify'
+            label='Identify Number'
             fullWidth
-            error={formState.countryError !== ''}
-            helperText={formState.countryError}
+            error={formState.identifyNumberError !== ''}
+            helperText={formState.identifyNumberError}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
-            onChange={formState.updateAge}
-            type='number'
-            id='age'
-            label='Age'
+            onChange={formState.updateInsurance}
+            type='insurance'
+            id='insurance'
+            label='Insurance'
             fullWidth
-            error={formState.ageError !== ''}
-            helperText={formState.ageError}
+            error={formState.insuranceError !== ''}
+            helperText={formState.insuranceError}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             defaultValue={formState.genderValue}
@@ -114,16 +116,8 @@ export const AddressForm = observer(() => {
             ))}
           </TextField>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            onChange={formState.updateMobile}
-            id='mobile'
-            label='Mobile'
-            fullWidth
-            error={formState.mobilePhoneError !== ''}
-            helperText={formState.mobilePhoneError}
-          />
+        <Grid item xs={12} sm={6}>
+          <SelectDoctor />
         </Grid>
       </Grid>
     </React.Fragment>

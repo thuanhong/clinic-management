@@ -19,6 +19,6 @@ export const EndPoints = {
   },
   DOCTOR: {
     get_list_doctor: '/api/v1/doctor',
-    create_doctor: 'api/v1/doctor',
+    create_doctor: 'api/v1/profile',
   },
 };

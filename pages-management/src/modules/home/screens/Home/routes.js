@@ -2,6 +2,7 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccessibleOutlinedIcon from '@material-ui/icons/AccessibleOutlined';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 // Import Pages
 import { DashBoard } from './pages/DashBoard';
@@ -12,7 +13,7 @@ import { DoctorDetail } from './pages/DoctorDetail';
 import { Appointments } from './pages/Appointments';
 
 // Import Components
-import { AddPatient } from './components/AddPatient';
+import { AddStaff } from './components/AddStaff';
 
 export default {
   items: [
@@ -65,8 +66,15 @@ export default {
       path: '/appointment',
       name: 'appointment',
       type: 'link',
-      icon: DashboardIcon,
+      icon: ScheduleIcon,
       component: Appointments,
+    },
+    {
+      path: '/staff',
+      name: 'staff',
+      type: 'link',
+      icon: ScheduleIcon,
+      component: AddStaff,
     },
   ],
 };

@@ -6,20 +6,36 @@ class FormStateStore {
   @observable firstName = '';
   @observable lastName = '';
   @observable address = '';
-  @observable city = '';
-  @observable state = '';
-  @observable country = '';
-  @observable age = '';
-  @observable mobilePhone = '';
+  @observable birthDate = '';
+  @observable identifyNumber = '';
+  @observable insurance = '';
+  @observable listDoctor = [];
+  @observable doctorId = '';
 
   @observable firstNameError = '';
   @observable lastNameError = '';
   @observable addressError = '';
-  @observable cityError = '';
-  @observable stateError = '';
-  @observable countryError = '';
-  @observable ageError = '';
-  @observable mobilePhoneError = '';
+  @observable birthDateError = '';
+  @observable identifyNumberError = '';
+  @observable insuranceError = '';
+
+  @action deleteDataInput = () => {
+    this.genderValue = 'Male';
+    this.firstName = '';
+    this.lastName = '';
+    this.address = '';
+    this.birthDate = '';
+    this.identifyNumber = '';
+    this.insurance = '';
+    this.listDoctor = [];
+    this.doctorId = '';
+    this.firstNameError = '';
+    this.lastNameError = '';
+    this.addressError = '';
+    this.birthDateError = '';
+    this.identifyNumberError = '';
+    this.insuranceError = '';
+  }
 
   @action updateGenderValue = (event) => {
     this.genderValue = event.target.value;
@@ -37,24 +53,24 @@ class FormStateStore {
     this.address = event.target.value;
   };
 
-  @action updateCity = (event) => {
-    this.city = event.target.value;
+  @action updateBirthDate = (event) => {
+    this.birthDate = event.target.value;
   };
 
-  @action updateState = (event) => {
-    this.state = event.target.value;
+  @action updateIdentifyNumber = (event) => {
+    this.identifyNumber = event.target.value;
   };
 
-  @action updateCountry = (event) => {
-    this.country = event.target.value;
+  @action updateInsurance = (event) => {
+    this.insurance = event.target.value;
   };
 
-  @action updateAge = (event) => {
-    this.age = event.target.value;
+  @action updateListDoctor = (newListDoctor) => {
+    this.listDoctor = newListDoctor;
   };
 
-  @action updateMobilePhone = (event) => {
-    this.mobilePhone = event.target.value;
+  @action updateDoctorId = (event) => {
+    this.doctorId = event.target.value;
   };
 
   // Handle message error
@@ -70,24 +86,16 @@ class FormStateStore {
     this.addressError = event.target.value;
   };
 
-  @action updateCityError = (event) => {
-    this.cityError = event.target.value;
+  @action updateBirthDateError = (event) => {
+    this.birthDateError = event.target.value;
   };
 
-  @action updateStateError = (event) => {
-    this.stateError = event.target.value;
+  @action updateIdentifyNumberError = (event) => {
+    this.identifyNumberError = event.target.value;
   };
 
-  @action updateCountryError = (event) => {
-    this.countryError = event.target.value;
-  };
-
-  @action updateAgeError = (event) => {
-    this.ageError = event.target.value;
-  };
-
-  @action updateMobilePhoneError = (event) => {
-    this.mobilePhoneError = event.target.value;
+  @action updateInsuranceError = (event) => {
+    this.insuranceError = event.target.value;
   };
 
   checkFormValidate() {
@@ -97,20 +105,17 @@ class FormStateStore {
     if (this.lastName.trim() === '') {
       this.lastNameError = 'This field is requied';
     }
-    if (this.city.trim() === '') {
-      this.cityError = 'This field is requied';
-    }
-    if (this.country.trim() === '') {
-      this.countryError = 'This field is requied';
-    }
-    if (this.age.trim() === '') {
-      this.ageError = 'This field is requied';
-    }
-    if (this.mobilePhone.trim() === '') {
-      this.mobilePhoneError = 'This field is requied';
-    }
     if (this.address.trim() === '') {
       this.addressError = 'This field is requied';
+    }
+    if (this.birthDate.trim() === '') {
+      this.birthDateError = 'This field is requied';
+    }
+    if (this.identifyNumber.trim() === '') {
+      this.identifyNumberError = 'This field is requied';
+    }
+    if (this.insurance.trim() === '') {
+      this.insuranceError = 'This field is requied';
     }
 
     if (

@@ -19,6 +19,7 @@
     "chart.js": "^2.9.4",
     "classnames": "^2.2.6",
     "gsap": "^3.1.1",
+    "image-to-base64": "^2.1.1",
     "js-cookie": "^2.2.1",
     "mobx": "^5.15.6",
     "mobx-react-lite": "^2.2.1",

@@ -1,7 +1,5 @@
 // imports the React Javascript Library
 import React from 'react';
-//Card
-import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +8,7 @@ import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 const styles = (theme) => ({
   root: {
@@ -87,13 +86,25 @@ class ImageUploadCard extends React.Component {
       this.setState({
         selectedFile: [reader.result],
       });
+      let urlEnd = 'http://ec2-52-204-105-231.compute-1.amazonaws.com';
+      axios
+        .post(urlEnd, {
+          imageStr: reader.result,
+        })
+        .then((res) => {
+          // then print response status
+          console.warn(res);
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
     }.bind(this);
-    console.log(url); // Would see a path?
 
     this.setState({
       selectedFile: event.target.files[0],
       imageUploaded: 1,
     });
+    // let formData = new FormData();    // formData.append('files', file);
   };
 
   renderInitialState() {
@@ -130,7 +141,7 @@ class ImageUploadCard extends React.Component {
 
     return (
       <React.Fragment>
-        <CardActionArea style={{width: '60%'}} onClick={this.imageResetHandler}>
+        <CardActionArea style={{ width: '60%' }} onClick={this.imageResetHandler}>
           <img
             width='100%'
             className={classes.media}

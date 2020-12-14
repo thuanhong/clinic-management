@@ -14,7 +14,7 @@ export const Appointments = () => {
       <div className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component='h1' variant='h4' align='center'>
-            Add New Patient
+            Add New Appointments
           </Typography>
           <PatientForm />
         </Paper>

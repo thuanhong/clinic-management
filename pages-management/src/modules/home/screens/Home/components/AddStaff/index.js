@@ -2,10 +2,10 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { PatientForm } from '@common/PatientForm';
 import { useStyles } from './styles';
+import { AddStaffForm } from '../AddStaffForm';
 
-export const AddPatient = () => {
+export const AddStaff = () => {
   const classes = useStyles();
 
   return (
@@ -14,9 +14,11 @@ export const AddPatient = () => {
       <div className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component='h1' variant='h4' align='center'>
-            Add New Patient
+            Add New Staff
           </Typography>
-          <PatientForm />
+          <div>
+            <AddStaffForm />
+          </div>
         </Paper>
       </div>
     </React.Fragment>
