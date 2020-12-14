@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definitionEMAIL_HOST = 'smtp.gmail.com'
 # this is exactly the value 'apikey'
-
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
@@ -115,9 +115,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER_AWS'),
+        'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST':(os.environ.get('DB_HOST_AWS') if os.environ.get('ENV') =="PROD" else os.environ.get('DB_HOST')),
+        'HOST': (os.environ.get('DB_HOST_AWS') if os.environ.get('ENV') == "PROD" else os.environ.get('DB_HOST')),
         'PORT': os.environ.get("DB_PORT", "5432")
     }
 }
