@@ -1,4 +1,6 @@
 from .models import User, Group, Permission, Profile
+from clinic.tasks import send_email
+from .utils import randompassword
 
 
 class AuthenticationService():
@@ -48,11 +50,17 @@ class AuthenticationService():
             group.group_users.set(users)
 
     @staticmethod
-    def create_new_user(data):
+    def create_new_user(data, email):
         groups = data.pop('groups', None)
         permissions = data.pop('permissions', None)
+        password = randompassword()
+        print(password)
+        se_email = send_email.delay('Reciviece password', password,
+                                    email)
 
-        user = User.objects.create_user(**data)
+        # send_mail('Reciviece password', password,
+        #           '1751010127tai@ou.edu.vn', ['tai.ho@kyanon.digital'],)
+        user = User.objects.create_user(**data, password=password)
         if groups is not None:
             AuthenticationService.set_groups(user, set(groups))
 

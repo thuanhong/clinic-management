@@ -330,6 +330,21 @@ STAFF_ROUTER = (
         'method': 'POST',
         'permission': {'action': 'access', 'resource': 'staff'}
     },
+    {
+        'url': 'auth/change-password$',
+        'method': 'PATCH',
+        'permission': {'action': 'access', 'resource': 'resource'}
+    },
+    {
+        'url': 'auth/change-password/',
+        'method': 'PATCH',
+        'permission': {'action': 'access', 'resource': 'resource'}
+    },
+    {
+        'url': 'auth/change-password/(?P<pk>[^/.]+)$',
+        'method': 'PATCH',
+        'permission': {'action': 'access', 'resource': 'resource'}
+    },
 )
 ROUTERS = (
     {
@@ -338,5 +353,5 @@ ROUTERS = (
         'permission': {'action': 'access', 'resource': 'resource'}
     },
 ) + USER_ROUTERS + GROUP_ROUTERS + DOCTOR_ROUTER + PERMISSION_ROUTER + STAFF_ROUTER + PATIENT_ROUTER\
-+ SICK_ROUTER + APPOINTMENT_ROUTER + PATIENT_VISIT_ROUTER + STORE_ITEM_ROUTER + DIAGNOSTICIAN_ROUTER + NURSE_ROUTER\
+    + SICK_ROUTER + APPOINTMENT_ROUTER + PATIENT_VISIT_ROUTER + STORE_ITEM_ROUTER + DIAGNOSTICIAN_ROUTER + NURSE_ROUTER\
     + PROFILE_ROUTER

@@ -40,6 +40,7 @@ class PatientVisitSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
         depth = 1
         ordering = ['created_at']
+        # lookup_field = 'patient_id'
 
     def create(self, validated_data):
         # validate doctor
