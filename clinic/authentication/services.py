@@ -50,7 +50,7 @@ class AuthenticationService():
             group.group_users.set(users)
 
     @staticmethod
-    def create_new_user(data, email):
+    def create_new_user(data, email=None):
         groups = data.pop('groups', None)
         permissions = data.pop('permissions', None)
         password = randompassword()

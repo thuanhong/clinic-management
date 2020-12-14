@@ -331,6 +331,11 @@ STAFF_ROUTER = (
         'permission': {'action': 'access', 'resource': 'staff'}
     },
     {
+        'url': 'api/v1/upload-image/',
+        'method': 'POST',
+        'permission': {'action': 'access', 'resource': 'staff'}
+    },
+    {
         'url': 'auth/change-password$',
         'method': 'PATCH',
         'permission': {'action': 'access', 'resource': 'resource'}

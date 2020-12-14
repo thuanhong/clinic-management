@@ -86,7 +86,7 @@ class ImageUploadCard extends React.Component {
       this.setState({
         selectedFile: [reader.result],
       });
-      let urlEnd = 'http://ec2-52-204-105-231.compute-1.amazonaws.com';
+      let urlEnd = 'http://localhost:8000/api/v1/upload-image/';
       axios
         .post(urlEnd, {
           imageStr: reader.result,
