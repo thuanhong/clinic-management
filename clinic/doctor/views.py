@@ -6,10 +6,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 from authentication.models import Profile
-from .models import Sick, PatientVisit, Appointment, Diagnostician
+from .models import Sick, PatientVisit, Appointment, Diagnostician,\
+                    Payment
 from .serialzers import SickSerializer, PatientVisitSerializer,\
      DoctorSerializer, NurseSerializer, AppointmentSerializer, \
-         DiagnosticianSerializer
+         DiagnosticianSerializer, PaymentSerializer
 from authentication.models import Profile
 import uuid
 import requests
@@ -91,3 +92,9 @@ def upload_in_request(request):
 
         return Response(data={'image':re.text})
 
+
+class PaymentViewSet(viewsets.ModelViewSet):
+    permission_classes = [(permissions.AllowAny)]
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
+    http_method_names = ['get', 'patch', 'post']

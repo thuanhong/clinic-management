@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers, exceptions
 
 from .models import Sick, PatientVisit, Appointment,\
-                    Diagnostician, PrescriptionItems
+                    Diagnostician, PrescriptionItems,\
+                        Payment
 from authentication.models import *
 from authentication.serializers import ProfileSerializer, UserSerializer
 from authentication.services import AuthenticationService
@@ -159,5 +160,22 @@ class DiagnosticianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diagnostician
         fields = ["id",'patient_id', "patient", "symptom",'treatment_id',"treatment",'created_at','updated_at']
+        read_only = ['id']
+        depth = 1
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+    patient_id = serializers.CharField(max_length=255)
+    doctor_id = serializers.CharField(max_length=255)
+    patient = PatientSerializer(read_only=True)
+    doctor = DoctorSerializer(read_only=True)
+    class Meta:
+        model = Payment
+        fields = ["id",'patient_id', "patient", "doctor",'doctor_id',"amount",'created_at','updated_at','check_out']
         read_only = ['id']
         depth = 1

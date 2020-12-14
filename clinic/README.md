@@ -77,6 +77,18 @@ response
 }
 ```
 
+
+## UPLOAD-IMAGE
+
+```
+PATCH
+/api/v1/upload-image
+response
+{
+    "image":"http:aws.asdas....png"
+}
+```
+
 ## Run celery tasks
 
 ```

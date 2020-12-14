@@ -1,0 +1,14 @@
+[
+    {
+        "model": "doctor.payment",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 2,
+            "amount": 1111,
+            "created_at": "2020-12-14T17:55:36.633Z",
+            "updated_at": "2020-12-14T17:55:36.633Z",
+            "check_out": false
+        }
+    }
+]
