@@ -7,10 +7,10 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 
 from authentication.models import Profile
 from .models import Sick, PatientVisit, Appointment, Diagnostician,\
-                    Payment
+                    Payment, PrescriptionItems
 from .serialzers import SickSerializer, PatientVisitSerializer,\
      DoctorSerializer, NurseSerializer, AppointmentSerializer, \
-         DiagnosticianSerializer, PaymentSerializer
+         DiagnosticianSerializer, PaymentSerializer, PrescriptionItemsSerializer
 from authentication.models import Profile
 import uuid
 import requests
@@ -66,7 +66,14 @@ class DiagnosticianViewSet(viewsets.ModelViewSet):
     queryset = Diagnostician.objects.all()
     http_method_names = ['get', 'patch', 'post']
 
+class PrescriptionItemsViewSet(viewsets.ModelViewSet):
+    permission_classes = [(permissions.AllowAny)]
+    serializer_class = PrescriptionItemsSerializer
+    queryset = PrescriptionItems.objects.all()
+    http_method_names = ['get', 'patch', 'post']
+
 @api_view(['GET','POST'])
+@authentication_classes([])
 @permission_classes((permissions.AllowAny, ))
 def upload_in_request(request):
     if request.method == "GET":

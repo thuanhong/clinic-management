@@ -22,10 +22,13 @@ services:
             python3 manage.py migrate; \
             python3 manage.py loaddata permissions; \
             python3 manage.py loaddata groups; \
+            python3 manage.py loaddata profile;\
             python3 manage.py loaddata patients;\
             python3 manage.py loaddata payment;\
+            python3 manage.py loaddata drug;\
+            python3 manage.py loaddata doctor;\
             echo \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')\" | python3 manage.py shell; \
-            echo \"from authentication.models import User; User.objects.create_user(username='t1',password='1')\" | python3 manage.py shell; \
+            echo \"from authentication.models import User; User.objects.create_user(username='t1',password='1').user_groups.set([1])\" | python3 manage.py shell; \
             python3 manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env

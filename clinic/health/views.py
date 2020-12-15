@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from rest_framework import permissions
-
+from authentication.models import Group
 
 @api_view(['GET'])
 @authentication_classes([])
@@ -13,6 +13,12 @@ def simple_healthcheck(request):
 
 @api_view(['GET'])
 def simple_auth_request(request):
+    user = request.user
+    group_user = Group.objects.filter(user=user).first()
+
+    print(user)
+
     return Response({
-        "message": "Request is authenticated!"
+        "message": "Request is authenticated!",
+        "group_user":group_user.id
     })

@@ -133,18 +133,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
         read_only = ['id']
 
 
-class PrescriptionItemsSerializer(serializers.ModelSerializer):
-    '''
-    Create Diagnosise include data{
-
-    }
-    '''
-
-    class Meta:
-        model = PrescriptionItems
-        fields = ["id", "quanlity", "payment_id", "drug_id",'diagnostician']
-        read_only = ['id']
-        depth = 1
 
 
 class DiagnosticianSerializer(serializers.ModelSerializer):
@@ -160,6 +148,22 @@ class DiagnosticianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diagnostician
         fields = ["id",'patient_id', "patient", "symptom",'treatment_id',"treatment",'created_at','updated_at']
+        read_only = ['id']
+        depth = 1
+
+class PrescriptionItemsSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+    payment_id = serializers.CharField(max_length=255)
+    drug_id = serializers.CharField(max_length=255)
+    diagnostician_id = serializers.CharField(max_length=255)
+    diagnostician = DiagnosticianSerializer(read_only=True)
+    class Meta:
+        model = PrescriptionItems
+        fields = ["id", "quanlity", "payment_id", "drug_id",'diagnostician', 'diagnostician_id']
         read_only = ['id']
         depth = 1
 
