@@ -50,9 +50,7 @@ class PatientVisitSerializer(serializers.ModelSerializer):
         # validate doctor
         rule = Rule.objects.get(pk=1)
         limited_patient = rule.rule_parameters['limited']
-        today = localtime(now()).replace(hour=0,minute=0,
-                                                            second=0,
-                                                            microsecond=0)
+        today = localtime(now()).replace(hour=0,minute=0, second=0,microsecond=0)
 
         nextday = localtime(today + timedelta(days=1)).replace(hour=0,
                                                             minute=0,
