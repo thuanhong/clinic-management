@@ -30,13 +30,12 @@ const create_patient_visit = async (props) => {
   return await httpRequest.post(EndPoints.PATIENT_VISIT.create_patient_visit, { ...props });
 };
 const get_static_patient = async () => {
-  return await httpRequest.get(EndPoints.STATIC.get_static_patient );
+  return await httpRequest.get(EndPoints.STATIC.get_static_patient);
 };
 
 const get_static_payment = async () => {
-  return await httpRequest.get(EndPoints.STATIC.get_static_payment );
+  return await httpRequest.get(EndPoints.STATIC.get_static_payment);
 };
-
 
 // api doctor
 const create_doctor = async (props) => {

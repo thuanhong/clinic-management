@@ -1,4 +1,4 @@
-import React ,{useEffect,useState}from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatCard } from '@common/StatCard';
 import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -17,27 +17,6 @@ import RateReviewOutlinedIcon from '@material-ui/icons/RateReviewOutlined';
 import { MultiAxisLine } from '@common/Chart';
 import { withStyles } from '@material-ui/core/styles';
 import { ApiService } from '@services/ApiService';
-const data = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  datasets: [
-    {
-      label: 'New Patients',
-      data: [300, 340, 158, 217, 259, 168, 197, 250, 343, 374, 313, 318],
-      fill: false,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgba(255, 99, 132, 0.2)',
-      yAxisID: 'y-axis-1',
-    },
-    {
-      label: 'Old Patients',
-      data: [257, 240, 242, 275, 288, 344, 265, 205, 367, 236, 226, 365],
-      fill: false,
-      backgroundColor: 'rgb(54, 162, 235)',
-      borderColor: 'rgba(54, 162, 235, 0.2)',
-      yAxisID: 'y-axis-2',
-    },
-  ],
-};
 
 const options = {
   scales: {
@@ -72,21 +51,42 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 export const DashBoard = () => {
-  const [data1,setData1] = useState([])
-  const [data2,setData2] = useState([])
+  const [data, setData] = useState({
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+      {
+        label: 'Patients',
+        data: [300, 340, 158, 217, 259, 168, 197, 250, 343, 374, 313, 318],
+        fill: false,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgba(255, 99, 132, 0.2)',
+        yAxisID: 'y-axis-1',
+      },
+      {
+        label: 'Income',
+        data: [257, 240, 242, 275, 288, 344, 265, 205, 367, 236, 226, 365],
+        fill: false,
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgba(54, 162, 235, 0.2)',
+        yAxisID: 'y-axis-2',
+      },
+    ],
+  });
+
   useEffect(() => {
-    ApiService.get_static_patient().then((res) => {
-      if (res.statusCode === 200) {
-        setData1(res.msg);
+    ApiService.get_static_patient().then((res1) => {
+      if (res1.statusCode === 200) {
+        ApiService.get_static_payment().then((res2) => {
+          if (res2.statusCode === 200) {
+            let newData = data;
+            newData.labels = res1.msg.map((ele) => ele.created_at__month);
+            newData.datasets[0].data = res1.msg.map((ele) => ele.patient_id__count);
+            newData.datasets[1].data = res1.msg.map((ele) => ele.amount__sum);
+            setData(newData);
+          }
+        });
       }
     });
-    ApiService.get_static_payment().then((res) => {
-      if (res.statusCode === 200) {
-        console.log(res.msg)
-        setData2(res.msg);
-      }
-    });
-      console.log(data1)
   }, []);
   return (
     <div>

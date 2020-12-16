@@ -22,7 +22,6 @@ export const AddStaffForm = () => {
     const reuslt = await ApiService.upload_image({
       imageStr: formState.image,
     });
-    console.log(reuslt);
 
     let data = {
       user: {

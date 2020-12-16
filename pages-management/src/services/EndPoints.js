@@ -26,6 +26,6 @@ export const EndPoints = {
   },
   STATIC: {
     get_static_patient: '/api/static-patient',
-    get_static_payment: 'api/static-payment'
+    get_static_payment: 'api/static-payment',
   },
 };

@@ -15,7 +15,6 @@ export const withAuth = (PageComponent) => {
             if (Router.pathname === '/login') {
               Router.push('/');
             } else {
-              console.log(res)
               setGroup(res.msg.group_user);
               setTimeout(() => setLoading(false), 200);
             }
