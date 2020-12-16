@@ -24,4 +24,8 @@ export const EndPoints = {
     upload_image: '/api/upload-image/',
     get_drug: '/api/v1/store-item',
   },
+  STATIC: {
+    get_static_patient: '/api/static-patient',
+    get_static_payment: 'api/static-payment'
+  },
 };

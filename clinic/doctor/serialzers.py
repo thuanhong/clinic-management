@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.utils.timezone import localtime, now
+from django.db.models import Q, Count
 from rest_framework import serializers, exceptions
 
 from .models import Sick, PatientVisit, Appointment,\
@@ -10,6 +12,7 @@ from authentication.services import AuthenticationService
 from patient.serializers import PatientSerializer
 from patient.models import Patient
 from drug.models import StoreDrug
+from datetime import timedelta
 
 class SickSerializer(serializers.ModelSerializer):
     '''
@@ -45,6 +48,23 @@ class PatientVisitSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # validate doctor
+        rule = Rule.objects.get(pk=1)
+        limited_patient = rule.rule_parameters['limited']
+        today = localtime(now()).replace(hour=0,minute=0, second=0,microsecond=0)
+
+        nextday = localtime(today + timedelta(days=1)).replace(hour=0,
+                                                            minute=0,
+                                                            second=0,
+                                                            microsecond=0)
+        total_visitor = PatientVisit.objects.filter(created_at__lte=nextday,created_at__gte=today)
+        total_count = 0
+        for i in total_visitor:
+            total_count +=1
+
+        if(total_count >limited_patient):
+            raise serializers.ValidationError(
+                detail="The patient higher than per day")
+
         doctor = Profile.objects.filter(
             pk=validated_data.pop('doctor')).first()
         if not doctor:
@@ -133,18 +153,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
         read_only = ['id']
 
 
-class PrescriptionItemsSerializer(serializers.ModelSerializer):
-    '''
-    Create Diagnosise include data{
-
-    }
-    '''
-
-    class Meta:
-        model = PrescriptionItems
-        fields = ["id", "quanlity", "payment_id", "drug_id",'diagnostician']
-        read_only = ['id']
-        depth = 1
 
 
 class DiagnosticianSerializer(serializers.ModelSerializer):
@@ -160,6 +168,22 @@ class DiagnosticianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diagnostician
         fields = ["id",'patient_id', "patient", "symptom",'treatment_id',"treatment",'created_at','updated_at']
+        read_only = ['id']
+        depth = 1
+
+class PrescriptionItemsSerializer(serializers.ModelSerializer):
+    '''
+    Create Diagnosise include data{
+
+    }
+    '''
+    payment_id = serializers.CharField(max_length=255)
+    drug_id = serializers.CharField(max_length=255)
+    diagnostician_id = serializers.CharField(max_length=255)
+    diagnostician = DiagnosticianSerializer(read_only=True)
+    class Meta:
+        model = PrescriptionItems
+        fields = ["id", "quanlity", "payment_id", "drug_id",'diagnostician', 'diagnostician_id']
         read_only = ['id']
         depth = 1
 

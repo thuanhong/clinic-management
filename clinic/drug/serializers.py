@@ -16,7 +16,7 @@ class Store_ItemSerializers(serializers.ModelSerializer):
     '''
     class Meta:
         model = StoreDrug
-        fields = ['title', "unit", 'price', 'quantity', 'description']
+        fields = ['id','title', "unit", 'price', 'quantity', 'description']
 
 
 class Unit_DrugSerializer(serializers.ModelSerializer):

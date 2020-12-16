@@ -39,6 +39,8 @@ python mangae.py migrate
 /api/v1/store-drug/
 /api/v1/appointment/
 /api/v1/sick
+/api/static-payment
+/api/static-patient
 
 
 /auth/login/

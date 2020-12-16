@@ -20,3 +20,4 @@ class PatientSerializer(serializers.ModelSerializer):
         # ordering = ['id']
     # def create(self, validated_data):
     #     pass
+
