@@ -6,7 +6,7 @@ import { AuthService } from '@services/AuthService';
 export const withAuth = (PageComponent) => {
   const WithAuth = () => {
     const [loading, setLoading] = useState(true);
-    // check this lib user
+    const [group, setGroup] = useState(0);
 
     useEffect(() => {
       async function fetchData() {
@@ -15,7 +15,9 @@ export const withAuth = (PageComponent) => {
             if (Router.pathname === '/login') {
               Router.push('/');
             } else {
-              setLoading(false);
+              console.log(res)
+              setGroup(res.msg.group_user);
+              setTimeout(() => setLoading(false), 200);
             }
           } else {
             if (Router.pathname === '/login') {
@@ -30,7 +32,7 @@ export const withAuth = (PageComponent) => {
       fetchData();
     }, []);
 
-    return <div>{loading ? <LoadingPage /> : <PageComponent />}</div>;
+    return <div>{loading ? <LoadingPage /> : <PageComponent groupNumber={group} />}</div>;
   };
   return WithAuth;
 };

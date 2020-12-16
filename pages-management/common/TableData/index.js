@@ -43,18 +43,6 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-// const headCells = [
-//   { label: 'Avatar' },
-//   { label: 'First Name' },
-//   { label: 'Last Name' },
-//   { label: 'Address' },
-//   { label: 'Gender' },
-//   { label: 'Birth' },
-//   { label: 'Mobile' },
-//   { label: 'Age' },
-//   { lable: 'Email' },
-// ];
-
 function EnhancedTableHead(props) {
   const { classes, order, orderBy, onRequestSort, headCells } = props;
   const createSortHandler = (property) => (event) => {
@@ -148,25 +136,31 @@ export const TableData = (props) => {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={data.length}
-              headCells={Object.keys(data[0])}
+              headCells={Object.keys(data[0]).slice(1)}
             />
             <TableBody>
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow hover onClick={(event) => handleClick(event, row)} tabIndex={-1} key={index}>
-                      <TableCell component='th' id={labelId} scope='row' padding='default'>
-                        <img src={row.Image} width='50px' alt='Avatar patient' />
-                      </TableCell>
                       {Object.values(row)
                         .slice(1)
-                        .map((headCell, head) => (
-                          <TableCell key={head} align='left'>
-                            {headCell}
-                          </TableCell>
-                        ))}
+                        .map((headCell, head) => {
+                          if (typeof headCell === 'string' && headCell.includes('amazonaws')) {
+                            return (
+                              <TableCell key={head} align='left'>
+                                <img src={headCell.replace(/"+/g, '')} alt='doctor' width='100%' />
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell key={head} align='left'>
+                                {headCell}
+                              </TableCell>
+                            );
+                          }
+                        })}
                     </TableRow>
                   );
                 })}

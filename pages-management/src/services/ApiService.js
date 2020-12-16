@@ -3,12 +3,21 @@ import { EndPoints } from '@services/EndPoints';
 
 // api patient
 const get_list_patient = async () => {
-  return await httpRequest.get(EndPoints.PATIENT.get_list_patient);
+  return await httpRequest.get(EndPoints.PATIENT.patient);
 };
 
 const create_patient = async (props) => {
-  return await httpRequest.post(EndPoints.PATIENT.create_patient, { ...props });
+  return await httpRequest.post(EndPoints.PATIENT.patient, { ...props });
 };
+
+const update_patient = async (props, id) => {
+  return await httpRequest.patch(EndPoints.PATIENT.patient + `/${id}`, { ...props });
+};
+
+const get_patient_detail = async (id) => {
+  return await httpRequest.get(EndPoints.PATIENT.patient + `/${id}`);
+};
+
 const get_list_doctor = async () => {
   return await httpRequest.get(EndPoints.DOCTOR.get_list_doctor);
 };
@@ -23,8 +32,17 @@ const create_patient_visit = async (props) => {
 
 // api doctor
 const create_doctor = async (props) => {
-  return await httpRequest.post(EndPoints.PATIENT.create_doctor, props);
+  return await httpRequest.post(EndPoints.DOCTOR.create_doctor, props);
 };
+
+const upload_image = async (props) => {
+  return await httpRequest.post(EndPoints.UTIL.upload_image, props);
+};
+
+const get_drug_list = async () => {
+  return await httpRequest.get(EndPoints.UTIL.get_drug);
+};
+
 export const ApiService = {
   get_list_patient,
   create_patient,
@@ -32,4 +50,8 @@ export const ApiService = {
   create_patient_visit,
   get_list_doctor,
   create_doctor,
+  upload_image,
+  update_patient,
+  get_patient_detail,
+  get_drug_list,
 };

@@ -11,6 +11,7 @@ class FormStateStore {
   @observable title = 'doctor';
   @observable email = '';
   @observable username = '';
+  @observable image = '';
 
   @observable firstNameError = '';
   @observable lastNameError = '';
@@ -22,6 +23,10 @@ class FormStateStore {
 
   @action updateGenderValue = (event) => {
     this.genderValue = event.target.value;
+  };
+
+  @action updateImageString = (str) => {
+    this.image = str;
   };
 
   @action updateTitle = (event) => {

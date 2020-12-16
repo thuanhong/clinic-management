@@ -1,5 +1,9 @@
 import React from 'react';
-import { observable, computed, action } from 'mobx';
+import { observable, action } from 'mobx';
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 class FormStateStore {
   @observable genderValue = 'Male';
@@ -35,7 +39,19 @@ class FormStateStore {
     this.birthDateError = '';
     this.identifyNumberError = '';
     this.insuranceError = '';
-  }
+  };
+
+  @action fillValue = (res) => {
+    const { address, birth_date, first_name, gender, identity_card, insurance, last_name } = res;
+
+    this.address = address;
+    this.birthDate = birth_date;
+    this.firstName = first_name;
+    this.genderValue = capitalizeFirstLetter(gender);
+    this.identifyNumber = identity_card;
+    this.insurance = insurance;
+    this.lastName = last_name;
+  };
 
   @action updateGenderValue = (event) => {
     this.genderValue = event.target.value;

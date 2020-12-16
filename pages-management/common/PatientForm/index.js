@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AddressForm } from './AddressForm';
 import Button from '@material-ui/core/Button';
 import { useStyles } from './styles';
@@ -6,7 +6,8 @@ import { formStateStore } from './states';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ApiService } from '@services/ApiService';
 
-export const PatientForm = () => {
+export const PatientForm = (props) => {
+  const { functionAPI, patientId } = props;
   const classes = useStyles();
   const formState = React.useContext(formStateStore);
   const [loading, setLoading] = useState(false);
@@ -23,11 +24,14 @@ export const PatientForm = () => {
       gender: formState.genderValue,
     };
     setLoading(true);
-    ApiService.create_patient_visit({
-      doctor: formState.doctorId,
-      patient: data,
-      treatment: null,
-    })
+    functionAPI(
+      {
+        doctor: formState.doctorId,
+        patient: data,
+        treatment: null,
+      },
+      patientId,
+    )
       .then((res) => {
         if (res.statusCode === 201) {
           formState.deleteDataInput();
@@ -44,10 +48,22 @@ export const PatientForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (patientId) {
+      ApiService.get_patient_detail(patientId)
+        .then((res) => {
+          formState.fillValue(res.msg);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <React.Fragment>
-        <AddressForm />
+        <AddressForm selectDoctor={patientId ? false : true} />
         <div className={classes.buttons}>
           <Button
             disabled={loading}

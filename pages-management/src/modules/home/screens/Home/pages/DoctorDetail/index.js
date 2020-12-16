@@ -12,22 +12,18 @@ export const DoctorDetail = () => {
   const classes = useStyles();
   let history = useHistory();
   const data = useLocation().state.data;
-
   return (
     <div className={classes.root}>
-      {/* <AppBar color='transparent' position='static'> */}
       <Toolbar>
         <IconButton onClick={() => history.push('/doctors/all-doctors')} edge='start' className={classes.menuButton}>
           <ArrowBackIcon color={'#0098d1'} />
         </IconButton>
         <h2 style={{ color: '#212121' }}>Doctor Detail</h2>
       </Toolbar>
-      {/* </AppBar> */}
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12} md={4}>
           <Paper className={classes.leftLayout}>
-            <img style={{ width: '100%' }} src={'https://picsum.photos/300/200'} alt='patient' />
-            <div className='patient'>
+            <div className='doctor'>
               <p className={classes.patientName}>{data.FirstName + ' ' + data.LastName}</p>
               <p className={classes.date}>{data.Gender}</p>
             </div>

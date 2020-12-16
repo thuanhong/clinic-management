@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { formStateStore } from './states';
 import { SelectDoctor } from './SelectDoctor';
 
-export const AddressForm = observer(() => {
+export const AddressForm = observer(({ selectDoctor }) => {
   const formState = React.useContext(formStateStore);
 
   const genderSelect = [
@@ -33,6 +33,7 @@ export const AddressForm = observer(() => {
             fullWidth
             error={formState.firstNameError !== ''}
             helperText={formState.firstNameError}
+            value={formState.firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -45,6 +46,7 @@ export const AddressForm = observer(() => {
             fullWidth
             error={formState.lastNameError !== ''}
             helperText={formState.lastNameError}
+            value={formState.lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -57,6 +59,7 @@ export const AddressForm = observer(() => {
             fullWidth
             error={formState.addressError !== ''}
             helperText={formState.addressError}
+            value={formState.address}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -70,6 +73,7 @@ export const AddressForm = observer(() => {
             fullWidth
             error={formState.birthDateError !== ''}
             helperText={formState.birthDateError}
+            value={formState.birthDate}
             InputLabelProps={{
               shrink: true,
             }}
@@ -85,6 +89,7 @@ export const AddressForm = observer(() => {
             fullWidth
             error={formState.identifyNumberError !== ''}
             helperText={formState.identifyNumberError}
+            value={formState.identifyNumber}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -97,14 +102,15 @@ export const AddressForm = observer(() => {
             fullWidth
             error={formState.insuranceError !== ''}
             helperText={formState.insuranceError}
+            value={formState.insurance}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            defaultValue={formState.genderValue}
             select
-            onChange={formState.updateGender}
+            onChange={formState.updateGenderValue}
+            value={formState.genderValue}
             id='gender'
             label='Gender'
             fullWidth
@@ -116,9 +122,11 @@ export const AddressForm = observer(() => {
             ))}
           </TextField>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <SelectDoctor />
-        </Grid>
+        {selectDoctor && (
+          <Grid item xs={12} sm={6}>
+            <SelectDoctor />
+          </Grid>
+        )}
       </Grid>
     </React.Fragment>
   );

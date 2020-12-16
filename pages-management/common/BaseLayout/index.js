@@ -3,13 +3,7 @@ import { Header } from '@common/Header';
 import Sidebar from '@common/Sidebar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Workspace } from '@common/Workspace';
-import Hidden from '@material-ui/core/Hidden';
 import { MobileBreakpoint } from '@common/styleVariables';
-import SettingsIcon from '@material-ui/icons/Settings';
-import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import { useStyles } from './styles';
 import { NotificationCenter } from '@common/NotificationCenter';
 
@@ -17,7 +11,6 @@ export const BaseLayout = ({ history, routes }) => {
   const classes = useStyles();
   const [opened, setOpened] = useState(true);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [openSpeedDial, setOpenSpeedDial] = useState(false);
 
   const mediaMatcher = matchMedia(`(max-width: ${MobileBreakpoint}px)`);
 
@@ -47,10 +40,6 @@ export const BaseLayout = ({ history, routes }) => {
       };
     isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
   };
-
-  const handleSpeedDialOpen = () => setOpenSpeedDial(true);
-
-  const handleSpeedDialClose = () => setOpenSpeedDial(false);
 
   const getRoutes = (
     <Switch>
@@ -114,26 +103,6 @@ export const BaseLayout = ({ history, routes }) => {
         <Workspace opened={opened}>{getRoutes}</Workspace>
         <NotificationCenter notificationsOpen={notificationsOpen} toogleNotifications={handleNotificationToggle} />
       </div>
-
-      <Hidden xsDown>
-        <SpeedDial
-          ariaLabel='Settings'
-          className={classes.speedDial}
-          icon={<SpeedDialIcon icon={<SettingsIcon />} />}
-          onBlur={handleSpeedDialClose}
-          onClose={handleSpeedDialClose}
-          onFocus={handleSpeedDialOpen}
-          onMouseEnter={handleSpeedDialOpen}
-          onMouseLeave={handleSpeedDialClose}
-          open={openSpeedDial}
-        >
-          <SpeedDialAction
-            icon={<WbSunnyIcon />}
-            tooltipTitle='Toggle light/dark theme'
-            onClick={() => dispatch({ type: 'type' })}
-          />
-        </SpeedDial>
-      </Hidden>
     </>
   );
 };

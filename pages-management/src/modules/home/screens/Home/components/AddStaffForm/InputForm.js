@@ -72,13 +72,13 @@ export const InputForm = observer(() => {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            onChange={formState.updateLastName}
-            id='lastName'
-            name='lastName'
-            label='Last name'
+            onChange={formState.updateEmail}
+            id='email'
+            name='email'
+            label='Email'
             fullWidth
-            error={formState.lastNameError !== ''}
-            helperText={formState.lastNameError}
+            error={formState.emailError !== ''}
+            helperText={formState.emailError}
           />
         </Grid>
         <Grid item xs={12}>
@@ -103,18 +103,6 @@ export const InputForm = observer(() => {
             fullWidth
             error={formState.bioError !== ''}
             helperText={formState.bioError}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            onChange={formState.updateEmail}
-            id='email'
-            name='email'
-            label='Email'
-            fullWidth
-            error={formState.emailError !== ''}
-            helperText={formState.emailError}
           />
         </Grid>
         <Grid item xs={12} md={6}>

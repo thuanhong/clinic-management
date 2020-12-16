@@ -4,7 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import { ApiService } from '@services/ApiService';
 import { LoadingPage } from '@common/LoadingPage';
 
-export const AllPatients = () => {
+export const PhysicalExamination = () => {
+
   const [listData, setListData] = useState();
   useEffect(() => {
     ApiService.get_list_patient().then((res) => {
@@ -15,7 +16,6 @@ export const AllPatients = () => {
   }, []);
   if (!listData) {
     return <LoadingPage />;
-    // array empty or does not exist
   } else if (listData.length === 0) {
     return (
       <Typography variant='h1' component='h2'>
@@ -23,5 +23,5 @@ export const AllPatients = () => {
       </Typography>
     );
   }
-  return <TableData data={listData} tableName={'Patients'} pathName={'/patients/patient-detail'} />;
+  return <TableData data={listData} tableName={'Patients'} pathName={'/physical/examination'} />;
 };

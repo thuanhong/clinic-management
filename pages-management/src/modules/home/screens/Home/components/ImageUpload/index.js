@@ -8,7 +8,13 @@ import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import { withStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
 import axios from 'axios';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+}
 
 const styles = (theme) => ({
   root: {
@@ -75,6 +81,7 @@ class ImageUploadCard extends React.Component {
   state = {
     imageUploaded: 0,
     selectedFile: null,
+    open: false,
   };
 
   handleUploadClick = (event) => {
@@ -83,28 +90,20 @@ class ImageUploadCard extends React.Component {
     let url = reader.readAsDataURL(file);
 
     reader.onloadend = function(e) {
+      console.log(file);
+      if (file.size / 1000 > 500) {
+        this.setState({ open: true });
+        return;
+      }
       this.setState({
         selectedFile: [reader.result],
       });
-      let urlEnd = 'http://localhost:8000/api/v1/upload-image/';
-      axios
-        .post(urlEnd, {
-          imageStr: reader.result,
-        })
-        .then((res) => {
-          // then print response status
-          console.warn(res);
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
+      this.props.updateImage(reader.result);
     }.bind(this);
 
     this.setState({
-      selectedFile: event.target.files[0],
       imageUploaded: 1,
     });
-    // let formData = new FormData();    // formData.append('files', file);
   };
 
   renderInitialState() {
@@ -158,6 +157,14 @@ class ImageUploadCard extends React.Component {
       selectedFile: null,
       imageUploaded: 0,
     });
+    this.props.updateImage('');
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
   };
 
   render() {
@@ -168,6 +175,16 @@ class ImageUploadCard extends React.Component {
         <div className={classes.root}>
           <div>{this.renderUploadedState()}</div>
           <div>{this.renderInitialState()}</div>
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={this.state.open}
+            autoHideDuration={6000}
+            onClose={(e, r) => this.handleClose(e, r)}
+          >
+            <Alert onClose={this.handleClose} severity='error'>
+              Your too big
+            </Alert>
+          </Snackbar>
         </div>
       </React.Fragment>
     );

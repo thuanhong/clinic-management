@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -17,9 +16,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { mockPatientsPayment } from '@app/mock';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import GridOnIcon from '@material-ui/icons/GridOn';
 import { FullScreenDialog } from '../../components/FullScreenDialog';
 import { ApiService } from '@services/ApiService';
 
@@ -46,31 +43,26 @@ export const PatientDetail = () => {
   let history = useHistory();
   const data = useLocation().state.data;
   const [listData, setListData] = useState([]);
+
   useEffect(() => {
     ApiService.get_patient_visit(1).then((res) => {
       if (res.statusCode === 200) {
         setListData(listData.concat(res.msg));
-      } else {
-        return console.log(res.msg);
       }
-      // console.log(mockPatients)
-      console.log(listData);
     });
   }, []);
+
   return (
     <div className={classes.root}>
-      {/* <AppBar color='transparent' position='static'> */}
       <Toolbar>
         <IconButton onClick={() => history.push('/patients/all-patients')} edge='start' className={classes.menuButton}>
           <ArrowBackIcon color={'#0098d1'} />
         </IconButton>
         <h2 style={{ color: '#212121' }}>Patient Detail</h2>
       </Toolbar>
-      {/* </AppBar> */}
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12} md={4}>
           <Paper className={classes.leftLayout}>
-            <img style={{ width: '100%' }} src={'https://picsum.photos/300/200'} alt='patient' />
             <div className='patient'>
               <p className={classes.patientName}>{data.first_name + ' ' + data.last_name}</p>
               <p className={classes.date}>{data.gender}</p>
@@ -87,11 +79,7 @@ export const PatientDetail = () => {
               <p className={classes.title}>Identity Card:</p>
               <p className={classes.value}>{data.identity_card}</p>
             </div>
-            <div className={classes.info}>
-              <p className={classes.title}>Age:</p>
-              <p className={classes.value}>{data.age}</p>
-            </div>
-            <FullScreenDialog />
+            <FullScreenDialog patientId={data.id} />
           </Paper>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -114,7 +102,7 @@ export const PatientDetail = () => {
                     {listData.map((row) => (
                       <StyledTableRow key={row.name}>
                         <StyledTableCell component='th' scope='row'>
-                          {row.created_at}.format(Date)
+                          {new Date(row.created_at).toISOString().split('T')[0]}
                         </StyledTableCell>
                         <StyledTableCell align='right'>{row.doctor}</StyledTableCell>
                         <StyledTableCell align='right'>{row.treatment}</StyledTableCell>
@@ -124,12 +112,6 @@ export const PatientDetail = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Box display='flex' alignItems='center' justifyContent='center' m={5}>
-                <ButtonGroup variant='outlined' color='primary' aria-label='outlined primary button group'>
-                  <Button startIcon={<GetAppIcon />}>PDF</Button>
-                  <Button startIcon={<GridOnIcon />}>CSV</Button>
-                </ButtonGroup>
-              </Box>
             </Paper>
 
             <Paper>
@@ -164,12 +146,6 @@ export const PatientDetail = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Box display='flex' alignItems='center' justifyContent='center' m={5}>
-                <ButtonGroup variant='outlined' color='primary' aria-label='outlined primary button group'>
-                  <Button startIcon={<GetAppIcon />}>PDF</Button>
-                  <Button startIcon={<GridOnIcon />}>CSV</Button>
-                </ButtonGroup>
-              </Box>
             </Paper>
           </div>
         </Grid>

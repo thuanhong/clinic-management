@@ -9,8 +9,7 @@ export const EndPoints = {
     health_check_authenticated: '/health/test-auth-request',
   },
   PATIENT: {
-    get_list_patient: '/api/v1/patient',
-    create_patient: 'api/v1/patient',
+    patient: '/api/v1/patient',
   },
   PATIENT_VISIT: {
     get_patient_visit: '/api/v1/patient-visit/',
@@ -20,5 +19,9 @@ export const EndPoints = {
   DOCTOR: {
     get_list_doctor: '/api/v1/doctor',
     create_doctor: 'api/v1/profile',
+  },
+  UTIL: {
+    upload_image: '/api/upload-image/',
+    get_drug: '/api/v1/store-item',
   },
 };

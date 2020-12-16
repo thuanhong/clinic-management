@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import AppBar from '@material-ui/core/AppBar';
-import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
@@ -13,16 +12,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-// import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
-import SearchIcon from '@material-ui/icons/Search';
-import SettingsIcon from '@material-ui/icons/Settings';
 import Toolbar from '@material-ui/core/Toolbar';
 import { CookieHandler } from '@utils/Cookies';
 import Router from 'next/router';
 import { useStyles } from './styles';
 
-export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toogleNotifications }) => {
+export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchExpanded, setSearchExpanded] = useState(false);
@@ -35,11 +30,6 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
 
   const handleDrawerToggle = () => {
     toggleDrawer();
-    if (searchExpanded) handleSearchExpandToggle();
-  };
-
-  const handleNotificationToggle = () => {
-    toogleNotifications();
     if (searchExpanded) handleSearchExpandToggle();
   };
 
@@ -60,29 +50,7 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
         </div>
 
         <Hidden xsDown>
-          <div className={classes.searchWrapper}>
-            <form className={classes.searchForm}>
-              <IconButton aria-label='Search' className={classes.searchIcon}>
-                <SearchIcon />
-              </IconButton>
-              <input className={classes.searchInput} type='text' placeholder='Search' />
-            </form>
-          </div>
-        </Hidden>
-
-        <Hidden smUp>
-          <span className='flexSpacer' />
-        </Hidden>
-
-        <Hidden smUp>
-          <IconButton
-            color='inherit'
-            onClick={handleSearchExpandToggle}
-            aria-expanded={searchExpanded}
-            aria-label='Show searchbar'
-          >
-            <SearchIcon />
-          </IconButton>
+          <div className={classes.searchWrapper} />
         </Hidden>
 
         <Hidden xsDown>
@@ -90,12 +58,6 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
             <FullscreenIcon />
           </IconButton>
         </Hidden>
-
-        <IconButton color='inherit' onClick={handleNotificationToggle}>
-          <Badge badgeContent={5} color='secondary'>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
 
         <IconButton
           aria-label='User Settings'
@@ -114,18 +76,6 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
             </ListItemIcon>
             <ListItemText primary='Profile' />
           </MenuItem>
-          <MenuItem onClick={handleCloseMenu}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary='Settings' />
-          </MenuItem>
-          {/* <MenuItem onClick={handleCloseMenu}>
-            <ListItemIcon>
-              <NotificationsOffIcon />
-            </ListItemIcon>
-            <ListItemText primary='Disable notifications' />
-          </MenuItem> */}
           <MenuItem onClick={signOut}>
             <ListItemIcon>
               <ExitToAppIcon />
@@ -136,16 +86,7 @@ export const Header = ({ logo, logoAltText, toggleFullscreen, toggleDrawer, toog
       </Toolbar>
       <Hidden smUp>
         <Collapse in={searchExpanded} timeout='auto' unmountOnExit>
-          <Toolbar className={classes.toolBar}>
-            <div className={classes.searchWrapper}>
-              <form className={classes.searchForm}>
-                <IconButton aria-label='Search' className={classes.searchIcon}>
-                  <SearchIcon />
-                </IconButton>
-                <input className={classes.searchInput} type='text' placeholder='Search' />
-              </form>
-            </div>
-          </Toolbar>
+          <Toolbar className={classes.toolBar}></Toolbar>
         </Collapse>
       </Hidden>
     </AppBar>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -23,12 +22,7 @@ export const SelectDoctor = observer(() => {
   return (
     <FormControl fullWidth>
       <InputLabel id='demo-simple-select-label'>Doctor</InputLabel>
-      <Select
-        defaultValue={'None'}
-        labelId='demo-simple-select-label'
-        id='demo-simple-select'
-        onChange={formState.updateDoctorId}
-      >
+      <Select labelId='demo-simple-select-label' id='demo-simple-select' onChange={formState.updateDoctorId}>
         {formState.listDoctor.map((name, index) => (
           <MenuItem key={index} value={name.user.id}>
             {name.first_name + ' ' + name.last_name}
