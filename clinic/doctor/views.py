@@ -32,11 +32,11 @@ class PatientVisitViewSet(viewsets.ModelViewSet):
     serializer_class = PatientVisitSerializer
     queryset = PatientVisit.objects.all().order_by('-created_at')
     http_method_names = ['get', 'patch', 'post']
-    # def get_object(self):
-    #     print(self.request.user.pk)
-    #     obj = self.queryset.filter(patient_id=27)
-        
-    #     return obj
+
+    # def retrieve(self, request, pk=None):
+    #     print(pk)
+    #     patient = PatientVisit.objects.filter(patient_id=pk).values_list()
+    #     return Response(data=patient)
 
 
 

@@ -50,7 +50,7 @@ class SafeJWTAuthentication(BaseAuthentication):
             return True
 
         permission = extract_permission_from_request(request)
-        print('persssss', permission)
+        print('permission', permission)
         if bool(permission):
             return user.can(permission['action'], permission['resource'])
         return False

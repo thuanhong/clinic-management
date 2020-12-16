@@ -79,7 +79,6 @@ def login(request):
                 "detail": "error when validating token."
             }
         '''
-    print(group_user)
     if group_user is None:
         response.status_code = status.HTTP_200_OK
         response.data = {

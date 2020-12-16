@@ -11,7 +11,6 @@ from .models import  StoreDrug
 
 class Store_ItemViewSet(viewsets.ModelViewSet):
     # permission allow on develop
-    permission_classes = [(permissions.AllowAny)]
     serializer_class = Store_ItemSerializers
     queryset = StoreDrug.objects.all()
     http_method_names = ['get', 'patch', 'post','delete']

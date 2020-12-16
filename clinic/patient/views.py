@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 
 from .serializers import PatientSerializer
 from .models import Patient
-
+from authentication.models import Group
 
 # Create your views here.
 class PatientViewSet(viewsets.ModelViewSet):
@@ -17,3 +17,14 @@ class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     http_method_names = ['get', 'patch', 'post']
     # ordering = ['id']
+    def list(self, request, pk=None):
+        user = request.user
+        group_user = Group.objects.filter(user=user).first()
+
+        if pk ==None:
+            if group_user ==2:
+                patient = Patient.objects.filter(patientvisit__doctor__user__username=user).values().distinct()
+                return Response(data=patient)
+            else:
+                patient = Patient.objects.all().values()
+                return Response(data=patient)
