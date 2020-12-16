@@ -20,12 +20,22 @@ const get_patient_visit = async (params) => {
 const create_patient_visit = async (props) => {
   return await httpRequest.post(EndPoints.PATIENT_VISIT.create_patient_visit, { ...props });
 };
+const get_static_patient = async () => {
+  return await httpRequest.get(EndPoints.STATIC.get_static_patient );
+};
+
+const get_static_payment = async () => {
+  return await httpRequest.get(EndPoints.STATIC.get_static_payment );
+};
+
 
 // api doctor
 const create_doctor = async (props) => {
   return await httpRequest.post(EndPoints.PATIENT.create_doctor, props);
 };
 export const ApiService = {
+  get_static_patient,
+  get_static_payment,
   get_list_patient,
   create_patient,
   get_patient_visit,

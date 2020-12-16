@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import { StatCard } from '@common/StatCard';
 import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -16,7 +16,7 @@ import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceW
 import RateReviewOutlinedIcon from '@material-ui/icons/RateReviewOutlined';
 import { MultiAxisLine } from '@common/Chart';
 import { withStyles } from '@material-ui/core/styles';
-
+import { ApiService } from '@services/ApiService';
 const data = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   datasets: [
@@ -72,6 +72,22 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 export const DashBoard = () => {
+  const [data1,setData1] = useState([])
+  const [data2,setData2] = useState([])
+  useEffect(() => {
+    ApiService.get_static_patient().then((res) => {
+      if (res.statusCode === 200) {
+        setData1(res.msg);
+      }
+    });
+    ApiService.get_static_payment().then((res) => {
+      if (res.statusCode === 200) {
+        console.log(res.msg)
+        setData2(res.msg);
+      }
+    });
+      console.log(data1)
+  }, []);
   return (
     <div>
       <Grid container p spacing={5}>

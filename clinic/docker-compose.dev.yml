@@ -42,8 +42,8 @@ services:
       - db:db
     networks:
       - djangonetwork
-    # volumes:
-    #   - "./:/app"
+    volumes:
+      - "./:/app"
   rabbit:
     image: rabbitmq:3-management
     environment:
@@ -55,8 +55,8 @@ services:
       - djangonetwork
   celery:
     image: "clinic:latest"
-    # volumes:
-    #   - "./:/app"
+    volumes:
+      - "./:/app"
     networks:
       - djangonetwork
     command: celery -A clinic worker -l info -n clinic

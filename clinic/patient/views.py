@@ -37,6 +37,7 @@ class PatientViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
+@authentication_classes([])
 @permission_classes((permissions.AllowAny, ))
 def static_patient(request):
     from django.db import connection
@@ -49,6 +50,7 @@ def static_patient(request):
     return Response(data=patient)
 
 @api_view(['GET'])
+@authentication_classes([])
 @permission_classes((permissions.AllowAny, ))
 def static_payment(request):
     from django.db import connection
@@ -56,6 +58,6 @@ def static_payment(request):
 
     truncate_month = connection.ops.date_trunc_sql('month', 'day')
     patient = Payment.objects.extra({'month': truncate_month}).values(
-        'created_at__month').annotate(Count('patient_id')).distinct()
+        'created_at__month').annotate(Sum('amount')).distinct()
 
     return Response(data=patient)
