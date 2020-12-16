@@ -1,0 +1,28 @@
+[
+    {
+        "model": "drug.storedrug",
+        "pk": 1,
+        "fields": {
+            "title": "Thuoc Ho",
+            "unit": "1",
+            "price": 1000.0,
+            "quantity": 111,
+            "description": "sss",
+            "unitdrug": null,
+            "guidedrug": null
+        }
+    },
+    {
+        "model": "drug.storedrug",
+        "pk": 2,
+        "fields": {
+            "title": "Thuoc Cam",
+            "unit": "1",
+            "price": 200.0,
+            "quantity": 3,
+            "description": "Uong",
+            "unitdrug": null,
+            "guidedrug": null
+        }
+    }
+]

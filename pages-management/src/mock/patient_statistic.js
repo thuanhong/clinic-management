@@ -1,0 +1,51 @@
+export default [
+  {
+    id: 1,
+    Patients: 'Tine Cleynaert',
+    Assigned: 'Anthony Sidwell',
+    Diseases: 'Typhoid',
+    Date: '2019-11-21T12:59:29Z',
+  },
+  {
+    id: 2,
+    Patients: 'Jon Severs',
+    Assigned: 'Anya Bisatt',
+    Diseases: 'Jaundice',
+    Date: '2019-12-29T19:06:13Z',
+  },
+  {
+    id: 3,
+    Patients: 'Queenie Freyn',
+    Assigned: 'Patrizio Norquoy',
+    Diseases: 'Cholera',
+    Date: '2020-07-05T16:14:21Z',
+  },
+  {
+    id: 4,
+    Patients: 'Melonie Heeney',
+    Assigned: 'Wake Powling',
+    Diseases: 'Cholera',
+    Date: '2020-05-16T09:43:47Z',
+  },
+  {
+    id: 5,
+    Patients: 'Vernon Readhead',
+    Assigned: 'Helge Mairs',
+    Diseases: 'Typhoid',
+    Date: '2020-10-14T09:25:01Z',
+  },
+  {
+    id: 6,
+    Patients: 'Rock Cianni',
+    Assigned: 'Charisse Drought',
+    Diseases: 'Malaria',
+    Date: '2020-03-29T19:49:06Z',
+  },
+  {
+    id: 7,
+    Patients: 'Linnet Jerok',
+    Assigned: 'Lamond Samsworth',
+    Diseases: 'Typhoid',
+    Date: '2020-10-05T21:24:02Z',
+  },
+];

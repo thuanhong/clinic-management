@@ -18,7 +18,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { CookieHandler } from '@utils/Cookies';
 import Router from 'next/router';
-import withAuth from '@hoc/withAuth';
+import { withAuth } from '@hoc/withAuth';
+import { SquareAnimation } from '@common/SquareAnimation';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
@@ -29,7 +30,7 @@ function Copyright() {
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
       <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
+        Thuan-Tai
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -44,7 +45,7 @@ const LoginScreen = () => {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -74,8 +75,31 @@ const LoginScreen = () => {
   return (
     <Grid container component='main' className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={false} sm={false} md={7} className={classes.image}>
+        <div className={classes.rotated}>
+          <SquareAnimation
+            color={'#ffc107'}
+            style={{ width: '120px', transform: 'translate(150px, -150px)', position: 'static' }}
+            angle={60}
+          />
+          <SquareAnimation
+            color={'#007bff'}
+            style={{ width: '120px', transform: 'translate(-150px, 75px)', position: 'static' }}
+            angle={100}
+          />
+          <SquareAnimation
+            color={'#dc3545'}
+            style={{ width: '120px', transform: 'translate(-100px, 300px)', position: 'static' }}
+            angle={140}
+          />
+          <SquareAnimation
+            color={'#28a745'}
+            style={{ width: '120px', transform: 'translate(-23px, 57px)', position: 'static' }}
+            angle={180}
+          />
+        </div>
+      </Grid>
+      <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />

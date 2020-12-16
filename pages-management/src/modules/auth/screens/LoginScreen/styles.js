@@ -33,11 +33,12 @@ export const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundRepeat: 'no-repeat',
+    // backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    // backgroundSize: 'cover',
+    // backgroundPosition: 'center',
+    backgroundColor: 'black',
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -55,5 +56,26 @@ export const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  rotated: {
+    position: 'relative',
+    display: 'flex',
+    height: '100vh',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: '30%',
+    margin: 'auto',
+    animation: '$rotated 40s infinite linear',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  '@keyframes rotated': {
+    '0%': {
+      transform: 'rotateZ(0)',
+    },
+    '100%': {
+      transform: 'rotateZ(360deg)',
+    },
   },
 }));

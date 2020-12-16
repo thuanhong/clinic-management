@@ -1,0 +1,34 @@
+[
+    {
+        "model": "authentication.profile",
+        "pk": 3,
+        "fields": {
+            "first_name": "Thuans",
+            "last_name": "thanh",
+            "age": null,
+            "gender": "Male",
+            "image": "\"https://s3.amazonaws.com/thuan.hong.digicam.f4.intek.edu.vn/76ca8b22-3efe-11eb-8491-0242ac130004.png\"",
+            "bio": null,
+            "location": null,
+            "birth_date": "2020-12-02",
+            "title": "doctor",
+            "email": "thuanhong357@gmail.com"
+        }
+    },
+    {
+        "model": "authentication.profile",
+        "pk": 4,
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "age": null,
+            "gender": "",
+            "image": "",
+            "bio": "",
+            "location": "",
+            "birth_date": null,
+            "title": "doctor",
+            "email": "hotai1806@gmail.com"
+        }
+    }
+]
