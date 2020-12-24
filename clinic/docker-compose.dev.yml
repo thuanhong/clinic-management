@@ -11,9 +11,7 @@ services:
     networks:
       - djangonetwork
   web-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    build: .
     image: 'clinic:latest'
     ports:
       - 8000:8000

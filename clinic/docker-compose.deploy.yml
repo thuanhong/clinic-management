@@ -7,21 +7,27 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: qeKmEKR52
     ports:
-      - 5432:5432
+      - 5433:5432
     networks:
       - djangonetwork
   web-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
+    build: .
     ports:
       - 8000:8000
+    image: 'clinic:latest'
     command: >
-      sh -c "pipenv run python manage.py makemigrations; \
-            pipenv run python manage.py migrate; \
-            pipenv run python manage.py loaddata permissions; \
-            echo \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')\" | pipenv run python3 manage.py shell; \
-            pipenv run python manage.py runserver 0.0.0.0:8000"
+      sh -c "python3 manage.py makemigrations; \
+            python3 manage.py migrate; \
+            python3 manage.py loaddata permissions; \
+            python3 manage.py loaddata groups; \
+            python3 manage.py loaddata profile;\
+            python3 manage.py loaddata patients;\
+            python3 manage.py loaddata payment;\
+            python3 manage.py loaddata drug;\
+            python3 manage.py loaddata doctor;\
+            echo \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')\" | python3 manage.py shell; \
+            echo \"from authentication.models import User; User.objects.create_user(username='t1',password='1').user_groups.set([1])\" | python3 manage.py shell; \
+            python3 manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env
     environment:
@@ -29,11 +35,36 @@ services:
       DATABASE_URL: postgres://admin:qeKmEKR52@db:5432/clinic
     depends_on:
       - db
+      - rabbit
     links:
       - db:db
-    restart: always
     networks:
       - djangonetwork
+    volumes:
+      - "./:/app"
+  rabbit:
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=password
+    ports:
+      - "5672:5672" # We forward this port because it's useful for debugging # Here, we can access RabbitMQ management plugin
+    networks:
+      - djangonetwork
+  celery:
+    image: "clinic:latest"
+    volumes:
+      - "./:/app"
+    networks:
+      - djangonetwork
+    command: celery -A clinic worker -l info -n clinic
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgres://athenauser:qeKmEKR52@db:5432/athena
+    depends_on:
+      - web-backend
+
 networks:
     djangonetwork:
       driver: bridge
