@@ -1,0 +1,48 @@
+[
+    {
+        "model": "authentication.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$180000$8fi7qORFHIlJ$5Pfcr8h0CzZmSczSfbLXNr8IWEOtH/X2sM3StIBrud0=",
+            "last_login": null,
+            "username": "t2",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "date_joined": "2020-12-14T17:45:41.082Z",
+            "name": null,
+            "oauth_id": "2f053c30-3e34-11eb-995b-0242ac130004",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "created_at": "2020-12-14T17:45:41.317Z",
+            "updated_at": "2020-12-14T17:45:41.317Z",
+            "user_groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$180000$R4erhgUIh1LJ$39EbZ2f+ZvK+jYYPSRtFqL8eV1cYgWKxdsK9phLBRW0=",
+            "last_login": null,
+            "username": "doctor2",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "date_joined": "2020-12-14T17:55:10.345Z",
+            "name": null,
+            "oauth_id": "838c38ac-3e35-11eb-bd6d-0242ac130004",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "created_at": "2020-12-14T17:55:11.282Z",
+            "updated_at": "2020-12-14T17:55:12.613Z",
+            "user_groups": [
+                2
+            ],
+            "user_permissions": []
+        }
+    }
+]

@@ -1,0 +1,112 @@
+[
+    {
+        "model": "doctor.sick",
+        "pk": 1,
+        "fields": {
+            "name": "sick1",
+            "description": "ssss"
+        }
+    },
+    {
+        "model": "doctor.patientvisit",
+        "pk": 1,
+        "fields": {
+            "doctor": 3,
+            "treatment": null,
+            "patient": 27,
+            "charges": 1,
+            "created_at": "2020-12-15T18:09:48.882Z",
+            "updated_at": "2020-12-15T18:09:48.882Z"
+        }
+    },
+    {
+        "model": "doctor.patientvisit",
+        "pk": 2,
+        "fields": {
+            "doctor": 3,
+            "treatment": null,
+            "patient": 32,
+            "charges": 1,
+            "created_at": "2020-12-15T18:10:01.292Z",
+            "updated_at": "2020-12-15T18:10:01.292Z"
+        }
+    },
+    {
+        "model": "doctor.patientvisit",
+        "pk": 3,
+        "fields": {
+            "doctor": 3,
+            "treatment": null,
+            "patient": 87,
+            "charges": 1,
+            "created_at": "2020-12-15T18:10:09.462Z",
+            "updated_at": "2020-12-15T18:10:09.462Z"
+        }
+    },
+    {
+        "model": "doctor.payment",
+        "pk": 2,
+        "fields": {
+            "patient": 1,
+            "doctor": 3,
+            "amount": 222,
+            "created_at": "2020-12-15T18:35:08.488Z",
+            "updated_at": "2020-12-15T18:35:08.488Z",
+            "check_out": false
+        }
+    },
+    {
+        "model": "doctor.payment",
+        "pk": 4,
+        "fields": {
+            "patient": 1,
+            "doctor": 3,
+            "amount": 222,
+            "created_at": "2020-12-15T18:56:01.220Z",
+            "updated_at": "2020-12-15T18:56:01.220Z",
+            "check_out": false
+        }
+    },
+    {
+        "model": "doctor.diagnostician",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "created_at": "2020-12-15T18:33:34.794Z",
+            "updated_at": "2020-12-15T18:33:34.795Z",
+            "symptom": "11",
+            "treatment": 1
+        }
+    },
+    {
+        "model": "doctor.diagnostician",
+        "pk": 2,
+        "fields": {
+            "patient": 1,
+            "created_at": "2020-12-15T18:49:38.355Z",
+            "updated_at": "2020-12-15T18:49:38.355Z",
+            "symptom": "adsasd",
+            "treatment": 1
+        }
+    },
+    {
+        "model": "doctor.prescriptionitems",
+        "pk": 6,
+        "fields": {
+            "quanlity": 22,
+            "payment": 2,
+            "drug": 1,
+            "diagnostician": 1
+        }
+    },
+    {
+        "model": "doctor.prescriptionitems",
+        "pk": 8,
+        "fields": {
+            "quanlity": 2,
+            "payment": 2,
+            "drug": 1,
+            "diagnostician": 1
+        }
+    }
+]

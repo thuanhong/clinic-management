@@ -2,7 +2,8 @@ import axios from 'axios';
 import { CookieHandler } from '@utils/Cookies';
 
 export const createAxios = () => {
-  let baseURLStr = 'http://localhost:8000';
+  // let baseURLStr = 'https://ec2-52-204-105-231.compute-1.amazonaws.com';
+  let baseURLStr = 'http://4e4cbb6e125a.ngrok.io';
   let headerObj = {
     'Content-Type': 'application/json',
   };
@@ -73,9 +74,22 @@ const _delete = async (url, config = {}) => {
   }
 };
 
+const _patch = async (url, data) => {
+  try {
+    const result = await createAxios().patch(url, data);
+    return { msg: result.data, statusCode: result.status };
+  } catch (error) {
+    if (error.response) {
+      return { msg: error.response.data, statusCode: error.response.status };
+    }
+    return null;
+  }
+};
+
 export const httpRequest = {
   get: _get,
   put: _put,
   post: _post,
   delete: _delete,
+  patch: _patch,
 };

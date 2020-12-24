@@ -10,8 +10,6 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update \
     && apt-get install python-psycopg2 -y
 
-RUN pip3 install pipenv
-
-RUN pipenv install --ignore-pipfile
+RUN pip3 install -r requirements.txt
 
 EXPOSE 8000

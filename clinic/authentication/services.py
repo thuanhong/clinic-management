@@ -1,10 +1,17 @@
-from .models import User, Group, Permission
+from .models import User, Group, Permission, Profile
+from clinic.tasks import send_email
+from .utils import randompassword
 
 
-class UserService():
+class AuthenticationService():
+
     @staticmethod
     def is_email_exists(email):
-        return User.objects.filter(email=email).exists()
+        return Profile.objects.filter(email=email.strip()).exists()
+
+    @staticmethod
+    def is_group_name_exists(name):
+        return Group.objects.filter(name=name.strip()).exists()
 
     @staticmethod
     def set_groups(user, group_ids):
@@ -12,27 +19,53 @@ class UserService():
         Set groups for a user by group IDs
         '''
         group_objects = Group.objects.filter(id__in=group_ids)
-        user.user_groups.set(group_objects)
+        if group_objects.count() == len(group_ids):
+            user.user_groups.set(group_objects)
 
     @staticmethod
-    def set_permissions(user, perm_ids):
+    def set_user_permissions(user, perm_ids):
         '''
         Set permissions for a user by permission IDs
         '''
         permissions = Permission.objects.filter(id__in=perm_ids)
-        user.user_permissions.set(permissions)
+        if permissions.count() == len(perm_ids):
+            user.user_permissions.set(permissions)
 
     @staticmethod
-    def create_new_user(data):
+    def set_group_permissions(group, perm_ids):
+        '''
+        Set permissions for a user by permission IDs
+        '''
+        permissions = Permission.objects.filter(id__in=perm_ids)
+        if permissions.count() == len(perm_ids):
+            group.group_permissions.set(permissions)
+
+    @staticmethod
+    def set_users(group, user_ids):
+        '''
+        Set users for a group by user IDs
+        '''
+        users = User.objects.filter(id__in=user_ids)
+        if users.count() == len(user_ids):
+            group.group_users.set(users)
+
+    @staticmethod
+    def create_new_user(data, email=None):
         groups = data.pop('groups', None)
         permissions = data.pop('permissions', None)
+        password = randompassword()
+        print(password)
+        se_email = send_email.delay('Reciviece password', password,
+                                    email)
 
-        user = User.objects.create_user(**data)
-        if groups:
-            UserService.set_groups(user, set(groups))
+        # send_mail('Reciviece password', password,
+        #           '1751010127tai@ou.edu.vn', ['tai.ho@kyanon.digital'],)
+        user = User.objects.create_user(**data, password=password)
+        if groups is not None:
+            AuthenticationService.set_groups(user, set(groups))
 
-        if permissions:
-            UserService.set_permissions(user, set(permissions))
+        if permissions is not None:
+            AuthenticationService.set_user_permissions(user, set(permissions))
         user.save()
         return user
 
@@ -49,10 +82,63 @@ class UserService():
         if 'name' in data:
             user.name = data['name']
 
-        if groups:
-            UserService.set_groups(user, set(groups))
+        if groups is not None:
+            AuthenticationService.set_groups(user, set(groups))
 
-        if permissions:
-            UserService.set_permissions(user, set(permissions))
+        if permissions is not None:
+            AuthenticationService.set_user_permissions(user, set(permissions))
         user.save()
         return user
+
+    @staticmethod
+    def create_new_group(data):
+        users = data.pop('users', None)
+        permissions = data.pop('permissions', None)
+
+        group = Group.objects.create(**data)
+
+        if users is not None:
+            AuthenticationService.set_users(group, set(users))
+
+        if permissions is not None:
+            AuthenticationService.set_group_permissions(
+                group, set(permissions))
+
+        group.save()
+        return group
+
+    @staticmethod
+    def update_group(group, data):
+        users = data.pop('users', None)
+        permissions = data.pop('permissions', None)
+
+        if 'name' in data:
+            group.name = data['name']
+
+        if users is not None:
+            AuthenticationService.set_users(group, set(users))
+
+        if permissions is not None:
+            AuthenticationService.set_group_permissions(
+                group, set(permissions))
+
+        group.save()
+        return group
+
+    @staticmethod
+    def find_invalid_group_ids(value):
+        found_ids = Group.objects.filter(
+            id__in=value).values_list('id', flat=True)
+        return list(set(value).difference(set(found_ids)))
+
+    @staticmethod
+    def find_invalid_user_ids(value):
+        found_ids = User.objects.filter(
+            id__in=value).values_list('id', flat=True)
+        return list(set(value).difference(set(found_ids)))
+
+    @staticmethod
+    def find_invalid_permission_ids(value):
+        found_ids = Permission.objects.filter(
+            id__in=value).values_list('id', flat=True)
+        return list(set(value).difference(set(found_ids)))
