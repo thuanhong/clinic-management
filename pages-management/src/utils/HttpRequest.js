@@ -2,8 +2,7 @@ import axios from 'axios';
 import { CookieHandler } from '@utils/Cookies';
 
 export const createAxios = () => {
-  // let baseURLStr = 'https://ec2-52-204-105-231.compute-1.amazonaws.com';
-  let baseURLStr = 'http://4e4cbb6e125a.ngrok.io';
+  let baseURLStr = 'https://ec2-52-204-105-231.compute-1.amazonaws.com';
   let headerObj = {
     'Content-Type': 'application/json',
   };
